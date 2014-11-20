@@ -1,0 +1,1016 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GeoDirectory Events 1.0.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-22 19:41-0000\n"
+"PO-Revision-Date: 2014-10-22 19:41-0000\n"
+"Last-Translator: Stiofan <info@geotheme.com>\n"
+"Language-Team: GeoDirectory <info@wpgeodirectory.com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;_n:1,2;_n_noop:1,2;"
+"_nx:1,2\n"
+"X-Poedit-Basepath: ../\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.6.9\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: gd_update.php:74
+msgid ""
+"An Unexpected HTTP Error occurred during the API request.</p> <p><a href=\"?"
+"\" onclick=\"document.location.reload(); return false;\">Try again</a>"
+msgstr ""
+
+#: gd_update.php:78
+msgid "An unknown error occurred"
+msgstr ""
+
+#: gd_update.php:106 gd_update.php:107
+msgid ""
+"Login details for GeoDirectory failed! Please check GeoDirectory>Auto "
+"Updates and that your membership is active."
+msgstr ""
+
+#: gd_update.php:163
+msgid "Auto Updates"
+msgstr ""
+
+#: gd_update.php:193
+msgid ""
+"Enter your GeoDirectory membership details to allow you to update plugins "
+"from dashboard"
+msgstr ""
+
+#: gd_update.php:203
+msgid "Geodirectory username/email"
+msgstr ""
+
+#: gd_update.php:206
+msgid "Enter your GeoDirectory username or email"
+msgstr ""
+
+#: gd_update.php:211
+msgid "Geodirectory password"
+msgstr ""
+
+#: gd_update.php:214
+msgid "Enter your GeoDirectory password"
+msgstr ""
+
+#: gd_update.php:224 gdevents-admin/admin_functions.php:500
+msgid "Save changes"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:71
+msgid "Warning!!"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:72
+msgid ""
+"You are about to delete a Geodirectory Adon which has important option and "
+"custom data associated to it."
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:72
+msgid ""
+"Deleting this and activating another version, will be treated as a new "
+"installation of plugin, so all the data will be lost."
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:72
+msgid ""
+"If you have any problem in upgrading the plugin please contact Geodirectroy"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:72
+msgid "support"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:84
+msgid "Delete plugin files only"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:96
+msgid "Delete both plugin files and data"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:385
+msgid "Event Features Only"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:390
+msgid "Link business"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:394
+#: gdevents-admin/admin_functions.php:422
+#: gdevents-admin/admin_functions.php:436 gdevents_functions.php:45
+#: gdevents_template_functions.php:204
+msgid "No"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:397
+#: gdevents-admin/admin_functions.php:425
+#: gdevents-admin/admin_functions.php:439 gdevents_functions.php:44
+#: gdevents_template_functions.php:205
+msgid "Yes"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:418
+msgid "Registration Description"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:432 gdevents_template_functions.php:930
+msgid "Registration Fees"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:466
+msgid "General"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:514
+msgid "Filter Settings"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:517
+msgid "Listing settings"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:520
+msgid "Default event filter"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:521
+msgid "Set the default filter view of event on listing page"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:528 gdevents_widget.php:605
+#: gdevents_widget.php:619
+msgid "All"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:529 gdevents_template_functions.php:26
+#: gdevents_widget.php:650
+msgid "Today"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:530 gdevents_template_functions.php:27
+#: gdevents_widget.php:652
+msgid "Upcoming"
+msgstr ""
+
+#: gdevents-admin/admin_functions.php:531 gdevents_template_functions.php:28
+#: gdevents_widget.php:654
+msgid "Past"
+msgstr ""
+
+#: gdevents-admin/admin_hooks_actions.php:73
+#: gdevents_template_functions.php:185
+msgid "Event Schedule"
+msgstr ""
+
+#: gdevents-admin/admin_hooks_actions.php:83
+#: gdevents_template_functions.php:818
+msgid "Businesses"
+msgstr ""
+
+#: gdevents-admin/admin_hooks_actions.php:92
+msgid "Event Dummy Data"
+msgstr ""
+
+#: gdevents-admin/admin_hooks_actions.php:114
+msgid "Download sample csv for Events"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:71
+msgid "Event Categories"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:72
+msgid "Event Category"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:73
+msgid "Search Event Categories"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:74
+msgid "Popular Event Categories"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:75
+msgid "All Event Categories"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:76
+msgid "Edit Event Category"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:77
+msgid "Update Event Category"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:78
+msgid "Add New Event Category"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:79
+msgid "New Event Category"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:80
+msgid "Add or remove Event categories"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:103
+msgid "Event Tags"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:104
+msgid "Event Tag"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:105
+msgid "Search Event Tags"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:106
+msgid "Popular Event Tags"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:107
+msgid "All Event Tags"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:108
+msgid "Edit Event Tag"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:109
+msgid "Update Event Tag"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:110
+msgid "Add New Event Tag"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:111
+msgid "New Event Tag Name"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:112
+msgid "Add or remove Event tags"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:113
+msgid "Choose from the most used Event tags"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:114
+msgid "Separate Event tags with commas"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:133 gdevents_hooks_actions.php:144
+#: gdevents_template_functions.php:1041
+msgid "Events"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:134
+msgid "Event"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:135
+msgid "Add New"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:136
+msgid "Add New Event"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:137
+msgid "Edit Event"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:138
+msgid "New Event"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:139
+msgid "View Event"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:140
+msgid "Search Events"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:141
+msgid "No Event Found"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:142
+msgid "No Event Found In Trash"
+msgstr ""
+
+#: gdevents-admin/admin_install.php:148
+msgid "Event post type."
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:92
+#: gdevents-admin/gdevents_db_install.php:94
+#: gdevents-admin/gdevents_db_install.php:101
+msgid "Category"
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:93
+msgid "Select listing category from here. Select at least one category"
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:106
+#: gdevents-admin/gdevents_db_install.php:108
+#: gdevents-admin/gdevents_db_install.php:117
+msgid "Address"
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:116
+msgid "Address fields are required"
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:118
+msgid "City"
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:119
+msgid "Region"
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:120
+msgid "Country"
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:121
+msgid "Zip/Post Code"
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:122
+msgid "Set Address On Map"
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:123
+msgid "Select Map View"
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:129
+#: gdevents-admin/gdevents_db_install.php:131
+#: gdevents-admin/gdevents_db_install.php:138
+msgid "Time"
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:130
+msgid ""
+"Enter Business or Listing Timing Information.<br/>eg. : 10.00 am to 6 pm "
+"every day"
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:143
+#: gdevents-admin/gdevents_db_install.php:145
+#: gdevents-admin/gdevents_db_install.php:152
+msgid "Phone"
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:144
+msgid "You can enter phone number,cell phone number etc."
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:157
+#: gdevents-admin/gdevents_db_install.php:159
+#: gdevents-admin/gdevents_db_install.php:166
+msgid "Email"
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:158
+msgid "You can enter your business or listing email."
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:171
+#: gdevents-admin/gdevents_db_install.php:173
+#: gdevents-admin/gdevents_db_install.php:180
+msgid "Website"
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:172
+msgid "You can enter your business or listing website."
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:185
+#: gdevents-admin/gdevents_db_install.php:187
+#: gdevents-admin/gdevents_db_install.php:194
+msgid "Twitter"
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:186
+msgid "You can enter your business or listing twitter url."
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:199
+#: gdevents-admin/gdevents_db_install.php:201
+#: gdevents-admin/gdevents_db_install.php:208
+msgid "Facebook"
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:200
+msgid "You can enter your business or listing facebook url."
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:213
+#: gdevents-admin/gdevents_db_install.php:215
+#: gdevents-admin/gdevents_db_install.php:222
+msgid "Video"
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:214
+msgid "Add video code here, YouTube etc."
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:227
+#: gdevents-admin/gdevents_db_install.php:229
+#: gdevents-admin/gdevents_db_install.php:236
+msgid "Special Offers"
+msgstr ""
+
+#: gdevents-admin/gdevents_db_install.php:228
+msgid "Note: List out any special offers (optional)"
+msgstr ""
+
+#: gdevents_functions.php:34
+msgid "Show event 'registration description' field as editor"
+msgstr ""
+
+#: gdevents_functions.php:35
+msgid "Select the option to show advanced editor on add listing page."
+msgstr ""
+
+#: gdevents_functions.php:43
+msgid "Select"
+msgstr ""
+
+#: gdevents_functions.php:89
+msgid " Browsing Day"
+msgstr ""
+
+#: gdevents_functions.php:633 gdevents_hooks_actions.php:102
+#: gdevents_template_functions.php:839
+msgid "No Business"
+msgstr ""
+
+#: gdevents_functions.php:786 gdevents_template_functions.php:1360
+msgid "January"
+msgstr ""
+
+#: gdevents_functions.php:787 gdevents_template_functions.php:1360
+msgid "February"
+msgstr ""
+
+#: gdevents_functions.php:788 gdevents_template_functions.php:1360
+msgid "March"
+msgstr ""
+
+#: gdevents_functions.php:789 gdevents_template_functions.php:1360
+msgid "April"
+msgstr ""
+
+#: gdevents_functions.php:790 gdevents_functions.php:802
+#: gdevents_template_functions.php:1360
+msgid "May"
+msgstr ""
+
+#: gdevents_functions.php:791 gdevents_template_functions.php:1360
+msgid "June"
+msgstr ""
+
+#: gdevents_functions.php:792 gdevents_template_functions.php:1360
+msgid "July"
+msgstr ""
+
+#: gdevents_functions.php:793 gdevents_template_functions.php:1360
+msgid "August"
+msgstr ""
+
+#: gdevents_functions.php:794 gdevents_template_functions.php:1360
+msgid "September"
+msgstr ""
+
+#: gdevents_functions.php:795 gdevents_template_functions.php:1360
+msgid "October"
+msgstr ""
+
+#: gdevents_functions.php:796 gdevents_template_functions.php:1360
+msgid "November"
+msgstr ""
+
+#: gdevents_functions.php:797 gdevents_template_functions.php:1360
+msgid "December"
+msgstr ""
+
+#: gdevents_functions.php:798
+msgid "Jan"
+msgstr ""
+
+#: gdevents_functions.php:799
+msgid "Feb"
+msgstr ""
+
+#: gdevents_functions.php:800
+msgid "Mar"
+msgstr ""
+
+#: gdevents_functions.php:801
+msgid "Apr"
+msgstr ""
+
+#: gdevents_functions.php:803
+msgid "Jun"
+msgstr ""
+
+#: gdevents_functions.php:804
+msgid "Jul"
+msgstr ""
+
+#: gdevents_functions.php:805
+msgid "Aug"
+msgstr ""
+
+#: gdevents_functions.php:806
+msgid "Sep"
+msgstr ""
+
+#: gdevents_functions.php:807
+msgid "Oct"
+msgstr ""
+
+#: gdevents_functions.php:808
+msgid "Nov"
+msgstr ""
+
+#: gdevents_functions.php:809
+msgid "Dec"
+msgstr ""
+
+#: gdevents_functions.php:810 gdevents_functions.php:816
+#: gdevents_template_functions.php:1440 gdevents_template_functions.php:1446
+#: gdevents_template_functions.php:1447
+msgid "S"
+msgstr ""
+
+#: gdevents_functions.php:811 gdevents_template_functions.php:1441
+msgid "M"
+msgstr ""
+
+#: gdevents_functions.php:812 gdevents_functions.php:814
+#: gdevents_template_functions.php:1442 gdevents_template_functions.php:1444
+msgid "T"
+msgstr ""
+
+#: gdevents_functions.php:813 gdevents_template_functions.php:1443
+msgid "W"
+msgstr ""
+
+#: gdevents_functions.php:815 gdevents_template_functions.php:1445
+msgid "F"
+msgstr ""
+
+#: gdevents_functions.php:817
+msgid "Su"
+msgstr ""
+
+#: gdevents_functions.php:818
+msgid "Mo"
+msgstr ""
+
+#: gdevents_functions.php:819
+msgid "Tu"
+msgstr ""
+
+#: gdevents_functions.php:820
+msgid "We"
+msgstr ""
+
+#: gdevents_functions.php:821
+msgid "Th"
+msgstr ""
+
+#: gdevents_functions.php:822
+msgid "Fr"
+msgstr ""
+
+#: gdevents_functions.php:823
+msgid "Sa"
+msgstr ""
+
+#: gdevents_functions.php:824
+msgid "Sun"
+msgstr ""
+
+#: gdevents_functions.php:825
+msgid "Mon"
+msgstr ""
+
+#: gdevents_functions.php:826
+msgid "Tue"
+msgstr ""
+
+#: gdevents_functions.php:827
+msgid "Wed"
+msgstr ""
+
+#: gdevents_functions.php:828
+msgid "Thu"
+msgstr ""
+
+#: gdevents_functions.php:829
+msgid "Fri"
+msgstr ""
+
+#: gdevents_functions.php:830
+msgid "Sat"
+msgstr ""
+
+#: gdevents_functions.php:831 gdevents_widget.php:350
+msgid "Sunday"
+msgstr ""
+
+#: gdevents_functions.php:832 gdevents_widget.php:349
+msgid "Monday"
+msgstr ""
+
+#: gdevents_functions.php:833
+msgid "Tuesday"
+msgstr ""
+
+#: gdevents_functions.php:834
+msgid "Wednesday"
+msgstr ""
+
+#: gdevents_functions.php:835
+msgid "Thursday"
+msgstr ""
+
+#: gdevents_functions.php:836
+msgid "Friday"
+msgstr ""
+
+#: gdevents_functions.php:837
+msgid "Saturday"
+msgstr ""
+
+#: gdevents_functions.php:839
+msgid "Previous Month"
+msgstr ""
+
+#: gdevents_functions.php:840
+msgid "Next Month"
+msgstr ""
+
+#: gdevents_functions.php:841
+msgid "Close"
+msgstr ""
+
+#: gdevents_functions.php:915
+msgid "Go to"
+msgstr ""
+
+#: gdevents_hooks_actions.php:101 gdevents_hooks_actions.php:103
+msgid "Please wait..."
+msgstr ""
+
+#: gdevents_hooks_actions.php:104
+msgid "We are searching for"
+msgstr ""
+
+#: gdevents_template_functions.php:25 gdevents_widget.php:648
+msgid "All Events"
+msgstr ""
+
+#: gdevents_template_functions.php:170 gdevents_template_functions.php:269
+#: gdevents_template_functions.php:545
+msgid "Start"
+msgstr ""
+
+#: gdevents_template_functions.php:170 gdevents_template_functions.php:269
+#: gdevents_template_functions.php:552
+msgid "End"
+msgstr ""
+
+#: gdevents_template_functions.php:197
+msgid "Recurring Event?"
+msgstr ""
+
+#: gdevents_template_functions.php:335 gdevents_template_functions.php:762
+msgid "Date"
+msgstr ""
+
+#: gdevents_template_functions.php:339 gdevents_template_functions.php:627
+msgid "Every Day"
+msgstr ""
+
+#: gdevents_template_functions.php:355
+msgid "Day of Month"
+msgstr ""
+
+#: gdevents_template_functions.php:387
+msgid "Month"
+msgstr ""
+
+#: gdevents_template_functions.php:395
+msgid "Every Month"
+msgstr ""
+
+#: gdevents_template_functions.php:409
+msgid "Year"
+msgstr ""
+
+#: gdevents_template_functions.php:418
+msgid "Every Year"
+msgstr ""
+
+#: gdevents_template_functions.php:437
+msgid "Event Date"
+msgstr ""
+
+#: gdevents_template_functions.php:452 gdevents_template_functions.php:477
+msgid "To"
+msgstr ""
+
+#: gdevents_template_functions.php:463 gdevents_template_functions.php:543
+msgid "Event Time"
+msgstr ""
+
+#: gdevents_template_functions.php:491
+msgid "Event Date(s)"
+msgstr ""
+
+#: gdevents_template_functions.php:508
+msgid "Selected Dates"
+msgstr ""
+
+#: gdevents_template_functions.php:535
+msgid ""
+"Click on each day your event will be held. You may choose more than one day. "
+"Selected dates appear in blue and can be unselected by clicking on them."
+msgstr ""
+
+#: gdevents_template_functions.php:537
+msgid "Please select at least one event date."
+msgstr ""
+
+#: gdevents_template_functions.php:562
+msgid "Different Event Times"
+msgstr ""
+
+#: gdevents_template_functions.php:564
+msgid "Checked to different dates have different start and end times"
+msgstr ""
+
+#: gdevents_template_functions.php:605
+msgid "Open For"
+msgstr ""
+
+#: gdevents_template_functions.php:609 gdevents_template_functions.php:626
+#: gdevents_template_functions.php:759
+msgid "Dates"
+msgstr ""
+
+#: gdevents_template_functions.php:613
+msgid "All Dates"
+msgstr ""
+
+#: gdevents_template_functions.php:637
+msgid "Days"
+msgstr ""
+
+#: gdevents_template_functions.php:659
+msgid "Months"
+msgstr ""
+
+#: gdevents_template_functions.php:675 gdevents_template_functions.php:680
+msgid "All Months"
+msgstr ""
+
+#: gdevents_template_functions.php:686
+msgid "Years"
+msgstr ""
+
+#: gdevents_template_functions.php:821
+msgid "Link Business"
+msgstr ""
+
+#: gdevents_template_functions.php:825
+msgid "Please wait..&hellip;"
+msgstr ""
+
+#: gdevents_template_functions.php:903 gdevents_template_functions.php:981
+msgid "How to Register"
+msgstr ""
+
+#: gdevents_template_functions.php:921
+msgid "Basic HTML tags are allowed"
+msgstr ""
+
+#: gdevents_template_functions.php:937
+#, php-format
+msgid "Enter Registration Fees, in %s eg. : %s50"
+msgstr ""
+
+#: gdevents_template_functions.php:1092 gdevents_template_functions.php:1144
+#: gdevents_template_functions.php:1168 gdevents_widget.php:123
+msgid "Past Events"
+msgstr ""
+
+#: gdevents_template_functions.php:1162
+msgid "Related Events"
+msgstr ""
+
+#: gdevents_template_functions.php:1165 gdevents_widget.php:121
+msgid "Feature Events"
+msgstr ""
+
+#: gdevents_template_functions.php:1171 gdevents_widget.php:125
+msgid "Upcoming Events"
+msgstr ""
+
+#: gdevents_template_functions.php:1504
+msgid "Click to view events on this date"
+msgstr ""
+
+#: gdevents_template_functions.php:1533
+msgid "Date:"
+msgstr ""
+
+#: gdevents_template_functions.php:1538
+msgid "Time:"
+msgstr ""
+
+#: gdevents_template_functions.php:1544
+msgid " to"
+msgstr ""
+
+#: gdevents_widget.php:11 gdevents_widget.php:12
+msgid "GD > Related Events Listing"
+msgstr ""
+
+#: gdevents_widget.php:117
+msgid "Display Events:"
+msgstr ""
+
+#: gdevents_widget.php:132 gdevents_widget.php:625
+msgid "Sort by:"
+msgstr ""
+
+#: gdevents_widget.php:136 gdevents_widget.php:629
+msgid "Latest"
+msgstr ""
+
+#: gdevents_widget.php:138 gdevents_widget.php:631
+msgid "Featured"
+msgstr ""
+
+#: gdevents_widget.php:140 gdevents_widget.php:633
+msgid "Review"
+msgstr ""
+
+#: gdevents_widget.php:142 gdevents_widget.php:635
+msgid "Rating"
+msgstr ""
+
+#: gdevents_widget.php:144 gdevents_widget.php:637
+msgid "Random"
+msgstr ""
+
+#: gdevents_widget.php:152 gdevents_widget.php:662
+msgid "Number of posts:"
+msgstr ""
+
+#: gdevents_widget.php:160 gdevents_widget.php:670
+msgid "Layout:"
+msgstr ""
+
+#: gdevents_widget.php:162 gdevents_widget.php:672
+msgid "Grid View (Two Columns)"
+msgstr ""
+
+#: gdevents_widget.php:163 gdevents_widget.php:673
+msgid "Grid View (Three Columns)"
+msgstr ""
+
+#: gdevents_widget.php:164 gdevents_widget.php:674
+msgid "Grid View (Four Columns)"
+msgstr ""
+
+#: gdevents_widget.php:165 gdevents_widget.php:675
+msgid "Grid View (Five Columns)"
+msgstr ""
+
+#: gdevents_widget.php:166 gdevents_widget.php:676
+msgid "List view"
+msgstr ""
+
+#: gdevents_widget.php:173 gdevents_widget.php:683
+msgid "Listing width:"
+msgstr ""
+
+#: gdevents_widget.php:180 gdevents_widget.php:690
+msgid "Post Content excerpt character count :"
+msgstr ""
+
+#: gdevents_widget.php:187 gdevents_widget.php:697
+msgid "Enable Location Filter:"
+msgstr ""
+
+#: gdevents_widget.php:204 gdevents_widget.php:205
+msgid "GD > Event Listing Calendar"
+msgstr ""
+
+#: gdevents_widget.php:338
+msgid "Title"
+msgstr ""
+
+#: gdevents_widget.php:346
+msgid "Start day?"
+msgstr ""
+
+#: gdevents_widget.php:371 gdevents_widget.php:372
+msgid "GD > Event Listing"
+msgstr ""
+
+#: gdevents_widget.php:454
+msgid "View all"
+msgstr ""
+
+#: gdevents_widget.php:586
+msgid "Title:"
+msgstr ""
+
+#: gdevents_widget.php:594
+msgid "Post Category:"
+msgstr ""
+
+#: gdevents_widget.php:644
+msgid "Filter by:"
+msgstr ""
+
+#: gdevents_widget_listview.php:113 link-business-listview.php:109
+msgid "No Reviews"
+msgstr ""
+
+#: gdevents_widget_listview.php:113 link-business-listview.php:109
+msgid "1 Review"
+msgstr ""
+
+#: gdevents_widget_listview.php:113 link-business-listview.php:109
+msgid "% Reviews"
+msgstr ""
+
+#: gdevents_widget_listview.php:129 link-business-listview.php:125
+msgid "No listings found which match your selection."
+msgstr ""
+
+#: geodir_event_manager.php:92
+msgid ""
+"<span style=\"color:#FF0000\">There was an issue determining where "
+"GeoDirectory Plugin is installed and activated. Please install or activate "
+"GeoDirectory Plugin.</span>"
+msgstr ""
+
+#: language.php:9
+msgid ""
+"Would you like to auto install this geo directory events plugin and populate "
+"sample data on your site?"
+msgstr ""
+
+#: language.php:10
+msgid "Yes, insert sample data please"
+msgstr ""
+
+#: language.php:11
+msgid "Yes Delete Please!"
+msgstr ""
+
+#: language.php:12
+msgid ""
+"Geo Directory Events sample data has been populated on your site. Wish to "
+"delete sample data?"
+msgstr ""
+
+#: language.php:13
+msgid "Please Wait! We are importing dummy data."
+msgstr ""
+
+#: language.php:14
+msgid "Please Wait! We are deleting dummy data."
+msgstr ""
+
+#: language.php:15
+msgid "Fill in Business Details"
+msgstr ""

@@ -1,0 +1,34 @@
+.uultra-admin-badge {
+	cursor: pointer;
+	display: inline-block;
+	padding: 10px;
+	background: #fff;
+	border-radius: 3px;
+	border: 1px solid #aaa;
+	margin: 0 20px 0 0;
+	opacity: 0.7;
+}
+
+.uultra-admin-badge img {
+	display: block;
+	overflow: hidden;
+	max-width: 16px;
+	max-height: 16px;
+}
+
+.uultra-admin-badge:hover,
+.uultra-admin-badge.active,
+.uultra-admin-badge.active:hover{
+	border: 1px solid #336699;
+	opacity: 1;
+}
+
+.uultra-admin table.form-table input[type="text"].badge_achieved_num {
+	width: 40px !important;
+	display: inline !important;
+	margin: 0 10px !important;
+}
+
+.uultra-user-badge {
+	margin: 15px 0;
+}

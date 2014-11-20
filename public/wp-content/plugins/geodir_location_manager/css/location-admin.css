@@ -1,0 +1,31 @@
+
+.merge-locationto{ float:left; padding-left:15px; padding-right:20px; border-right:#EAEAEA 1px solid;}
+.merge-locationfrom{ float:left; padding-left:15px; padding-right:15px;}
+
+.managelocation_fields .inner_content_tab_main{
+border:none;
+background:none;
+padding:0;
+margin:0;
+border-radius:none;
+min-height:inherit;
+overflow-x:inherit;
+overflow-y:inherit;
+overflow:hidden;
+border-bottom-left-radius:0;
+border-bottom-right-radius:0;
+border-top-right-radius:0;
+border-top-left-radius:0;
+
+}
+
+.geodir_line_seperator{ 
+	border-bottom:solid 1px #E7E7E7;
+	line-height: 1.3;
+	margin-bottom: 9px;
+	padding: 5px 0px!important;
+	vertical-align: middle;
+}
+
+.geodir_set_location_seo_region{ background: none repeat scroll 0 0 #F1F1F1;}
+.geodir_set_location_seo_city{ background: none repeat scroll 0 0 #e1e1e1;}
