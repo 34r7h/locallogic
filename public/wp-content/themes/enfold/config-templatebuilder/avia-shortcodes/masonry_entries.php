@@ -583,20 +583,17 @@ if ( !class_exists( 'avia_masonry' ) )
 				//title and excerpt
 				if($this->atts['caption_elements'] != 'none' || !empty($text_add))
 				{
-					$items .=	"<figcaption class='av-inner-masonry-content site-background'><div class='av-inner-masonry-content-pos'>hello<div class='avia-arrow'></div>".$text_before;
+					$items .=	"<figcaption class='av-inner-masonry-content site-background'><div class='av-inner-masonry-content-pos'>hello thar<div class='avia-arrow'></div>".$text_before;
 					
 					if(strpos($this->atts['caption_elements'], 'title') !== false){
                         $markup = avia_markup_helper(array('context' => 'entry_title','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
 						$items .=	"<h3 class='av-masonry-entry-title entry-title' {$markup}>{$the_title}</h3>";
 					}
-					if(strpos($this->atts['caption_elements'], 'excerpt') !== false && !empty($content)){
-                                            $markup = avia_markup_helper(array('context' => 'entry_content','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
-                    						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$content}</div>";
-                    					}
 
-					if($post->post_region){
+					if(strpos($this->atts['caption_elements'], 'excerpt') !== false && !empty($content)){
                         $markup = avia_markup_helper(array('context' => 'entry_content','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
-						$items .=	"<span itemprop="addressRegion">'.$post->post_region.'</span><br><div class='av-masonry-entry-content entry-content' {$markup}>{$content}</div>";
+                        console.log($entry);
+						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$content}</div>";
 					}
 
 
