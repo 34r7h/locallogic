@@ -587,7 +587,7 @@ if ( !class_exists( 'avia_masonry' ) )
 					
 					if(strpos($this->atts['caption_elements'], 'title') !== false){
                         $markup = avia_markup_helper(array('context' => 'entry_title','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
-						$items .=	"<h3 class='av-masonry-entry-title entry-title' {$markup}>{$the_title}</h3>";
+						$items .=	"<h3 class='av-masonry-entry-title wit entry-title' {$markup}>{$the_title}</h3>";
 					}
 
 					if(strpos($this->atts['caption_elements'], 'excerpt') !== false && !empty($content)){
