@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d86c1866-6253-49fd-8df8-3ff5cbcffdac" name="Default" comment="" />
-    <list id="030eb308-6a75-4650-9090-bf2a089035a3" name="New changelist" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="d86c1866-6253-49fd-8df8-3ff5cbcffdac" name="Default" comment="lol" />
+    <list id="030eb308-6a75-4650-9090-bf2a089035a3" name="New changelist" comment="" />
     <ignored path="locallogic.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <file path="$PROJECT_DIR$/.idea/workspace.xml" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
