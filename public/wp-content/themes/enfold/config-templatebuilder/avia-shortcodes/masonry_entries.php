@@ -236,7 +236,7 @@ if ( !class_exists( 'avia_sc_masonry_entries' ) )
 				$img_template 		= $this->update_template("img_fakeArg", "{{img_fakeArg}}");
 				$template 			= $this->update_template("title", "{{title}}");
 				$content 			= $this->update_template("content", "{{content}}");
-				$moreContent 		= $this->update_template("moreContent", {{content}});
+				$moreContent 		= $this->update_template("moreContent", "{{content}}");
 
 				
 				$thumbnail = isset($params['args']['id']) ? wp_get_attachment_image($params['args']['id']) : "";
