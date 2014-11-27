@@ -596,7 +596,13 @@ if ( !class_exists( 'avia_masonry' ) )
 					if(strpos($this->atts['caption_elements'], 'excerpt') !== false && !empty($content)){
                         $markup = avia_markup_helper(array('context' => 'entry_content','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
                         console.log($entry);
-						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$content}{$moreContent}</div>";
+
+                        $content_html = ob_get_clean();
+						$content_html  = '<div class="geodir-company_info geodir-details-sidebar-rating">' . $content_html . '</div>' ;
+
+
+						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$content}{$content_html}</div>";
+
 					}
 
 
