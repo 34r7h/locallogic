@@ -486,7 +486,8 @@ if ( !class_exists( 'avia_masonry' ) )
 			$auto 		= strpos($this->atts['size'], 'masonry') !== false ? true : false;
 			$manually	= strpos($this->atts['size'], 'manually') !== false ? true : false;
 			$defaults 	= array('ID'=>'', 
-								'thumb_ID'=>'', 
+								'thumb_ID'=>'',
+							 	'type' => '',
 								'title' =>'', 
 								'url' => '',  
 								'class' => array(),  
@@ -571,7 +572,7 @@ if ( !class_exists( 'avia_masonry' ) )
                 }
                 else if(strpos($html_tags[0], 'a href=') !== false)
                 {
-                    $linktitle = 'title="'.esc_attr($the_title).'"';
+                    $linktitle = 'title="'.esc_attr($the_type).'"';
                 }
                 $markup = ($post_type == 'attachment') ? avia_markup_helper(array('context' => 'image_url','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup'])) : avia_markup_helper(array('context' => 'entry','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
 
@@ -703,6 +704,7 @@ if ( !class_exists( 'avia_masonry' ) )
 				$this->loop[$key]['ID'] = $id		= $entry->ID;
 				$this->loop[$key]['post_type'] 		= $entry->post_type;
 				$this->loop[$key]['thumb_ID'] 		= get_post_thumbnail_id($id);
+				$this->loop[$key]['the_type'] 		= get_post_type_id($id);
 				$this->loop[$key]['the_title'] 		= get_the_title($id);
 				$this->loop[$key]['url']			= get_permalink($id);
 				$this->loop[$key]['date'] 			= "<span class='av-masonry-date meta-color updated'>".get_the_time($date_format, $id)."</span>";
