@@ -592,26 +592,15 @@ if ( !class_exists( 'avia_masonry' ) )
                         $markup = avia_markup_helper(array('context' => 'entry_title','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
 						$items .=	"<h3 class='av-masonry-entry-title entry-title' {$markup}>{$the_title}</h3>";
 					}
-					function geodir_detail_page_more_info()
-						{
-							global $post,$preview,$post_images;
-							ob_start() ; // Start  buffering;
-							do_action('geodir_before_detail_page_more_info') ;
-							if($geodir_post_detail_fields = geodir_show_listing_info()){
-								echo $geodir_post_detail_fields;
-							}
-							do_action('geodir_after_detail_page_more_info') ;
 
-							$content_html = ob_get_clean();
-							if(trim($content_html) != '')
-								$content_html  = '<div class="geodir-company_info geodir-details-sidebar-listing-info">' . $content_html . '</div>' ;
-							echo $content_html = apply_filters('geodir_detail_page_more_info_html' , $content_html) ;
-						}
 					if(strpos($this->atts['caption_elements'], 'excerpt') !== false && !empty($content)){
                         $markup = avia_markup_helper(array('context' => 'entry_content','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
                         console.log($entry);
 
-
+                        $content_html = ob_get_clean();
+						if(trim($content_html) != '')
+							$content_html  = '<div class="geodir-company_info geodir-details-sidebar-listing-info">' . $content_html . '</div>' ;
+						echo $content_html = apply_filters('geodir_detail_page_more_info_html' , $content_html) ;
 
 
 						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$content}{$content_html}</div>";
