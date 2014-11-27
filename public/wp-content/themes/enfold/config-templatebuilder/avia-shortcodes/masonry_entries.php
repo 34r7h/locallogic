@@ -236,7 +236,7 @@ if ( !class_exists( 'avia_sc_masonry_entries' ) )
 				$img_template 		= $this->update_template("img_fakeArg", "{{img_fakeArg}}");
 				$template 			= $this->update_template("title", "{{title}}");
 				$content 			= $this->update_template("content", "{{content}}");
-				$moreContent 		= $this->update_template("moreContent", "Hello Thar");
+				$moreContent 		= $this->update_template("moreContent", {{content}});
 
 				
 				$thumbnail = isset($params['args']['id']) ? wp_get_attachment_image($params['args']['id']) : "";
@@ -248,7 +248,7 @@ if ( !class_exists( 'avia_sc_masonry_entries' ) )
 				$params['innerHtml'] .= "	<div class='avia_slideshow_content'>";
 				$params['innerHtml'] .= "		<h4 class='avia_title_container_inner' {$template} >".$params['args']['title']."</h4>";
 				$params['innerHtml'] .= "		<p class='avia_content_container' {$content}>".stripslashes($params['content'])."</p>";
-				$params['innerHtml'] .= "		<p class='avia_content_container' {$moreContent}>".stripslashes($params['content'])."</p>";
+				$params['innerHtml'] .= "		<p class='avia_content_container' {$moreContent}>".stripslashes($params['moreContent'])."</p>";
 				$params['innerHtml'] .= "	</div>";
 				$params['innerHtml'] .= "</div>";
 				
