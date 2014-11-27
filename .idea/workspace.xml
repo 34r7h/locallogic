@@ -41,8 +41,8 @@
       <file leaf-file-name="masonry_entries.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.30464715" vertical-offset="8868" max-vertical-offset="14640">
-              <caret line="603" column="0" selection-start-line="600" selection-start-column="24" selection-end-line="603" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.616179" vertical-offset="10217" max-vertical-offset="14475">
+              <caret line="705" column="73" selection-start-line="705" selection-start-column="73" selection-end-line="705" selection-end-column="73" />
               <folding />
             </state>
           </provider>
@@ -51,8 +51,8 @@
       <file leaf-file-name="geodirectory_hooks_actions.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/wp-content/plugins/geodirectory/geodirectory_hooks_actions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.1153846" vertical-offset="7847" max-vertical-offset="28830">
-              <caret line="532" column="0" selection-start-line="532" selection-start-column="0" selection-end-line="546" selection-end-column="1" />
+            <state vertical-scroll-proportion="-10.307693" vertical-offset="7847" max-vertical-offset="28830">
+              <caret line="541" column="4" selection-start-line="541" selection-start-column="4" selection-end-line="541" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -96,9 +96,9 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="101" />
+    <option name="x" value="431" />
     <option name="y" value="-1055" />
-    <option name="width" value="1528" />
+    <option name="width" value="1198" />
     <option name="height" value="1036" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -251,11 +251,17 @@
       <option name="project" value="LOCAL" />
       <updated>1417058768181</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="masonry editing">
+      <created>1417059341451</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1417059341451</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="101" y="-1055" width="1528" height="1036" extended-state="0" />
+    <frame x="431" y="-1055" width="1198" height="1036" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -269,7 +275,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32448572" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11299915" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -363,16 +369,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/wp-content/plugins/geodirectory/geodirectory_hooks_actions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.1153846" vertical-offset="7847" max-vertical-offset="28830">
-          <caret line="532" column="0" selection-start-line="532" selection-start-column="0" selection-end-line="546" selection-end-column="1" />
+        <state vertical-scroll-proportion="-10.307693" vertical-offset="7847" max-vertical-offset="28830">
+          <caret line="541" column="4" selection-start-line="541" selection-start-column="4" selection-end-line="541" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30464715" vertical-offset="8868" max-vertical-offset="14640">
-          <caret line="603" column="0" selection-start-line="600" selection-start-column="24" selection-end-line="603" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.616179" vertical-offset="10217" max-vertical-offset="14475">
+          <caret line="705" column="73" selection-start-line="705" selection-start-column="73" selection-end-line="705" selection-end-column="73" />
           <folding />
         </state>
       </provider>

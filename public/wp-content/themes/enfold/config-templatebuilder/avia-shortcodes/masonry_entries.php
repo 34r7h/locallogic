@@ -236,8 +236,6 @@ if ( !class_exists( 'avia_sc_masonry_entries' ) )
 				$img_template 		= $this->update_template("img_fakeArg", "{{img_fakeArg}}");
 				$template 			= $this->update_template("title", "{{title}}");
 				$content 			= $this->update_template("content", "{{content}}");
-				$moreContent 		= $this->update_template("moreContent", "{{content}}");
-
 				
 				$thumbnail = isset($params['args']['id']) ? wp_get_attachment_image($params['args']['id']) : "";
 				
@@ -248,7 +246,6 @@ if ( !class_exists( 'avia_sc_masonry_entries' ) )
 				$params['innerHtml'] .= "	<div class='avia_slideshow_content'>";
 				$params['innerHtml'] .= "		<h4 class='avia_title_container_inner' {$template} >".$params['args']['title']."</h4>";
 				$params['innerHtml'] .= "		<p class='avia_content_container' {$content}>".stripslashes($params['content'])."</p>";
-				$params['innerHtml'] .= "		<p class='avia_content_container' {$moreContent}>".stripslashes($params['moreContent'])."</p>";
 				$params['innerHtml'] .= "	</div>";
 				$params['innerHtml'] .= "</div>";
 				
@@ -596,15 +593,7 @@ if ( !class_exists( 'avia_masonry' ) )
 					if(strpos($this->atts['caption_elements'], 'excerpt') !== false && !empty($content)){
                         $markup = avia_markup_helper(array('context' => 'entry_content','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
                         console.log($entry);
-
-                        $content_html = ob_get_clean();
-						if(trim($content_html) != '')
-							$content_html  = '<div class="geodir-company_info geodir-details-sidebar-listing-info">' . $content_html . '</div>' ;
-						echo $content_html = apply_filters('geodir_detail_page_more_info_html' , $content_html) ;
-
-
-						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$content}{$content_html}</div>";
-
+						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$content}</div>";
 					}
 
 
