@@ -588,14 +588,14 @@ if ( !class_exists( 'avia_masonry' ) )
 					
 					if(strpos($this->atts['caption_elements'], 'title') !== false){
                         $markup = avia_markup_helper(array('context' => 'entry_title','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['geodir_show_listing_info'];
-						$items .=	"<h3 class='av-masonry-entry-title entry-title' {$markup}>{$the_title}x{$geo_loc}</h3>";
+						$items .=	"<h3 class='av-masonry-entry-title entry-title' {$markup}>{$the_title}</h3>";
 
 					}
 
 					if(strpos($this->atts['caption_elements'], 'excerpt') !== false && !empty($content)){
                         $markup = avia_markup_helper(array('context' => 'entry_content','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
                         console.log($entry);
-						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$geo_loc}Here we want it.<?php get_post_field( geodir_show_listing_info, id); ?>{$content}</div>";
+						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}><code>Here we want it insertion</code><?php get_post_field( geodir_show_listing_info, id); ?>{$content}</div>";
 					}
 
 
