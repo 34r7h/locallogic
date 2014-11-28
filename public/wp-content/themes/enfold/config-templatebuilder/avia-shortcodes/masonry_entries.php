@@ -711,7 +711,6 @@ if ( !class_exists( 'avia_masonry' ) )
 				$this->loop[$key]['author'] 		= "<span class='av-masonry-author meta-color vcard author'><span class='fn'>". __('by','avia_framework') .' '. $author."</span></span>";
 				$this->loop[$key]['class'] 			= get_post_class("av-masonry-entry isotope-item", $id); 
 				$this->loop[$key]['content']		= $entry->post_excerpt;
-				$this->loop[$key]['geo_loc']		= get_field( "geodir_show_listing_info" , $id );
                 $this->loop[$key]['description']	= !empty($entry->post_content) ? $entry->post_content : $entry->post_excerpt;
 				
 				if(empty($this->loop[$key]['content']))
