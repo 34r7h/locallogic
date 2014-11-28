@@ -578,7 +578,7 @@ if ( !class_exists( 'avia_masonry' ) )
 				$items .= 	"<{$html_tags[0]} class='{$class_string}' {$linktitle} {$markup}>";
 				$items .= 		"<div class='av-inner-masonry-sizer'></div>"; //responsible for the size
 				$items .=		"<figure class='av-inner-masonry main_color'>";
-				$items .= 			$geo_loc;
+
 				$items .= 			$bg;
 
 				//title and excerpt
