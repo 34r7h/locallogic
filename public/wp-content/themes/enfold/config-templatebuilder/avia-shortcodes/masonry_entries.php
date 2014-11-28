@@ -236,7 +236,7 @@ if ( !class_exists( 'avia_sc_masonry_entries' ) )
 				$img_template 		= $this->update_template("img_fakeArg", "{{img_fakeArg}}");
 				$template 			= $this->update_template("title", "{{title}}");
 				$content 			= $this->update_template("content", "{{content}}");
-				
+
 				$thumbnail = isset($params['args']['id']) ? wp_get_attachment_image($params['args']['id']) : "";
 				
 		
@@ -593,7 +593,7 @@ if ( !class_exists( 'avia_masonry' ) )
 					if(strpos($this->atts['caption_elements'], 'excerpt') !== false && !empty($content)){
                         $markup = avia_markup_helper(array('context' => 'entry_content','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
                         console.log($entry);
-						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>Here we want it.<?php get_post_field( $fields_location, id); ?>{$content}</div>";
+						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>Here we want it.<?php get_post_field( geodir_show_listing_info, id); ?>{$content}</div>";
 					}
 
 
@@ -709,6 +709,7 @@ if ( !class_exists( 'avia_masonry' ) )
 				$this->loop[$key]['author'] 		= "<span class='av-masonry-author meta-color vcard author'><span class='fn'>". __('by','avia_framework') .' '. $author."</span></span>";
 				$this->loop[$key]['class'] 			= get_post_class("av-masonry-entry isotope-item", $id); 
 				$this->loop[$key]['content']		= $entry->post_excerpt;
+				$this->loop[$key]['geo_location']	= $entry->geodir_show_listing_info;
                 $this->loop[$key]['description']	= !empty($entry->post_content) ? $entry->post_content : $entry->post_excerpt;
 				
 				if(empty($this->loop[$key]['content']))
