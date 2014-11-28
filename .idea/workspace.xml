@@ -41,8 +41,8 @@
       <file leaf-file-name="masonry_entries.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4621993" vertical-offset="8656" max-vertical-offset="14490">
-              <caret line="595" column="190" selection-start-line="595" selection-start-column="180" selection-end-line="595" selection-end-column="190" />
+            <state vertical-scroll-proportion="0.38487974" vertical-offset="8611" max-vertical-offset="14490">
+              <caret line="589" column="116" selection-start-line="589" selection-start-column="116" selection-end-line="589" selection-end-column="116" />
               <folding />
             </state>
           </provider>
@@ -62,7 +62,7 @@
         <entry file="file://$PROJECT_DIR$/public/wp-content/plugins/geodirectory/geodirectory-functions/custom_fields_functions.php">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="25238" max-vertical-offset="47385">
-              <caret line="1715" column="8" selection-start-line="1715" selection-start-column="8" selection-end-line="1715" selection-end-column="8" />
+              <caret line="1693" column="45" selection-start-line="1693" selection-start-column="21" selection-end-line="1693" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -434,7 +434,13 @@
       <option name="project" value="LOCAL" />
       <updated>1417154817183</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="masonry editing">
+      <created>1417155023496</created>
+      <option name="number" value="00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1417155023496</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -592,15 +598,15 @@
     <entry file="file://$PROJECT_DIR$/public/wp-content/plugins/geodirectory/geodirectory-functions/custom_fields_functions.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="25238" max-vertical-offset="47385">
-          <caret line="1715" column="8" selection-start-line="1715" selection-start-column="8" selection-end-line="1715" selection-end-column="8" />
+          <caret line="1693" column="45" selection-start-line="1693" selection-start-column="21" selection-end-line="1693" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4621993" vertical-offset="8656" max-vertical-offset="14490">
-          <caret line="595" column="190" selection-start-line="595" selection-start-column="180" selection-end-line="595" selection-end-column="190" />
+        <state vertical-scroll-proportion="0.38487974" vertical-offset="8611" max-vertical-offset="14490">
+          <caret line="589" column="116" selection-start-line="589" selection-start-column="116" selection-end-line="589" selection-end-column="116" />
           <folding />
         </state>
       </provider>
