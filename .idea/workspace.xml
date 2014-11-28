@@ -41,8 +41,8 @@
       <file leaf-file-name="masonry_entries.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33333334" vertical-offset="8626" max-vertical-offset="14490">
-              <caret line="588" column="67" selection-start-line="588" selection-start-column="60" selection-end-line="588" selection-end-column="67" />
+            <state vertical-scroll-proportion="0.35910654" vertical-offset="8626" max-vertical-offset="14490">
+              <caret line="589" column="117" selection-start-line="589" selection-start-column="117" selection-end-line="589" selection-end-column="117" />
               <folding />
             </state>
           </provider>
@@ -416,7 +416,13 @@
       <option name="project" value="LOCAL" />
       <updated>1417154250954</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="masonry editing">
+      <created>1417154570620</created>
+      <option name="number" value="00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1417154570620</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -581,8 +587,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334" vertical-offset="8626" max-vertical-offset="14490">
-          <caret line="588" column="67" selection-start-line="588" selection-start-column="60" selection-end-line="588" selection-end-column="67" />
+        <state vertical-scroll-proportion="0.35910654" vertical-offset="8626" max-vertical-offset="14490">
+          <caret line="589" column="117" selection-start-line="589" selection-start-column="117" selection-end-line="589" selection-end-column="117" />
           <folding />
         </state>
       </provider>
