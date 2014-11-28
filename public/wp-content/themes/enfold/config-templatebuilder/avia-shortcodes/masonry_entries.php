@@ -588,12 +588,13 @@ if ( !class_exists( 'avia_masonry' ) )
 					if(strpos($this->atts['caption_elements'], 'title') !== false){
                         $markup = avia_markup_helper(array('context' => 'entry_title','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['geodir_show_listing_info'];
 						$items .=	"<h3 class='av-masonry-entry-title entry-title' {$markup}>{$the_title}x{$geo_loc}</h3>";
+
 					}
 
 					if(strpos($this->atts['caption_elements'], 'excerpt') !== false && !empty($content)){
                         $markup = avia_markup_helper(array('context' => 'entry_content','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
                         console.log($entry);
-						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>Here we want it.<?php get_post_field( geodir_show_listing_info, id); ?>{$content}{$content}</div>";
+						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$geo_loc}Here we want it.<?php get_post_field( geodir_show_listing_info, id); ?>{$content}{$content}</div>";
 					}
 
 
@@ -709,14 +710,14 @@ if ( !class_exists( 'avia_masonry' ) )
 				$this->loop[$key]['author'] 		= "<span class='av-masonry-author meta-color vcard author'><span class='fn'>". __('by','avia_framework') .' '. $author."</span></span>";
 				$this->loop[$key]['class'] 			= get_post_class("av-masonry-entry isotope-item", $id); 
 				$this->loop[$key]['content']		= $entry->post_excerpt;
-				$this->loop[$key]['geo_loc']		= get_post_field(geodir_show_listing_info , $post_id, $context );
+				$this->loop[$key]['geo_loc']		= get_field( "geodir_show_listing_info" , $id );
                 $this->loop[$key]['description']	= !empty($entry->post_content) ? $entry->post_content : $entry->post_excerpt;
 				
 				if(empty($this->loop[$key]['content']))
 				{
 					$this->loop[$key]['content'] 	= avia_backend_truncate($entry->post_content, apply_filters( 'avf_masonry_excerpt_length' , 60) , apply_filters( 'avf_masonry_excerpt_delimiter' , " "), "…", true, '');
 				}
-				
+
 				//post type specific
 				switch($entry->post_type)
 				{
