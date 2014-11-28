@@ -578,8 +578,9 @@ if ( !class_exists( 'avia_masonry' ) )
 				$items .= 	"<{$html_tags[0]} class='{$class_string}' {$linktitle} {$markup}>";
 				$items .= 		"<div class='av-inner-masonry-sizer'></div>"; //responsible for the size
 				$items .=		"<figure class='av-inner-masonry main_color'>";
+				$items .= 			$geo_loc;
 				$items .= 			$bg;
-				
+
 				//title and excerpt
 				if($this->atts['caption_elements'] != 'none' || !empty($text_add))
 				{
@@ -594,7 +595,7 @@ if ( !class_exists( 'avia_masonry' ) )
 					if(strpos($this->atts['caption_elements'], 'excerpt') !== false && !empty($content)){
                         $markup = avia_markup_helper(array('context' => 'entry_content','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
                         console.log($entry);
-						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$geo_loc}Here we want it.<?php get_post_field( geodir_show_listing_info, id); ?>{$content}{$content}</div>";
+						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$geo_loc}Here we want it.<?php get_post_field( geodir_show_listing_info, id); ?>{$content}</div>";
 					}
 
 
