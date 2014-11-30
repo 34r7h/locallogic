@@ -594,7 +594,7 @@ if ( !class_exists( 'avia_masonry' ) )
                         $markup = avia_markup_helper(array('context' => 'entry_content','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
                         $post_details = geodir_get_post_info($post_id);
                         print_r($post_details);
-						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}><?php get_post_field( $fields_location, $pid); ?>{$content}{1 + $post_details}</div>";
+						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$post_details}<?php get_post_field( $fields_location, $pid); ?>{$content}</div>";
 					}
 
 
