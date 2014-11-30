@@ -594,9 +594,8 @@ if ( !class_exists( 'avia_masonry' ) )
                         $markup = avia_markup_helper(array('context' => 'entry_content','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
                         $post_details = geodir_get_post_info($post_id);
                         print_r($post_details);
-						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$post_details}<?php get_post_field( $fields_location, $pid); ?>{$content}</div>";
+						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$post_details}<?php geodir_get_post_info($post_id); print_r($post_details); ?>{$content}</div>";
 					}
-
 
 					$items .=	$text_after."</div></figcaption>";
 				}
@@ -711,7 +710,6 @@ if ( !class_exists( 'avia_masonry' ) )
 				$this->loop[$key]['class'] 			= get_post_class("av-masonry-entry isotope-item", $id); 
 				$this->loop[$key]['content']		= $entry->post_excerpt;
                 $this->loop[$key]['description']	= !empty($entry->post_content) ? $entry->post_content : $entry->post_excerpt;
-				$this->loop[$key]['geodir']			= geodir_get_post_info($post_id);
 
 				if(empty($this->loop[$key]['content']))
 				{
