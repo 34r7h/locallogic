@@ -156,6 +156,7 @@ if ( !class_exists( 'avia_sc_masonry_entries' ) )
 						__('Display Title',  'avia_framework' ) =>'title',
 						__('Display Excerpt',  'avia_framework' ) =>'excerpt',
 						__('Display Neither',  'avia_framework' ) =>'none',
+						__('Display Location Too',  'avia_framework' ) =>'location',
 					)),	
 				
 					
