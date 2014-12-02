@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d86c1866-6253-49fd-8df8-3ff5cbcffdac" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php" afterPath="$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="030eb308-6a75-4650-9090-bf2a089035a3" name="New changelist" comment="" />
@@ -576,7 +575,13 @@
       <option name="project" value="LOCAL" />
       <updated>1417559973422</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="masonry editing">
+      <created>1417560159686</created>
+      <option name="number" value="00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1417560159687</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="ToolWindowManager">
