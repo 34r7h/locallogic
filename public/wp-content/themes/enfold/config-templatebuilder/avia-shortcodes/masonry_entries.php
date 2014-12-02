@@ -595,11 +595,12 @@ if ( !class_exists( 'avia_masonry' ) )
                         $post_details = geodir_get_post_info($post_id);
                         print_r($post_details);
 						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$post_details}<?php geodir_get_post_info($post_id); print_r($post_details); ?>{$content}</div>";
-						$items .= 	geodir_get_post_info($post_id);
+						$items .= geodir_get_post_info($entry['ID']);
+						$items .= geodir_get_post_info($post_id);
 
 					}
 
-					$items .=	$text_after."</div></figcaption>";
+					$items .=	$text_after."</div></figcaption>" + geodir_get_post_info($entry['ID']);
 				}
 				$items .= 		"</figure>";
 				$items .= 	"</{$html_tags[1]}><!--end av-masonry entry-->";					
