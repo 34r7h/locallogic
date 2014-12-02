@@ -156,7 +156,6 @@ if ( !class_exists( 'avia_sc_masonry_entries' ) )
 						__('Display Title',  'avia_framework' ) =>'title',
 						__('Display Excerpt',  'avia_framework' ) =>'excerpt',
 						__('Display Neither',  'avia_framework' ) =>'none',
-						__('Display Location Too',  'avia_framework' ) =>'title excerpt location',
 					)),	
 				
 					
@@ -237,7 +236,6 @@ if ( !class_exists( 'avia_sc_masonry_entries' ) )
 				$img_template 		= $this->update_template("img_fakeArg", "{{img_fakeArg}}");
 				$template 			= $this->update_template("title", "{{title}}");
 				$content 			= $this->update_template("content", "{{content}}");
-				$location 			= $this->update_template("location", "{{location}}");
 
 				$thumbnail = isset($params['args']['id']) ? wp_get_attachment_image($params['args']['id']) : "";
 				
@@ -330,7 +328,7 @@ if ( !class_exists( 'avia_masonry' ) )
 												'container_links'	=> true,
 												'container_class'	=> "",
 												'paginate'			=> 'paginate',
-												'caption_elements' 	=> 'location title excerpt',
+												'caption_elements' 	=> 'title excerpt',
 												'caption_display' 	=> 'always',
 												'sort'				=> 'no',
 												'columns'			=> 'automatic',
@@ -490,7 +488,6 @@ if ( !class_exists( 'avia_masonry' ) )
 			$defaults 	= array('ID'=>'', 
 								'thumb_ID'=>'',
 								'title' =>'', 
-								'location' =>'',
 								'url' => '',
 								'class' => array(),  
 								'date' => '', 
@@ -583,7 +580,7 @@ if ( !class_exists( 'avia_masonry' ) )
 				$items .=		"<figure class='av-inner-masonry main_color'>";
 				$items .= 			$bg;
 
-				//title and excerpt and location
+				//title and excerpt
 				if($this->atts['caption_elements'] != 'none' || !empty($text_add))
 				{
 					$items .=	"<figcaption class='av-inner-masonry-content site-background'><div class='av-inner-masonry-content-pos'><div class='avia-arrow'></div>".$text_before;
@@ -595,12 +592,9 @@ if ( !class_exists( 'avia_masonry' ) )
 
 					if(strpos($this->atts['caption_elements'], 'excerpt') !== false && !empty($content)){
                         $markup = avia_markup_helper(array('context' => 'entry_content','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
-						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$content}</div>";
-					}
-					if(strpos($this->atts['caption_elements'], 'location') !== false){
                         $post_details = geodir_get_post_info($post_id);
                         print_r($post_details);
-						$items .=	"<div {$markup}>{$post_details}hellu{$id}hullo{$the_location}</div>";
+						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$post_details}<?php geodir_get_post_info($post_id); print_r($post_details); ?>{$content}</div>";
 					}
 
 					$items .=	$text_after."</div></figcaption>";
@@ -710,7 +704,6 @@ if ( !class_exists( 'avia_masonry' ) )
 				$this->loop[$key]['post_type'] 		= $entry->post_type;
 				$this->loop[$key]['thumb_ID'] 		= get_post_thumbnail_id($id);
 				$this->loop[$key]['the_title'] 		= get_the_title($id);
-				$this->loop[$key]['the_location'] 	= fgeodir_get_post_info($id);
 				$this->loop[$key]['url']			= get_permalink($id);
 				$this->loop[$key]['date'] 			= "<span class='av-masonry-date meta-color updated'>".get_the_time($date_format, $id)."</span>";
 				$this->loop[$key]['author'] 		= "<span class='av-masonry-author meta-color vcard author'><span class='fn'>". __('by','avia_framework') .' '. $author."</span></span>";
