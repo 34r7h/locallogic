@@ -4,6 +4,7 @@
     <list default="true" id="d86c1866-6253-49fd-8df8-3ff5cbcffdac" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php" afterPath="$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/wp-config.php" afterPath="$PROJECT_DIR$/public/wp-config.php" />
     </list>
     <list id="030eb308-6a75-4650-9090-bf2a089035a3" name="New changelist" comment="" />
     <ignored path="locallogic.iws" />
@@ -31,8 +32,18 @@
       <file leaf-file-name="masonry_entries.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6759099" vertical-offset="8625" max-vertical-offset="14475">
-              <caret line="601" column="44" selection-start-line="601" selection-start-column="44" selection-end-line="601" selection-end-column="44" />
+            <state vertical-scroll-proportion="0.6499134" vertical-offset="8625" max-vertical-offset="14490">
+              <caret line="600" column="63" selection-start-line="600" selection-start-column="63" selection-end-line="600" selection-end-column="63" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="wp-config.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/wp-config.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1613" max-vertical-offset="2190">
+              <caret line="123" column="23" selection-start-line="123" selection-start-column="23" selection-end-line="123" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -49,6 +60,7 @@
         <option value="$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-template-builder/config/meta.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/public/wp-content/themes/enfold/functions.php" />
+        <option value="$PROJECT_DIR$/public/wp-config.php" />
         <option value="$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php" />
       </list>
     </option>
@@ -553,7 +565,13 @@
       <option name="project" value="LOCAL" />
       <updated>1417559606137</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="masonry editing">
+      <created>1417559826688</created>
+      <option name="number" value="00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1417559826689</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -866,10 +884,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/wp-config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1613" max-vertical-offset="2190">
+          <caret line="123" column="23" selection-start-line="123" selection-start-column="23" selection-end-line="123" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6759099" vertical-offset="8625" max-vertical-offset="14475">
-          <caret line="601" column="44" selection-start-line="601" selection-start-column="44" selection-end-line="601" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.6499134" vertical-offset="8625" max-vertical-offset="14490">
+          <caret line="600" column="63" selection-start-line="600" selection-start-column="63" selection-end-line="600" selection-end-column="63" />
           <folding />
         </state>
       </provider>
