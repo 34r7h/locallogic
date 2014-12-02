@@ -41,8 +41,8 @@
       <file leaf-file-name="masonry_entries.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.52037615" vertical-offset="8834" max-vertical-offset="14595">
-              <caret line="600" column="85" selection-start-line="600" selection-start-column="85" selection-end-line="600" selection-end-column="85" />
+            <state vertical-scroll-proportion="0.52037615" vertical-offset="8819" max-vertical-offset="14595">
+              <caret line="599" column="84" selection-start-line="599" selection-start-column="84" selection-end-line="599" selection-end-column="84" />
               <folding />
             </state>
           </provider>
@@ -96,9 +96,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="161" />
     <option name="y" value="93" />
-    <option name="width" value="1134" />
+    <option name="width" value="1295" />
     <option name="height" value="612" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -530,11 +529,23 @@
       <option name="project" value="LOCAL" />
       <updated>1417477934388</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="masonry editing">
+      <created>1417478434766</created>
+      <option name="number" value="00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1417478434767</updated>
+    </task>
+    <task id="LOCAL-00040" summary="masonry editing">
+      <created>1417478721490</created>
+      <option name="number" value="00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1417478721490</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="161" y="93" width="1134" height="612" extended-state="6" />
+    <frame x="0" y="93" width="1295" height="612" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32944915" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -544,7 +555,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32950193" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24887691" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21742544" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -855,8 +866,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52037615" vertical-offset="8834" max-vertical-offset="14595">
-          <caret line="600" column="85" selection-start-line="600" selection-start-column="85" selection-end-line="600" selection-end-column="85" />
+        <state vertical-scroll-proportion="0.52037615" vertical-offset="8819" max-vertical-offset="14595">
+          <caret line="599" column="84" selection-start-line="599" selection-start-column="84" selection-end-line="599" selection-end-column="84" />
           <folding />
         </state>
       </provider>
