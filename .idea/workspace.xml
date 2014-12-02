@@ -31,8 +31,8 @@
       <file leaf-file-name="masonry_entries.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.49393415" vertical-offset="8625" max-vertical-offset="14445">
-              <caret line="594" column="65" selection-start-line="594" selection-start-column="65" selection-end-line="594" selection-end-column="65" />
+            <state vertical-scroll-proportion="0.6239168" vertical-offset="8625" max-vertical-offset="14475">
+              <caret line="599" column="108" selection-start-line="599" selection-start-column="108" selection-end-line="599" selection-end-column="108" />
               <folding />
             </state>
           </provider>
@@ -535,16 +535,28 @@
       <option name="project" value="LOCAL" />
       <updated>1417558622500</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="masonry editing">
+      <created>1417559276918</created>
+      <option name="number" value="00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1417559276918</updated>
+    </task>
+    <task id="LOCAL-00056" summary="masonry editing">
+      <created>1417559446179</created>
+      <option name="number" value="00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1417559446180</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-123" y="-1023" width="1295" height="935" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32944915" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28232503" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28232503" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -850,8 +862,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49393415" vertical-offset="8625" max-vertical-offset="14445">
-          <caret line="594" column="65" selection-start-line="594" selection-start-column="65" selection-end-line="594" selection-end-column="65" />
+        <state vertical-scroll-proportion="0.6239168" vertical-offset="8625" max-vertical-offset="14475">
+          <caret line="599" column="108" selection-start-line="599" selection-start-column="108" selection-end-line="599" selection-end-column="108" />
           <folding />
         </state>
       </provider>
