@@ -600,7 +600,7 @@ if ( !class_exists( 'avia_masonry' ) )
 					if(strpos($this->atts['caption_elements'], 'location') !== false){
                         $post_details = geodir_get_post_info($id);
                         print_r($post_details);
-						$items .=	"<div>{$post_details}hellu</div>";
+						$items .=	"<div {$markup}>{$post_details}hellu</div>";
 					}
 
 					$items .=	$text_after."</div></figcaption>";
