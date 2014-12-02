@@ -598,7 +598,7 @@ if ( !class_exists( 'avia_masonry' ) )
 						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$content}</div>";
 					}
 					if(strpos($this->atts['caption_elements'], 'location') !== false){
-                        $post_details = geodir_get_post_info($entry['ID']);
+                        $post_details = geodir_get_post_info($post_id);
                         print_r($post_details);
 						$items .=	"<div {$markup}>{$post_details}hellu{$id}</div>";
 					}
