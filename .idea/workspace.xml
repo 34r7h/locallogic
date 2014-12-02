@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d86c1866-6253-49fd-8df8-3ff5cbcffdac" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/wp-content/themes/enfold/functions.php" afterPath="$PROJECT_DIR$/public/wp-content/themes/enfold/functions.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php" afterPath="$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="030eb308-6a75-4650-9090-bf2a089035a3" name="New changelist" comment="" />
@@ -28,41 +29,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="robots.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/robots.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="540">
-              <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="masonry_entries.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="masonry_entries.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.3461537" vertical-offset="8879" max-vertical-offset="14580">
-              <caret line="596" column="86" selection-start-line="596" selection-start-column="86" selection-end-line="596" selection-end-column="86" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="functions.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/wp-content/themes/enfold/functions.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9130435" vertical-offset="7395" max-vertical-offset="7875">
-              <caret line="514" column="1" selection-start-line="514" selection-start-column="1" selection-end-line="514" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="listing-listview.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/wp-content/plugins/geodirectory/geodirectory-templates/listing-listview.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="2895">
-              <caret line="22" column="12" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.661442" vertical-offset="8849" max-vertical-offset="14580">
+              <caret line="604" column="0" selection-start-line="604" selection-start-column="0" selection-end-line="604" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -78,8 +49,8 @@
       <list>
         <option value="$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-template-builder/config/meta.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php" />
         <option value="$PROJECT_DIR$/public/wp-content/themes/enfold/functions.php" />
+        <option value="$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php" />
       </list>
     </option>
   </component>
@@ -541,7 +512,13 @@
       <option name="project" value="LOCAL" />
       <updated>1417481501862</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="masonry editing">
+      <created>1417481863831</created>
+      <option name="number" value="00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1417481863832</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -856,6 +833,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/wp-content/themes/enfold/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.65217394" vertical-offset="7410" max-vertical-offset="7800">
+          <caret line="509" column="0" selection-start-line="509" selection-start-column="0" selection-end-line="509" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/wp-content/plugins/geodirectory/geodirectory-templates/listing-listview.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2895">
@@ -866,16 +851,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.3461537" vertical-offset="8879" max-vertical-offset="14580">
-          <caret line="596" column="86" selection-start-line="596" selection-start-column="86" selection-end-line="596" selection-end-column="86" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/wp-content/themes/enfold/functions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9130435" vertical-offset="7395" max-vertical-offset="7875">
-          <caret line="514" column="1" selection-start-line="514" selection-start-column="1" selection-end-line="514" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.661442" vertical-offset="8849" max-vertical-offset="14580">
+          <caret line="604" column="0" selection-start-line="604" selection-start-column="0" selection-end-line="604" selection-end-column="0" />
           <folding />
         </state>
       </provider>

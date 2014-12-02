@@ -600,7 +600,7 @@ if ( !class_exists( 'avia_masonry' ) )
 					if(strpos($this->atts['caption_elements'], 'location') !== false){
                         $post_details = geodir_get_post_info($post_id);
                         print_r($post_details);
-						$items .=	"<div {$markup}>{$post_details}hellu{$id}</div>";
+						$items .=	"<div {$markup}>{$post_details}hellu{$id}hullo{$the_location}</div>";
 					}
 
 					$items .=	$text_after."</div></figcaption>";
@@ -710,7 +710,7 @@ if ( !class_exists( 'avia_masonry' ) )
 				$this->loop[$key]['post_type'] 		= $entry->post_type;
 				$this->loop[$key]['thumb_ID'] 		= get_post_thumbnail_id($id);
 				$this->loop[$key]['the_title'] 		= get_the_title($id);
-				$this->loop[$key]['the_location'] 	= $post_details = geodir_get_post_info($id);
+				$this->loop[$key]['the_location'] 	= fgeodir_get_post_info($id);
 				$this->loop[$key]['url']			= get_permalink($id);
 				$this->loop[$key]['date'] 			= "<span class='av-masonry-date meta-color updated'>".get_the_time($date_format, $id)."</span>";
 				$this->loop[$key]['author'] 		= "<span class='av-masonry-author meta-color vcard author'><span class='fn'>". __('by','avia_framework') .' '. $author."</span></span>";
