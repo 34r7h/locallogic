@@ -596,7 +596,7 @@ if ( !class_exists( 'avia_masonry' ) )
 
 					}
 
-					$items .=	$text_after."</div>{$address}</figcaption>";
+					$items .=	$text_after."</div></figcaption>";
 				}
 				$items .= 	"</figure>";
 				$items .= 	"</{$html_tags[1]}><!--end av-masonry entry-->";
