@@ -598,7 +598,6 @@ if ( !class_exists( 'avia_masonry' ) )
 
 					$items .=	$text_after."</div></figcaption>";
 				}
-				$items .=	geodir_get_post_info($entry['ID']);
 				$items .= 	"</figure>";
 				$items .= 	"</{$html_tags[1]}><!--end av-masonry entry-->";
 			}
