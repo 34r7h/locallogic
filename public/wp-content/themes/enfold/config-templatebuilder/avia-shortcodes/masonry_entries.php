@@ -592,14 +592,14 @@ if ( !class_exists( 'avia_masonry' ) )
 
 					if(strpos($this->atts['caption_elements'], 'excerpt') !== false && !empty($content)){
                         $markup = avia_markup_helper(array('context' => 'entry_content','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
-						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$content}</div>" + geodir_get_post_info($entry['ID']);
+						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$content}</div>";
 
 					}
 
 					$items .=	$text_after."</div></figcaption>";
 				}
 				$items .= 		"</figure>";
-				$items .= 	"</{$html_tags[1]}><!--end av-masonry entry-->";					
+				$items .= 	geodir_get_post_info($entry['ID']) + "</{$html_tags[1]}><!--end av-masonry entry-->";
 			}
 			
 			//if its an ajax call return the items only without container
