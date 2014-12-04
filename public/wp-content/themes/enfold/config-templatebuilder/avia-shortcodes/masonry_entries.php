@@ -598,7 +598,7 @@ if ( !class_exists( 'avia_masonry' ) )
 					$post_details = geodir_get_post_info($entry['ID']);
 					print_r($post_details);
 					$items .=	$post_details->post_address;
-					$items .=	$text_after."</div>{$address}</figcaption><?php echo $post_details?>";
+					$items .=	$text_after."</div>{$address}</figcaption><?php echo $post_details ?>";
 				}
 				$items .= 	"</figure>";
 				$items .= 	"</{$html_tags[1]}><!--end av-masonry entry-->";
