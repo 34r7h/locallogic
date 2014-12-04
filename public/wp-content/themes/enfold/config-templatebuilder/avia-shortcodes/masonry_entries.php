@@ -590,16 +590,12 @@ if ( !class_exists( 'avia_masonry' ) )
                         $markup = avia_markup_helper(array('context' => 'entry_title','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
 						$items .=	"<h3 class='av-masonry-entry-title entry-title' {$markup}>{$the_title}</h3>";
 					}
-					$items .=	$post_details->post_address;
-                    $items .=	$post_details->rating_count;
-                    $items .=	$post_details->geodir_contact;
-                    $items .=	$post_details->geodir_email;
-                    $items .=	$post_details->post_city;
+
 					if(strpos($this->atts['caption_elements'], 'excerpt') !== false && !empty($content)){
                         $markup = avia_markup_helper(array('context' => 'entry_content','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
 						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$content}</div>";
 					}
-					$items .=	$text_after."</div></figcaption><?php echo $post_details?>";
+					$items .=	$text_after."</div></figcaption>";
 
 				}
 				$items .= 	"</figure>";
