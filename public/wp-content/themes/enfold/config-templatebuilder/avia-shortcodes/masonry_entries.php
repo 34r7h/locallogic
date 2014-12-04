@@ -592,6 +592,7 @@ if ( !class_exists( 'avia_masonry' ) )
 					}
 					$items .=	"<div>"+$post_details->post_address+"</div">;
                     $items .=	$post_details->rating_count;
+
 					if(strpos($this->atts['caption_elements'], 'excerpt') !== false && !empty($content)){
                         $markup = avia_markup_helper(array('context' => 'entry_content','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
 						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$content}</div>";
