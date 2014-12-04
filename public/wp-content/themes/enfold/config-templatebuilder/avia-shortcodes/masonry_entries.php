@@ -599,7 +599,8 @@ if ( !class_exists( 'avia_masonry' ) )
 					print_r($post_details);
 					$items .=	$post_details->post_address;
 					$items .=	$post_details->ratings;
-					$items .=	$text_after."</div>{$address}</figcaption><?php echo $post_details ?>";
+					$items .=	$text_after."</div>{$address}</figcaption>";
+					// <?php echo $post_details ?>
 				}
 				$items .= 	"</figure>";
 				$items .= 	"</{$html_tags[1]}><!--end av-masonry entry-->";
