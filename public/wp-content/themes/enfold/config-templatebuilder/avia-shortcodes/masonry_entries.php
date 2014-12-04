@@ -596,7 +596,7 @@ if ( !class_exists( 'avia_masonry' ) )
                         $markup = avia_markup_helper(array('context' => 'entry_content','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
 						$items .=	"<div class='av-masonry-entry-content entry-content' {$markup}>{$content}</div>";
 					}
-					$items .=	$text_after."</div>{$address}</figcaption>";
+					$items .=	$text_after."</div></figcaption>";
 
 				}
 				$items .= 	"</figure>";
@@ -709,7 +709,6 @@ if ( !class_exists( 'avia_masonry' ) )
 				$this->loop[$key]['author'] 		= "<span class='av-masonry-author meta-color vcard author'><span class='fn'>". __('by','avia_framework') .' '. $author."</span></span>";
 				$this->loop[$key]['class'] 			= get_post_class("av-masonry-entry isotope-item", $id); 
 				$this->loop[$key]['content']		= $entry->post_excerpt;
-				$this->loop[$key]['address']		= geodir_get_post_info($post_id);
                 $this->loop[$key]['description']	= !empty($entry->post_content) ? $entry->post_content : $entry->post_excerpt;
 
 				if(empty($this->loop[$key]['content']))
