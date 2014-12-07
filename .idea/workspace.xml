@@ -31,8 +31,8 @@
       <file leaf-file-name="masonry_entries.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6122449" vertical-offset="8655" max-vertical-offset="14535">
-              <caret line="595" column="40" selection-start-line="595" selection-start-column="40" selection-end-line="595" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.5442177" vertical-offset="8655" max-vertical-offset="14535">
+              <caret line="593" column="57" selection-start-line="593" selection-start-column="57" selection-end-line="593" selection-end-column="57" />
               <folding />
             </state>
           </provider>
@@ -797,7 +797,13 @@
       <option name="project" value="LOCAL" />
       <updated>1417937990049</updated>
     </task>
-    <option name="localTasksCounter" value="107" />
+    <task id="LOCAL-00107" summary="masonry editing">
+      <created>1417938158176</created>
+      <option name="number" value="00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1417938158176</updated>
+    </task>
+    <option name="localTasksCounter" value="108" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -806,7 +812,7 @@
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32944915" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28177643" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28177643" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1177,8 +1183,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/wp-content/themes/enfold/config-templatebuilder/avia-shortcodes/masonry_entries.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6122449" vertical-offset="8655" max-vertical-offset="14535">
-          <caret line="595" column="40" selection-start-line="595" selection-start-column="40" selection-end-line="595" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.5442177" vertical-offset="8655" max-vertical-offset="14535">
+          <caret line="593" column="57" selection-start-line="593" selection-start-column="57" selection-end-line="593" selection-end-column="57" />
           <folding />
         </state>
       </provider>
