@@ -599,7 +599,7 @@ if ( !class_exists( 'avia_masonry' ) )
 					$items .=	"<br>";
 					$items .=   $post_details->overall_rating;
 					$items .=	"<br>";
-					$items .=   $post_details->overall_rating;
+					$items .=   $post_details->ratings;
 
 
 					if(strpos($this->atts['caption_elements'], 'excerpt') !== false && !empty($content)){
