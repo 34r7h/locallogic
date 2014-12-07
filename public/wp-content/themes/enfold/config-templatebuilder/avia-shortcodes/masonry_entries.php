@@ -591,6 +591,8 @@ if ( !class_exists( 'avia_masonry' ) )
 						$items .=	"<h3 class='av-masonry-entry-title entry-title' {$markup}>{$the_title}</h3>";
 					}
 					$items .=	$post_details->post_address;
+					$items .=	$text_after."<br/>";
+
 					$items .=	$post_details->post_city;
 					$items .=	"<br/>";
 
