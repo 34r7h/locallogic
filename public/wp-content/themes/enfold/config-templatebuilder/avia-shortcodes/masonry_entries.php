@@ -588,7 +588,7 @@ if ( !class_exists( 'avia_masonry' ) )
 					$items .=	"<figcaption class='av-inner-masonry-content site-background'><div class='av-inner-masonry-content-pos'><div class='avia-arrow'></div>".$text_before;
 					if(strpos($this->atts['caption_elements'], 'title') !== false){
                         $markup = avia_markup_helper(array('context' => 'entry_title','echo'=>false, 'id'=>$entry['ID'], 'custom_markup'=>$this->atts['custom_markup']));
-						$items .=	"<h3 class='av-masonry-entry-title entry-title' {$markup}>{$the_title}</h3>" +$post_details->post_address;
+						$items .=	"<h3 class='av-masonry-entry-title entry-title' {$markup}>{$the_title}</h3>";
 					}
 					$items .=	$post_details->post_address;
 					$items .=	"<br>";
@@ -596,6 +596,10 @@ if ( !class_exists( 'avia_masonry' ) )
 					$items .=	$post_details->post_city;
 					$items .=	"<br>";
 					$items .=   $post_details->geodir_contact;
+					$items .=	"<br>";
+					$items .=   $post_details->overall_rating;
+					$items .=	"<br>";
+					$items .=   $post_details->overall_rating;
 
 
 					if(strpos($this->atts['caption_elements'], 'excerpt') !== false && !empty($content)){
