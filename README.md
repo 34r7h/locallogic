@@ -1,6 +1,6 @@
 Heroku WP
 =========
-check
+
 
 This is a template for installing and running [WordPress](http://wordpress.org/) on [Heroku](http://www.heroku.com/) with a focus on speed and security while using the official Heroku stack.
 
