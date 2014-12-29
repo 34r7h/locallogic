@@ -1,4 +1,0 @@
-Customize text label display for tab in post detail page for Custom Post Types - ADDED
-Option added to disable "show_in_nav_menus" for posts, categories and tags of CPT - ADDED
-Blank index.php added to each directory - ADDED
-
