@@ -1,0 +1,632 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GeoDirectory CPT 1.0.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-06-17 21:37-0000\n"
+"PO-Revision-Date: 2014-06-17 21:38-0000\n"
+"Last-Translator: Stiofan <info@geotheme.com>\n"
+"Language-Team: GeoDirectory <info@wpgeodirectory.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;_n:1,2;_n_noop:1,2;_nx:1,2\n"
+"X-Poedit-Basepath: ../\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: gd_update.php:74
+msgid "An Unexpected HTTP Error occurred during the API request.</p> <p><a href=\"?\" onclick=\"document.location.reload(); return false;\">Try again</a>"
+msgstr ""
+
+#: gd_update.php:78
+msgid "An unknown error occurred"
+msgstr ""
+
+#: gd_update.php:106
+#: gd_update.php:107
+msgid "Login details for GeoDirectory failed! Please check GeoDirectory>Auto Updates and that your membership is active."
+msgstr ""
+
+#: gd_update.php:163
+msgid "Auto Updates"
+msgstr ""
+
+#: gd_update.php:193
+msgid "Enter your GeoDirectory membership details to allow you to update plugins from dashboard"
+msgstr ""
+
+#: gd_update.php:203
+msgid "Geodirectory username/email"
+msgstr ""
+
+#: gd_update.php:206
+msgid "Enter your GeoDirectory username or email"
+msgstr ""
+
+#: gd_update.php:211
+msgid "Geodirectory password"
+msgstr ""
+
+#: gd_update.php:214
+msgid "Enter your GeoDirectory password"
+msgstr ""
+
+#: gd_update.php:224
+#: geodir_cp_template_tags.php:605
+msgid "Save changes"
+msgstr ""
+
+#: geodir_cp_functions.php:22
+msgid "Warning!!"
+msgstr ""
+
+#: geodir_cp_functions.php:23
+msgid "You are about to delete a Geodirectory Adon which has important option and custom data associated to it."
+msgstr ""
+
+#: geodir_cp_functions.php:23
+msgid "Deleting this and activating another version, will be treated as a new installation of plugin, so all the data will be lost."
+msgstr ""
+
+#: geodir_cp_functions.php:23
+msgid "If you have any problem in upgrading the plugin please contact Geodirectroy"
+msgstr ""
+
+#: geodir_cp_functions.php:23
+msgid "support"
+msgstr ""
+
+#: geodir_cp_functions.php:35
+msgid "Delete plugin files only"
+msgstr ""
+
+#: geodir_cp_functions.php:47
+msgid "Delete both plugin files and data"
+msgstr ""
+
+#: geodir_cp_functions.php:167
+msgid "Post Type already exists."
+msgstr ""
+
+#: geodir_cp_functions.php:174
+#: geodir_cp_functions.php:197
+msgid "Listing Slug already exists."
+msgstr ""
+
+#: geodir_cp_functions.php:271
+msgid " Categories"
+msgstr ""
+
+#: geodir_cp_functions.php:272
+msgid " Category"
+msgstr ""
+
+#: geodir_cp_functions.php:273
+#: geodir_cp_functions.php:310
+msgid "Search "
+msgstr ""
+
+#: geodir_cp_functions.php:274
+#: geodir_cp_functions.php:311
+msgid "Popular "
+msgstr ""
+
+#: geodir_cp_functions.php:275
+#: geodir_cp_functions.php:312
+msgid "All "
+msgstr ""
+
+#: geodir_cp_functions.php:276
+#: geodir_cp_functions.php:313
+msgid "Edit "
+msgstr ""
+
+#: geodir_cp_functions.php:277
+#: geodir_cp_functions.php:314
+msgid "Update "
+msgstr ""
+
+#: geodir_cp_functions.php:278
+#: geodir_cp_functions.php:315
+#: geodir_cp_functions.php:333
+msgid "Add New "
+msgstr ""
+
+#: geodir_cp_functions.php:279
+#: geodir_cp_functions.php:316
+msgid "New "
+msgstr ""
+
+#: geodir_cp_functions.php:280
+#: geodir_cp_functions.php:317
+msgid "Add or remove "
+msgstr ""
+
+#: geodir_cp_functions.php:308
+msgid " Tags"
+msgstr ""
+
+#: geodir_cp_functions.php:309
+msgid " Tag"
+msgstr ""
+
+#: geodir_cp_functions.php:318
+msgid "Choose from the most used "
+msgstr ""
+
+#: geodir_cp_functions.php:319
+msgid "Separate "
+msgstr ""
+
+#: geodir_cp_functions.php:334
+msgid "Add New Item"
+msgstr ""
+
+#: geodir_cp_functions.php:335
+msgid "Edit Item"
+msgstr ""
+
+#: geodir_cp_functions.php:336
+msgid "New Item"
+msgstr ""
+
+#: geodir_cp_functions.php:337
+msgid "View Item"
+msgstr ""
+
+#: geodir_cp_functions.php:338
+msgid "Search Items"
+msgstr ""
+
+#: geodir_cp_functions.php:339
+msgid "Not Found"
+msgstr ""
+
+#: geodir_cp_functions.php:340
+msgid "Not Found In Trash"
+msgstr ""
+
+#: geodir_cp_functions.php:477
+msgid "Post type created successfully."
+msgstr ""
+
+#: geodir_cp_functions.php:480
+msgid "Post type updated successfully."
+msgstr ""
+
+#: geodir_cp_functions.php:565
+msgid "Post type deleted successfully."
+msgstr ""
+
+#: geodir_cp_functions.php:620
+#: geodir_cp_functions.php:622
+#: geodir_cp_functions.php:629
+msgid "Category"
+msgstr ""
+
+#: geodir_cp_functions.php:621
+msgid "Select listing category from here. Select at least one category"
+msgstr ""
+
+#: geodir_cp_functions.php:634
+#: geodir_cp_functions.php:636
+msgid "Address"
+msgstr ""
+
+#: geodir_cp_functions.php:644
+msgid "Address fields are required"
+msgstr ""
+
+#: geodir_cp_functions.php:646
+msgid "City"
+msgstr ""
+
+#: geodir_cp_functions.php:647
+msgid "Region"
+msgstr ""
+
+#: geodir_cp_functions.php:648
+msgid "Country"
+msgstr ""
+
+#: geodir_cp_functions.php:649
+msgid "Zip/Post Code"
+msgstr ""
+
+#: geodir_cp_functions.php:650
+msgid "Set Address On Map"
+msgstr ""
+
+#: geodir_cp_functions.php:651
+msgid "Select Map View"
+msgstr ""
+
+#: geodir_cp_functions.php:658
+#: geodir_cp_functions.php:660
+#: geodir_cp_functions.php:667
+msgid "Time"
+msgstr ""
+
+#: geodir_cp_functions.php:659
+msgid "Enter Business or Listing Timing Information.<br/>eg. : 10.00 am to 6 pm every day"
+msgstr ""
+
+#: geodir_cp_functions.php:672
+#: geodir_cp_functions.php:674
+#: geodir_cp_functions.php:681
+msgid "Phone"
+msgstr ""
+
+#: geodir_cp_functions.php:673
+msgid "You can enter phone number,cell phone number etc."
+msgstr ""
+
+#: geodir_cp_functions.php:686
+#: geodir_cp_functions.php:688
+#: geodir_cp_functions.php:695
+msgid "Email"
+msgstr ""
+
+#: geodir_cp_functions.php:687
+msgid "You can enter your business or listing email."
+msgstr ""
+
+#: geodir_cp_functions.php:700
+#: geodir_cp_functions.php:702
+#: geodir_cp_functions.php:708
+msgid "Website"
+msgstr ""
+
+#: geodir_cp_functions.php:701
+msgid "You can enter your business or listing website."
+msgstr ""
+
+#: geodir_cp_functions.php:713
+#: geodir_cp_functions.php:715
+#: geodir_cp_functions.php:722
+msgid "Twitter"
+msgstr ""
+
+#: geodir_cp_functions.php:714
+msgid "You can enter your business or listing twitter url."
+msgstr ""
+
+#: geodir_cp_functions.php:727
+#: geodir_cp_functions.php:729
+#: geodir_cp_functions.php:736
+msgid "Facebook"
+msgstr ""
+
+#: geodir_cp_functions.php:728
+msgid "You can enter your business or listing facebook url."
+msgstr ""
+
+#: geodir_cp_functions.php:741
+#: geodir_cp_functions.php:743
+#: geodir_cp_functions.php:750
+msgid "Video"
+msgstr ""
+
+#: geodir_cp_functions.php:742
+msgid "Add video code here, YouTube etc."
+msgstr ""
+
+#: geodir_cp_functions.php:755
+#: geodir_cp_functions.php:757
+#: geodir_cp_functions.php:764
+msgid "Special Offers"
+msgstr ""
+
+#: geodir_cp_functions.php:756
+msgid "Note: List out any special offers (optional)"
+msgstr ""
+
+#: geodir_cp_functions.php:808
+msgid "Post type related data deleted successfully."
+msgstr ""
+
+#: geodir_cp_hooks_actions.php:59
+msgid "Custom Post Types"
+msgstr ""
+
+#: geodir_cp_hooks_actions.php:74
+#, php-format
+msgid "%s Settings"
+msgstr ""
+
+#: geodir_cp_hooks_actions.php:77
+msgid "Custom Fields"
+msgstr ""
+
+#: geodir_cp_hooks_actions.php:80
+msgid "Sorting Options"
+msgstr ""
+
+#: geodir_cp_hooks_actions.php:131
+msgid "Post Type can not be more than 17 characters."
+msgstr ""
+
+#: geodir_cp_hooks_actions.php:132
+msgid "Post Type contains illegal characters."
+msgstr ""
+
+#: geodir_cp_hooks_actions.php:133
+msgid "Post Type must not be blank."
+msgstr ""
+
+#: geodir_cp_hooks_actions.php:134
+msgid "Listing Slug contains illegal characters."
+msgstr ""
+
+#: geodir_cp_hooks_actions.php:135
+msgid "Listing Slug must not be blank."
+msgstr ""
+
+#: geodir_cp_hooks_actions.php:136
+msgid "Enter valid order value."
+msgstr ""
+
+#: geodir_cp_template_tags.php:14
+#: geodir_cp_template_tags.php:37
+#: geodir_cp_template_tags.php:120
+msgid "Delete"
+msgstr ""
+
+#: geodir_cp_template_tags.php:20
+msgid "Manage Custom Post Types"
+msgstr ""
+
+#: geodir_cp_template_tags.php:21
+msgid "Add Post Type"
+msgstr ""
+
+#: geodir_cp_template_tags.php:27
+#: geodir_cp_template_tags.php:242
+msgid "Post Type"
+msgstr ""
+
+#: geodir_cp_template_tags.php:29
+msgid "Listing Slug"
+msgstr ""
+
+#: geodir_cp_template_tags.php:31
+msgid "Taxonomies"
+msgstr ""
+
+#: geodir_cp_template_tags.php:33
+#: geodir_cp_template_tags.php:573
+#: geodir_cp_template_tags.php:577
+msgid "Can Export"
+msgstr ""
+
+#: geodir_cp_template_tags.php:35
+#: geodir_cp_template_tags.php:117
+msgid "Edit"
+msgstr ""
+
+#: geodir_cp_template_tags.php:107
+msgid "Yes"
+msgstr ""
+
+#: geodir_cp_template_tags.php:111
+msgid "No"
+msgstr ""
+
+#: geodir_cp_template_tags.php:142
+msgid "Are you wish to delete this Post Type?"
+msgstr ""
+
+#: geodir_cp_template_tags.php:246
+msgid "Post type"
+msgstr ""
+
+#: geodir_cp_template_tags.php:249
+msgid "The new post type system name ( max. 17 characters ). Lower-case characters and underscores only. Min 2 letters. Once added the post type system name cannot be changed."
+msgstr ""
+
+#: geodir_cp_template_tags.php:257
+msgid "Listing slug"
+msgstr ""
+
+#: geodir_cp_template_tags.php:260
+msgid "The listing slug name ( max. 20 characters ). Alphanumeric lower-case characters and underscores  and hyphen(-) only. Min 2 letters. Once added the post type 'Listing Slug' name cannot be changed."
+msgstr ""
+
+#: geodir_cp_template_tags.php:267
+msgid "Order in post type list"
+msgstr ""
+
+#: geodir_cp_template_tags.php:270
+msgid "Position at which this post type will appear in post type list everywhere on the website."
+msgstr ""
+
+#: geodir_cp_template_tags.php:272
+msgid "Note: If the entered value is already an order of other post type then this will not make any effect."
+msgstr ""
+
+#: geodir_cp_template_tags.php:285
+msgid "Categories"
+msgstr ""
+
+#: geodir_cp_template_tags.php:296
+msgid "Tags"
+msgstr ""
+
+#: geodir_cp_template_tags.php:309
+msgid "Labels"
+msgstr ""
+
+#: geodir_cp_template_tags.php:313
+msgid "Name"
+msgstr ""
+
+#: geodir_cp_template_tags.php:316
+msgid "General name for the post type, usually plural."
+msgstr ""
+
+#: geodir_cp_template_tags.php:324
+msgid "Singular name"
+msgstr ""
+
+#: geodir_cp_template_tags.php:327
+msgid "Name for one object of this post type. Defaults to value of name."
+msgstr ""
+
+#: geodir_cp_template_tags.php:335
+msgid "Add new"
+msgstr ""
+
+#: geodir_cp_template_tags.php:338
+msgid "The add new text. The default is Add New for both hierarchical and non-hierarchical types."
+msgstr ""
+
+#: geodir_cp_template_tags.php:346
+msgid "Add new item"
+msgstr ""
+
+#: geodir_cp_template_tags.php:349
+msgid "The add new item text. Default is Add New Post/Add New Page."
+msgstr ""
+
+#: geodir_cp_template_tags.php:357
+msgid "Edit item"
+msgstr ""
+
+#: geodir_cp_template_tags.php:360
+msgid "The edit item text. Default is Edit Post/Edit Page."
+msgstr ""
+
+#: geodir_cp_template_tags.php:368
+msgid "New item"
+msgstr ""
+
+#: geodir_cp_template_tags.php:371
+msgid "The new item text. Default is New Post/New Page."
+msgstr ""
+
+#: geodir_cp_template_tags.php:379
+msgid "View item"
+msgstr ""
+
+#: geodir_cp_template_tags.php:382
+msgid "The view item text. Default is View Post/View Page."
+msgstr ""
+
+#: geodir_cp_template_tags.php:390
+msgid "Search items"
+msgstr ""
+
+#: geodir_cp_template_tags.php:393
+msgid "The search items text. Default is Search Posts/Search Pages."
+msgstr ""
+
+#: geodir_cp_template_tags.php:401
+msgid "Not found"
+msgstr ""
+
+#: geodir_cp_template_tags.php:404
+msgid "The not found text. Default is No posts found/No pages found."
+msgstr ""
+
+#: geodir_cp_template_tags.php:412
+msgid "Not found in trash"
+msgstr ""
+
+#: geodir_cp_template_tags.php:415
+msgid "The not found in trash text. Default is No posts found in Trash/No pages found in Trash."
+msgstr ""
+
+#: geodir_cp_template_tags.php:426
+#: geodir_cp_template_tags.php:431
+msgid "Supports"
+msgstr ""
+
+#: geodir_cp_template_tags.php:434
+msgid "Register support of certain features for a post type."
+msgstr ""
+
+#: geodir_cp_template_tags.php:443
+#: geodir_cp_template_tags.php:446
+msgid "Title"
+msgstr ""
+
+#: geodir_cp_template_tags.php:454
+msgid "Editor"
+msgstr ""
+
+#: geodir_cp_template_tags.php:457
+msgid "Editor - Content"
+msgstr ""
+
+#: geodir_cp_template_tags.php:465
+#: geodir_cp_template_tags.php:469
+msgid "Author"
+msgstr ""
+
+#: geodir_cp_template_tags.php:477
+msgid "Thumbnail"
+msgstr ""
+
+#: geodir_cp_template_tags.php:480
+msgid "Thumbnail - featured image - current theme must also support post-thumbnails."
+msgstr ""
+
+#: geodir_cp_template_tags.php:488
+#: geodir_cp_template_tags.php:491
+msgid "Excerpt"
+msgstr ""
+
+#: geodir_cp_template_tags.php:500
+#: geodir_cp_template_tags.php:503
+msgid "Custom fields"
+msgstr ""
+
+#: geodir_cp_template_tags.php:511
+msgid "Comments"
+msgstr ""
+
+#: geodir_cp_template_tags.php:514
+msgid "Comments - also will see comment count balloon on edit screen."
+msgstr ""
+
+#: geodir_cp_template_tags.php:522
+msgid "Post formats"
+msgstr ""
+
+#: geodir_cp_template_tags.php:525
+msgid "Post formats - add post formats."
+msgstr ""
+
+#: geodir_cp_template_tags.php:535
+#: geodir_cp_template_tags.php:539
+msgid "Description"
+msgstr ""
+
+#: geodir_cp_template_tags.php:543
+msgid "A short descriptive summary of what the post type is."
+msgstr ""
+
+#: geodir_cp_template_tags.php:554
+#: geodir_cp_template_tags.php:558
+msgid "Menu Icon"
+msgstr ""
+
+#: geodir_cp_template_tags.php:562
+msgid "The url to the icon to be used for this menu."
+msgstr ""
+
+#: geodir_cp_template_tags.php:581
+msgid "True"
+msgstr ""
+
+#: geodir_cp_template_tags.php:593
+msgid "False"
+msgstr ""
+
+#: geodir_custom_posts.php:86
+msgid "<span style=\"color:#FF0000\">There was an issue determining where GeoDirectory Plugin is installed and activated. Please install or activate GeoDirectory Plugin.</span>"
+msgstr ""
+
