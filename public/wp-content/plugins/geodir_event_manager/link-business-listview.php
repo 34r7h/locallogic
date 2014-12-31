@@ -68,9 +68,9 @@ if ( !empty( $linked_listings ) ) {
 				if (round((int)$distance,2) == 0){
 					$uom = get_option('geodir_search_dist_2');
 					$distance = geodir_calculateDistanceFromLatLong ($startPoint,$endPoint,$uom);
-					echo round($distance).' '.$uom.'<br />';
+					echo round($distance).' '.__( $uom, GEODIRECTORY_TEXTDOMAIN ).'<br />';
 				} else {
-					echo round($distance,2).' '.$uom.'<br />';
+					echo round($distance,2).' '.__( $uom, GEODIRECTORY_TEXTDOMAIN ).'<br />';
 				}
 			?>
         </h3>

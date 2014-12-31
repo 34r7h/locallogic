@@ -1207,14 +1207,14 @@ ClusterIcon.prototype.setCenter = function(center) {
  */
 ClusterIcon.prototype.createCss = function(pos) {
   var style = [];
-  if (document.all) {
+/*  if (document.all) { // this breaks IE10 so we remove it
     style.push('filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(' +
         'sizingMethod=scale,src="' + this.url_ + '");');
-  } else {
+  } else {*/
     style.push('background-image:url(' + this.url_ + ');');
     var backgroundPosition = this.backgroundPosition_ ? this.backgroundPosition_ : '0 0';
     style.push('background-position:' + backgroundPosition + ';');
-  }
+  //}
 
   if (typeof this.anchor_ === 'object') {
     if (typeof this.anchor_[0] === 'number' && this.anchor_[0] > 0 &&

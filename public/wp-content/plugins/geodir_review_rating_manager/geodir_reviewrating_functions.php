@@ -1,5 +1,16 @@
 <?php
 
+add_filter('geodir_diagnose_multisite_conversion' , 'geodir_diagnose_multisite_conversion_review_manager', 10,1); 
+function geodir_diagnose_multisite_conversion_review_manager($table_arr){
+	
+	// Diagnose Claim listing details table
+	$table_arr['geodir_rating_style'] = __('Rating style',GEODIRREVIEWRATING_VERSION);
+	$table_arr['geodir_rating_category'] = __('Rating category',GEODIRREVIEWRATING_VERSION);
+	$table_arr['geodir_unassign_comment_images'] = __('Comment image',GEODIRREVIEWRATING_VERSION);
+	$table_arr['geodir_comments_reviews'] = __('Comment reviews',GEODIRREVIEWRATING_VERSION);
+	return $table_arr;
+}
+
 /* Plugin Activation Function */
 function geodir_reviewrating_activation(){
  
@@ -18,6 +29,13 @@ function geodir_reviewrating_db_install(){
 
 	$wpdb->hide_errors();
 
+	if($wpdb->query("SHOW TABLES LIKE 'geodir_rating_style'")>0){$wpdb->query("RENAME TABLE geodir_rating_style TO ".$wpdb->prefix."geodir_rating_style");}
+	if($wpdb->query("SHOW TABLES LIKE 'geodir_rating_category'")>0){$wpdb->query("RENAME TABLE geodir_rating_category TO ".$wpdb->prefix."geodir_rating_category");}
+	if($wpdb->query("SHOW TABLES LIKE 'geodir_post_review'")>0){$wpdb->query("RENAME TABLE geodir_post_review TO ".$wpdb->prefix."geodir_post_review");}
+	if($wpdb->query("SHOW TABLES LIKE 'geodir_unassign_comment_images'")>0){$wpdb->query("RENAME TABLE geodir_unassign_comment_images TO ".$wpdb->prefix."geodir_unassign_comment_images");}
+	if($wpdb->query("SHOW TABLES LIKE 'geodir_comments_reviews'")>0){$wpdb->query("RENAME TABLE geodir_comments_reviews TO ".$wpdb->prefix."geodir_comments_reviews");}
+
+
 	$collate = '';
 	if($wpdb->has_cap( 'collation' )) {
 		if(!empty($wpdb->charset)) $collate = "DEFAULT CHARACTER SET $wpdb->charset";
@@ -33,14 +51,22 @@ function geodir_reviewrating_db_install(){
 			`s_img_width` text NOT NULL,
 			`s_img_height` text NOT NULL,
 			`star_color` text NOT NULL,
-			`star_lables` varchar(200) NOT NULL,
+			`star_lables` text NOT NULL,
 			`star_number` varchar(200) NOT NULL,
 			`is_default` ENUM( '0', '1' ) NOT NULL DEFAULT '0',
 			PRIMARY KEY (`id`)) $collate  ");
 		
+		$default_star_lables = array();
+		$default_star_lables[] = 'Terrible';
+		$default_star_lables[] = 'Poor';
+		$default_star_lables[] = 'Average';
+		$default_star_lables[] = 'Very Good';
+		$default_star_lables[] = 'Excellent';
+		$default_star_lables = maybe_serialize( $default_star_lables );
 		
-		$wpdb->query("INSERT INTO  ".GEODIR_REVIEWRATING_STYLE_TABLE." (name,s_img_off,s_img_width,s_img_height,star_color,star_lables,star_number,is_default) VALUES ('overall','$default_img','23','20','#ff9900','Terrible,Poor,Average,Very Good,Excellent','5','1') ");	
-	
+		$wpdb->query("INSERT INTO  ".GEODIR_REVIEWRATING_STYLE_TABLE." (name,s_img_off,s_img_width,s_img_height,star_color,star_lables,star_number,is_default) VALUES ('overall','$default_img','23','20','#ff9900','$default_star_lables','5','1') ");
+		
+		update_option( 'geodir_reviewrating_change_star_lables_field', '1' );	
 	}
 	
 	if($wpdb->get_var("SHOW TABLES LIKE '".GEODIR_REVIEWRATING_CATEGORY_TABLE."'") != GEODIR_REVIEWRATING_CATEGORY_TABLE){
@@ -345,11 +371,13 @@ function geodir_after_reviewrating_advance_stars_on_detail($avg_rating, $post_id
 	$star_html = ob_get_clean();
 	$star_html = '';
 		$star_html  .= geodir_reviewrating_draw_overall_rating($avg_rating);
-
-
+		
+	if ( $star_html != '' ) {
+		$star_html .= geodir_reviewrating_detail_page_rating_summary( $avg_rating, $post_id );
+	}
+	
 	echo $star_html;
 }
-
 
 function geodir_before_reviewrating_advance_stars_on_gridview($avg_rating, $post_id)
 {
@@ -415,6 +443,14 @@ function geodir_reviewrating_default_options($arr=array()){
 		'name'  => __( 'Enable comment list sorting:', GEODIRREVIEWRATING_TEXTDOMAIN ),
 		'desc' 	=> __('Enable comment list sorting.', GEODIRREVIEWRATING_TEXTDOMAIN ),
 		'id' 	=> 'geodir_reviewrating_enable_sorting',
+		'type' 	=> 'checkbox',
+		'std' 	=> '0' 
+	);
+	
+	$arr[] = array(  
+		'name'  => __( 'Hide rating stars summary on detail page:', GEODIRREVIEWRATING_TEXTDOMAIN ),
+		'desc' 	=> __( 'Hide rating stars summary on the detail page sidebar.', GEODIRREVIEWRATING_TEXTDOMAIN ),
+		'id' 	=> 'geodir_reviewrating_hide_rating_summary',
 		'type' 	=> 'checkbox',
 		'std' 	=> '0' 
 	);
@@ -629,7 +665,10 @@ function geodir_reviewrating_update_overall_settings(){
 		
 		if(isset($_REQUEST['overall_rating_text']) && $_REQUEST['overall_rating_text']!='')
 			update_option('geodir_reviewrating_overall_rating_texts',$_REQUEST['overall_rating_text']);
-			$star_rating_text_value = implode(',',$_REQUEST['overall_rating_text']);
+			//$star_rating_text_value = implode(',',$_REQUEST['overall_rating_text']);
+			
+		$overall_rating_text = ( isset( $_REQUEST['overall_rating_text'] ) && !empty( $_REQUEST['overall_rating_text'] ) ) ? $_REQUEST['overall_rating_text'] : '';
+		$star_rating_text_value = geodir_reviewrating_serialize_star_lables( $overall_rating_text );
 		
 		if(isset($_REQUEST['overall_count']) &&  $_REQUEST['overall_count']!='')
 			update_option('geodir_reviewrating_overall_count',$_REQUEST['overall_count']);
@@ -689,8 +728,7 @@ function geodir_reviewrating_update_overall_settings(){
 		if(!$wpdb->get_var("SELECT id FROM ".GEODIR_REVIEWRATING_STYLE_TABLE." WHERE is_default='1'"))
 		{
 			$wpdb->query("INSERT INTO  ".GEODIR_REVIEWRATING_STYLE_TABLE." {$set_query} ");
-		}
-	
+		}	
 	}else{
 		
 		wp_redirect(home_url().'/?geodir_signup=true');
@@ -720,8 +758,10 @@ function geodir_reviewrating_update_rating_styles(){
 			
 			$star_rating_text = $_REQUEST['star_rating_text'];
 			
-			if(count($star_rating_text)>0)
-			{$star_rating_text_value = implode(',',$star_rating_text);}
+			if ( count( $star_rating_text ) > 0 ) {
+				//$star_rating_text_value = implode( ',', $star_rating_text );
+				$star_rating_text_value = geodir_reviewrating_serialize_star_lables( $star_rating_text );
+			}
 			
 			$set_query = 	$wpdb->prepare("SET name = %s,
 											star_lables = %s,
@@ -1318,7 +1358,7 @@ function geodir_reviewrating_save_rating($comment = 0){
 		
 	}
 	if ( isset( $comment_info->comment_parent ) && (int)$comment_info->comment_parent == 0 ) {
-		$overall_rating = $overall_rating > 0 ? $overall_rating : 1;
+		$overall_rating = $overall_rating > 0 ? $overall_rating : '0';
 	} else {
 		$overall_rating = '';
 	}
@@ -2166,4 +2206,105 @@ function geodir_reviewrating_comment_meta_row_action( $a ) {
 		
 	}
 	return $a;
+}
+
+function geodir_reviewrating_serialize_star_lables( $star_lables ) {
+	if ( empty( $star_lables ) ) {
+		return $star_lables;
+	}
+	
+	$star_lables = maybe_serialize( $star_lables );
+	
+	return $star_lables;
+}
+
+function geodir_reviewrating_star_lables_to_arr( $star_lables ) {
+	if ( $star_lables == '' ) {
+		return array();
+	}
+	
+	if ( is_serialized( $star_lables ) ) {
+		$star_lables = maybe_unserialize( $star_lables );
+	} else {
+		$star_lables = explode( ',', $star_lables );
+	}
+	
+	return $star_lables;
+}
+
+function geodir_reviewrating_star_lables_to_str( $star_lables, $separator = ',' ) {
+	if ( empty( $star_lables ) ) {
+		return NULL;
+	}
+	
+	if ( is_serialized( $star_lables ) ) {
+		$star_lables = maybe_unserialize( $star_lables );
+	}
+	
+	if ( is_array( $star_lables ) ) {
+		$star_lables = implode( $separator, $star_lables );
+	}
+	$star_lables = $star_lables != '' ? stripslashes_deep( $star_lables ) : $star_lables;
+	
+	return $star_lables;
+}
+
+function geodir_reviewrating_action_on_init() {
+	global $wpdb;
+	
+	/* change field type varchar to text*/
+	if ( !get_option( 'geodir_reviewrating_change_star_lables_field' ) ) {
+		$wpdb->query( "ALTER TABLE `" . GEODIR_REVIEWRATING_STYLE_TABLE . "` CHANGE `star_lables` `star_lables` TEXT NOT NULL" );
+		
+		update_option( 'geodir_reviewrating_change_star_lables_field', '1' );
+	}
+}
+
+/* display rating summary on detail page sidebar*/
+function geodir_reviewrating_detail_page_rating_summary( $avg_rating, $post_id ) {
+	$html = '';
+	if ( get_option( 'geodir_reviewrating_hide_rating_summary' ) ) {
+		return $html;
+	}
+	
+	if ( !empty( $post_id ) && $avg_rating != '' ) {
+		$geodir_post_info = geodir_get_post_info( $post_id );
+		
+		if ( !empty( $geodir_post_info ) ) {
+			$post_title = $geodir_post_info->post_title;
+			$post_thumbnail = '';
+			$post_thumbnail_id = get_post_thumbnail_id( $post_id );
+			
+			$overall_max_rating = (int)get_option( 'geodir_reviewrating_overall_count' );
+			$total_reviews = geodir_get_review_count_total( $post_id );
+			
+			if ( $total_reviews > 0 ) {
+				$html .= '<div class="average-review">';
+				
+				$avg_ratings = ( is_float( $avg_rating ) || ( strpos( $avg_rating, ".", 1 ) == 1 && strlen( $avg_rating ) > 3) ) ? number_format( $avg_rating, 1, '.', '') : $avg_rating;
+								
+				$html .= '<span>';
+				$html .= '<span class="rating">' . $avg_ratings . '</span>&nbsp;/&nbsp;<span>' . $overall_max_rating . '</span> '.__( 'based on', GEODIRREVIEWRATING_TEXTDOMAIN ) . '&nbsp;<span class="count">' . $total_reviews . '</span>&nbsp;';
+				$html .= $total_reviews > 1 ? __( 'reviews', GEODIRREVIEWRATING_TEXTDOMAIN ) : __( 'review', GEODIRREVIEWRATING_TEXTDOMAIN );
+				$html .= '</span><br />';
+				$html .= '<span class="item">';
+				$html .= '<span class="fn">' . $post_title . '</span>';
+				
+				if ( $post_thumbnail_id > 0 ) {
+					$attachment_image = wp_get_attachment_image_src( $post_thumbnail_id, 'medium' );
+					$post_thumbnail = !empty( $attachment_image ) && isset( $attachment_image[0] ) && $attachment_image[0] != '' ? $attachment_image[0] : '';
+					if ( $post_thumbnail != '' ) {
+						$html .= '<br /><img src="' . $post_thumbnail . '" class="photo hreview-img"  alt="' . esc_attr( $post_title ) . '" />';
+					}
+				}
+				
+				$html .= '</span>';
+				$html .= '</div>';
+			}
+		}
+	}
+	
+	$html = apply_filters( 'geodir_reviewrating_filter_detail_page_rating_summary', $html, $avg_rating, $post_id ) ;
+	
+	return $html;
 }

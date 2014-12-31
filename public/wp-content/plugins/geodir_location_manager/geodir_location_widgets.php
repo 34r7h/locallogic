@@ -86,7 +86,7 @@ function register_geodir_location_widgets(){
 				else if(isset($location_terms['gd_country']) && $location_terms['gd_country'] != '')
 					$args['country_val']= $location_terms['gd_country'] ;
 			}
-			echo $geodir_cities_list = geodir_get_location_array($args, true);
+			echo $geodir_cities_list = geodir_get_location_array($args, false);
 			?>
             	</div>
             </div>
@@ -602,7 +602,7 @@ if(!function_exists('register_geodir_location_description_widgets')){
 				$gd_city = isset($wp->query_vars['gd_city']) ? $wp->query_vars['gd_city'] : '';
 				
 				$location_title = '';
-				$seo_title = '';
+				//$seo_title = '';
 				$seo_desc = '';
 				if ($gd_city) {
 					$info = geodir_city_info_by_slug($gd_city, $gd_country, $gd_region);
@@ -614,14 +614,14 @@ if(!function_exists('register_geodir_location_description_widgets')){
 				} else if (!$gd_city && $gd_region) {
 					$info = geodir_location_seo_by_slug($gd_region, 'region', $gd_country);
 					if (!empty($info)) {
-						$seo_title = $info->seo_title;
+						//$seo_title = $info->seo_title;
 						$seo_desc = $info->seo_desc;
 						$location_title = $wpdb->get_var( $wpdb->prepare( "SELECT region FROM ".POST_LOCATION_TABLE." WHERE region_slug!='' AND region_slug=%s ORDER BY location_id ASC", array($gd_region) ) );
 					}
 				} else if (!$gd_city && !$gd_region && $gd_country) {
 					$info = geodir_location_seo_by_slug($gd_country, 'country');
 					if (!empty($info)) {
-						$seo_title = $info->seo_title;
+						//$seo_title = $info->seo_title;
 						$seo_desc = $info->seo_desc;
 						$location_title = $wpdb->get_var( $wpdb->prepare( "SELECT country FROM ".POST_LOCATION_TABLE." WHERE country_slug!='' AND country_slug=%s ORDER BY location_id ASC", array($gd_country) ) );
 					}
@@ -669,5 +669,98 @@ if(!function_exists('register_geodir_location_description_widgets')){
 		}
 		register_widget('geodir_location_description');
 	}
+}
+
+// =============================== Near Me Widget ======================================
+class geodir_near_me_button_widget extends WP_Widget {
+	function geodir_near_me_button_widget() {
+	//Constructor
+		$widget_ops = array('classname' => 'geodir_near_me_button', 'description' =>__('GD > Near Me Button',GEODIRECTORY_TEXTDOMAIN) );		
+		$this->WP_Widget('geodir_near_me_button',  __('GD > Near Me Button',GEODIRECTORY_TEXTDOMAIN), $widget_ops);
+	}
+	
+	function widget( $args, $instance ) {
+		// prints the widget
+		extract($args, EXTR_SKIP );
+		
+		$title = empty( $instance['title'] ) ? __( 'Near Me', GEODIRECTORY_TEXTDOMAIN ) : apply_filters( 'widget_title', __( $instance['title'], GEODIRECTORY_TEXTDOMAIN ) );
+		//$count = empty( $instance['count'] ) ? '5' : apply_filters( 'widget_count', $instance['count'] );
+		
+		//$comments_li = geodir_get_recent_reviews( 30, $count, 100, false );?>
+		<script>
+		
+		function gdGetLocationNearMe(){
+	
+	//jQuery('.snear').removeClass("near-country near-region near-city");// remove any location classes
+	
+	//if(box && box.prop('checked') != true){gdClearUserLoc();return;}
+	
+	// Try HTML5 geolocation
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+		lat = position.coords.latitude;									  
+		lon = position.coords.longitude;
+		my_location=1;
+		if(typeof gdSetupUserLoc === 'function') { gdSetupUserLoc();}
+	
+		
+		 jQuery.ajax({
+       // url: url,
+        url: "<?php echo admin_url('admin-ajax.php'); ?>",
+        type: 'POST',
+        dataType: 'html',
+		data: {action: 'gd_location_manager_set_user_location',lat:lat,lon:lon,myloc:1},
+        beforeSend: function () {
+        },
+        success: function (data, textStatus, xhr) {
+			window.location.href="<?php echo geodir_get_location_link('base').'me/';?>";
+		},
+        error: function (xhr, textStatus, errorThrown) {
+			alert(textStatus);
+        }
+    });
+		
+		
+		
+		
+
+  },gdLocationError,gdLocationOptions); }else {
+    // Browser doesn't support Geolocation
+    alert('error');
+  }
+	
+}
+
+</script>
+		
+			<?php
+			echo $before_widget;
+			?>
+			<button type="button" onclick=" gdGetLocationNearMe();"><?php echo $title;?></button>
+			<?php 
+			echo $after_widget;
+		
+	}
+	
+	function update($new_instance, $old_instance) {
+	//save the widget
+		$instance = $old_instance;		
+		$instance['title'] = strip_tags($new_instance['title']);
+ 		return $instance;
+	}
+	function form($instance) {
+	//widgetform in backend
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '' ) );		
+		$title = strip_tags($instance['title']);
+ ?>
+		<p><label for="<?php echo $this->get_field_id('title'); ?>">Widget Title: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></label></p>
+        
+<?php
+	}}
+	
+
+add_action('widgets_init', 'register_geodir_near_me_button_widget');
+function register_geodir_near_me_button_widget() {
+   register_widget('geodir_near_me_button_widget');
 }
 

@@ -37,6 +37,7 @@ function geodir_get_location_array( $args = null, $switcher = false ) {
 					'location_link_part' => true,
 					'order_by' => 'asc',
 					'no_of_records' => '',
+					'spage' => '',
 					'format' => array( 
 									'type' => 'list',
 									'container_wrapper' => 'ul',
@@ -246,8 +247,16 @@ function geodir_get_location_array( $args = null, $switcher = false ) {
 		}
 	}
 	
+	
+	//page
+	if($location_args['no_of_records']){
+	$spage = $location_args['no_of_records']*$location_args['spage'];
+	}else{
+	$spage = "0";
+	}
+	
 	// limit	
-	$limit = $location_args['no_of_records'] != '' ? ' LIMIT 0, ' . (int)$location_args['no_of_records'] . ' ' : '';
+	$limit = $location_args['no_of_records'] != '' ? ' LIMIT '.$spage.', ' . (int)$location_args['no_of_records'] . ' ' : '';
 	
 	// display all locations with same name also
 	$search_field = $location_args['what'];
@@ -280,13 +289,16 @@ function geodir_get_location_array( $args = null, $switcher = false ) {
 		$new_locations = array();
 		
 		foreach( $locations as $location ) {
+			//print_r($location);
+			//echo '###'.$search_field;
 			$new_location = $location;
 			$label = $location->$search_field;
 			if( ( $search_field == 'city' || $search_field == 'region' ) && (int)geodir_location_check_duplicate( $search_field, $label ) > 1 ) {
-				$country_iso2 = geodir_location_get_iso2( $location->country );
+				
 				if( $search_field == 'city' ) {
 					$label .= ', ' . $location->region;
 				} else if( $search_field == 'region' ) {
+					$country_iso2 = geodir_location_get_iso2( $location->country );
 					$country_iso2 = $country_iso2 != '' ? $country_iso2 : $location->country;
 					$label .= $country_iso2 != '' ? ', ' . $country_iso2 : '';
 				}
@@ -338,7 +350,7 @@ function geodir_get_location_array( $args = null, $switcher = false ) {
 						$location_as_formated_list .= "<" . $item_wrapper . " " . $item_wrapper_attr . " >";
 					if(isset($location->location_link))
 					{
-						$location_as_formated_list .= "<a href='" . $base_location_link. $location->location_link. "' ><i class='fa fa-caret-right'></i> ";
+						$location_as_formated_list .= "<a href='" . geodir_location_permalink_url( $base_location_link. $location->location_link ). "' ><i class='fa fa-caret-right'></i> ";
 					}
 					
 					$location_as_formated_list .= $location->$location_args['what'] ;
@@ -395,7 +407,6 @@ function geodir_get_countries_array( $from = 'table' ) {
 	} else {
 		$countries = get_option( 'geodir_selected_countries' );
 	}
-	
 	$countires_array = '' ;
 	foreach( $countries as $key => $country ) {
 		$countires_array[$country] = __( $country, GEODIRECTORY_TEXTDOMAIN ) ;	
@@ -1753,6 +1764,15 @@ function geodir_location_default_options($arr=array())
 			'std' 	=> 'yes' 
 		);
 	
+	
+	
+	
+		
+	
+	$arr[] = array( 'type' => 'sectionend', 'id' => 'geodir_location_setting');
+	
+	$arr[] = array( 'name' => __( 'Add listing form settings', GEODIRLOCATION_TEXTDOMAIN ), 'type' => 'sectionstart', 'id' => 'geodir_location_setting_add_listing');
+	
 	$arr[] = array(  
 			'name'  => __( 'Disable Google address autocomplete?', GEODIRLOCATION_TEXTDOMAIN ),
 			'desc' 	=> __( 'This will stop the address sugestions when typing in address box on add listing page.', GEODIRLOCATION_TEXTDOMAIN ),
@@ -1761,10 +1781,26 @@ function geodir_location_default_options($arr=array())
 			'type' 	=> 'checkbox',
 			'std' 	=> 'yes' 
 		);
-		
 	
-	$arr[] = array( 'type' => 'sectionend', 'id' => 'geodir_location_setting');
+	$arr[] = array(  
+			'name'  => __( 'Show all locations in dropdown?', GEODIRLOCATION_TEXTDOMAIN ),
+			'desc' 	=> __( 'This is usefull if you have a small directory but can break your site if you have many locations', GEODIRLOCATION_TEXTDOMAIN ),
+			'id' 	=> 'location_dropdown_all',
+			'std' 		=> '',
+			'type' 	=> 'checkbox',
+			'std' 	=> 'yes' 
+		);
 	
+	$arr[] = array(  
+			'name'  => __( 'Disable set address on map from changing address fields', GEODIRLOCATION_TEXTDOMAIN ),
+			'desc' 	=> __( 'This is usefull if you have a small directory and you have custom locations or your locations are not known by the Google API and they break the address. (highly recommended not to enable this)', GEODIRLOCATION_TEXTDOMAIN ),
+			'id' 	=> 'location_set_address_disable',
+			'std' 		=> '',
+			'type' 	=> 'checkbox',
+			'std' 	=> 'yes' 
+		);
+	
+	$arr[] = array( 'type' => 'sectionend', 'id' => 'geodir_location_setting_add_listing');
 	
 	
 	/* -------- end location settings ----- */
@@ -1824,7 +1860,7 @@ function geodir_location_default_latitude($lat, $is_default)
 		elseif(isset($_SESSION['gd_country']) && $_SESSION['gd_country'] != '' )
 			$location = geodir_get_locations('country',$_SESSION['gd_country']);		
 		
-		if($location)
+		if(isset($location) && $location)
 			$location = end($location);
 			
 		$lat = isset($location->city_latitude) ? $location->city_latitude : '';
@@ -1846,7 +1882,7 @@ function geodir_location_default_longitude($lat, $is_default)
 		elseif(isset($_SESSION['gd_country']) && $_SESSION['gd_country'] != '' )
 			$location = geodir_get_locations('country',$_SESSION['gd_country']);		
 		
-		if($location)
+		if(isset($location) && $location)
 			$location = end($location);
 			
 		$lat = isset($location->city_longitude) ? $location->city_longitude : '';
@@ -2256,4 +2292,35 @@ function geodir_countries_search_sql( $search = '', $array = false ) {
 	}
 	$return = !empty( $return ) ? implode( ",", $return ) : '';
 	return $return;
+}
+
+function geodir_location_permalink_url( $url ) {
+	if ( $url == '' ) {
+		return NULL;
+	}
+	
+	if ( get_option( 'permalink_structure' ) != '' ) {
+		$url = trim( $url );
+		$url = rtrim( $url, '/' ) . '/';
+	}
+	
+	$url = apply_filters( 'geodir_location_filter_permalink_url', $url );
+	
+	return $url;
+}
+
+add_action( 'wp_ajax_gd_location_manager_set_user_location', 'gd_location_manager_set_user_location' );
+add_action( 'wp_ajax_nopriv_gd_location_manager_set_user_location', 'gd_location_manager_set_user_location' );
+
+function gd_location_manager_set_user_location(){
+	global $wpdb;
+	$_SESSION['user_lat']=$_POST['lat'];
+	$_SESSION['user_lon']=$_POST['lon'];
+	if(isset($_POST['myloc']) && $_POST['myloc']){
+	$_SESSION['my_location']=1;
+	}else{
+	$_SESSION['my_location']=0;	
+	}
+	$_SESSION['user_pos_time']=time();
+	die();
 }

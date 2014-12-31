@@ -13,6 +13,8 @@ function geodir_location_list_sc( $args, $caption = '' ) {
 
 
 function geodir_location_tab_switcher_sc( $args, $caption = '' ) {
+	echo "<span class='geodir_shortcode_location_tab_container'>";
 	geodir_location_tab_switcher( $args );
+	echo "</span>";
 }
 ?>

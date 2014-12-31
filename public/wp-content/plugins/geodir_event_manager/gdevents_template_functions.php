@@ -70,7 +70,7 @@ function time_select_options($select = '')
 	$all_times = '';
 	foreach($event_times as $key => $times){
 		$selected = ''; 
-		if($select ==  $key)
+		if($select ==  $key || $select == $times || '0'.$select == $times)
 			 $selected = 'selected="selected"';
 		$all_times.= '<option '.$selected.' value="'.$key.'">'.$times.'</option>'; 
 	}
@@ -281,7 +281,19 @@ function geodir_event_show_event_fields_html($recuring_data = array()){
 					
 				});
         		cal = '';
-						
+				function gd_event_date_format(date){
+				var format = '<?php echo apply_filters('geodir_add_event_calendar_date_format','Y-m-d');?>';
+				
+				var formatted_date = format;
+				formatted_date = formatted_date.replace("Y", date.getFullYear());
+				formatted_date = formatted_date.replace("m", (date.getMonth()+1));
+				formatted_date = formatted_date.replace("d", date.getDate());
+
+				return formatted_date;	
+					
+				}
+				
+				
 				multicalInit1 = function() {
 					cal = new YAHOO.widget.CalendarGroup("multiCal1","multiCalContainer1",{pages:2, MULTI_SELECT: true <?php echo $selected; ?>,start_weekday:<?php echo apply_filters('geodir_calendar_start_weekday','0');?>}); 
 					cal.render();
@@ -293,11 +305,12 @@ function geodir_event_show_event_fields_html($recuring_data = array()){
 						for(var ii=0; ii<selectedDates.length; ii++){
 							var date = selectedDates[ii];
 							var current = date.getFullYear()+ "-" + (date.getMonth()+1) + "-" + date.getDate();
+							var current_display = gd_event_date_format(date);
 							if(ii>0){
 								val += ",";
 							}
 							val += current;
-							txt += "<span>"+current + "</span>";
+							txt += "<span>"+current_display + "</span>";
 						}
 						
 						if(txt == ''){
@@ -514,10 +527,14 @@ function geodir_event_show_event_fields_html($recuring_data = array()){
 								$selected_dates_arr = explode(',', $event_recurring_dates);
 								
 								foreach($selected_dates_arr as $dates){
-									echo '<span>'.$dates.'</span>';
+									$format = apply_filters('geodir_add_event_calendar_date_format','Y-m-d');
+									$date = date_create($dates);
+									$new_date = date_format($date,$format);
+									echo '<span>'.$new_date.'</span>';
 								}
 								
 							}
+							
 						?>
 						
 						</div>
@@ -737,10 +754,10 @@ function geodir_event_show_shedule_date(){
 
 						global $geodir_date_time_format; 	
 						
-						$output .=  '<i class="fa fa-caret-right"></i>'.date($geodir_date_time_format, $sdate);
+						$output .=  '<i class="fa fa-caret-right"></i>'.date_i18n($geodir_date_time_format, $sdate);
 							//$output .=  __(' To', GEODIREVENTS_TEXTDOMAIN).' ';
 							$output .= '<br />';
-						$output .=  '<i class="fa fa-caret-left"></i>'.date($geodir_date_time_format, $edate);//.'<br />';
+						$output .=  '<i class="fa fa-caret-left"></i>'.date_i18n($geodir_date_time_format, $edate);//.'<br />';
 						$output .=  '</p>';	
 					}
 					
@@ -1332,7 +1349,7 @@ function geodir_event_function_widget_events_where( $where ) {
 	}
 	
 	if ( !empty( $gd_query_args ) && !empty( $gd_query_args['gd_location'] ) && function_exists( 'geodir_default_location_where' ) ) {
-		$where = geodir_default_location_where( $where );
+		$where = geodir_default_location_where( $where,$table );
 	}
 	
 	return $where;
@@ -1531,14 +1548,14 @@ function geodir_calender_event_details_after_post_title() {
 	?>
 	<p style="clear:both;" class="geodir-event-meta">
 		<span class="geodir-i-datepicker"><i class="fa fa-calendar-o"></i> <?php _e( 'Date:', GEODIREVENTS_TEXTDOMAIN ); ?></span>
-		<?php echo date( $geodir_date_format, strtotime( $post->event_date ) ); ?>
+		<?php echo date_i18n( $geodir_date_format, strtotime( $post->event_date ) ); ?>
 	</p>
 	<?php if ( ( isset( $post->event_starttime ) && !empty( $post->event_starttime ) ) || ( isset( $post->event_endtime ) && !empty( $post->event_endtime ) ) ) { ?>
 	<p style="clear:both;" class="geodir-event-meta">
 		<span class="geodir-i-time"><i class="fa fa-clock-o"></i> <?php _e('Time:', GEODIREVENTS_TEXTDOMAIN); ?> </span>
 		<?php 
 		if ( isset( $post->event_starttime ) && !empty( $post->event_starttime ) ) {
-			echo date( $geodir_time_format, strtotime( $post->event_starttime ) ). ' ' ;
+			echo date_i18n( $geodir_time_format, strtotime( $post->event_starttime ) ). ' ' ;
 		}	
 		if ( isset( $post->event_endtime ) && !empty( $post->event_endtime ) ) {
 			echo __( ' to', GEODIREVENTS_TEXTDOMAIN ).' '. date( $geodir_time_format, strtotime( $post->event_endtime ) );	

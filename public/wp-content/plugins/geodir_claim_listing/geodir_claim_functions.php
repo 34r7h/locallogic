@@ -113,6 +113,10 @@ function geodir_claim_activation_script(){
 	
 	$wpdb->hide_errors();
 	
+	// rename tables if we need to
+	if($wpdb->query("SHOW TABLES LIKE 'geodir_claim'")>0){$wpdb->query("RENAME TABLE geodir_claim TO ".$wpdb->prefix."geodir_claim");}
+	
+	
 	$collate = '';
 	if($wpdb->has_cap( 'collation' ) ) {
 		if(!empty($wpdb->charset)) $collate = "DEFAULT CHARACTER SET $wpdb->charset";
@@ -143,7 +147,9 @@ function geodir_claim_activation_script(){
 		
 		$claim_table = apply_filters('geodir_claim_listing_table' , $claim_table);	
 		
-		$wpdb->query($claim_table);
+		// rename tables if we need to
+		if($wpdb->query("SHOW TABLES LIKE 'geodir_claim'")>0){$wpdb->query("RENAME TABLE geodir_claim TO ".$wpdb->prefix."geodir_claim");}
+		else{$wpdb->query($claim_table);}
 		
 		do_action('geodir_claim_listing_table_created' ,$claim_table ) ;
 		

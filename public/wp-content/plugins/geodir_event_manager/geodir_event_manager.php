@@ -3,13 +3,13 @@
 Plugin Name: GeoDirectory Events
 Plugin URI: http://wpgeodirectory.com
 Description: GeoDirectory Events plugin .
-Version: 1.0.9
+Version: 1.1.2
 Author: GeoDirectory
 Author URI: http://wpgeodirectory.com
 
 */
 
-define("GDEVENTS_VERSION", "1.0.9");
+define("GDEVENTS_VERSION", "1.1.2");
 if (!session_id()) session_start();
 
 /**
@@ -20,6 +20,16 @@ global $wpdb,$plugin_prefix,$geodir_addon_list, $geodir_date_time_format, $geodi
 if(is_admin()){
 	require_once('gd_update.php'); // require update script
 }
+///GEODIRECTORY CORE ALIVE CHECK START
+if(is_admin()){
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+if(!is_plugin_active('geodirectory/geodirectory.php')){
+return;
+}}/// GEODIRECTORY CORE ALIVE CHECK END
+
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+if(is_plugin_active('geodirectory/geodirectory.php')){/// GEODIRECTORY CORE ALIVE CHECK START
+
 
 $geodir_date_time_format = get_option('date_format'). ' ' .	get_option('time_format');
 $geodir_date_format = get_option('date_format') ;
@@ -29,7 +39,7 @@ $geodir_addon_list['geodir_event_manager'] = 'yes' ;
 
 
 if(!isset($plugin_prefix))
-	$plugin_prefix = 'geodir_';
+	$plugin_prefix = $wpdb->prefix.'geodir_';
 
 
 
@@ -66,7 +76,10 @@ if ( is_admin() ) :
 	register_uninstall_hook(__FILE__,'geodir_event_uninstall');  
 	
 endif;
-
+if ( is_admin() ){
+require_once('gd_upgrade.php');	
+}
+}/// GEODIRECTORY CORE ALIVE CHECK END
 
 add_action('activated_plugin','geodir_event_plugin_activated') ;
 function geodir_event_plugin_activated($plugin)
@@ -93,4 +106,6 @@ function geodir_event_plugin_activated($plugin)
 	}
 	
 }
+
+
 

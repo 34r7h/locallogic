@@ -3,14 +3,14 @@
 Plugin Name: GeoDirectory Marker Cluster
 Plugin URI: http://wpgeodirectory.com	
 Description: This plugin gives an advanced marker cluster system for Google Maps.
-Version: 1.0.2
+Version: 1.1.0
 Author: GeoDirectory
 Author URI: http://wpgeodirectory.com
 */
 
 
 /* Define Constants */
-define("GDCLUSTER_VERSION", "1.0.2");
+define("GDCLUSTER_VERSION", "1.1.0");
 
 define( 'GDCLUSTER_PLUGINDIR_PATH', WP_PLUGIN_DIR . "/" . plugin_basename( dirname(__FILE__) ) );
 define( 'GDCLUSTER_PLUGINDIR_URL', WP_PLUGIN_URL . "/" . plugin_basename( dirname(__FILE__) )  );
@@ -19,10 +19,17 @@ global $plugin,$plugin_prefix,$geodir_addon_list;
 if(is_admin()){
 	require_once('gd_update.php'); // require update script
 }
+///GEODIRECTORY CORE ALIVE CHECK START
+if(is_admin()){
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+if(!is_plugin_active('geodirectory/geodirectory.php')){
+return;
+}}/// GEODIRECTORY CORE ALIVE CHECK END
 $geodir_addon_list['geodir_marker_cluster'] = 'yes' ;
 
 $plugin = plugin_basename( __FILE__ );
-$plugin_prefix = 'geodir_';
+if(!isset($plugin_prefix))
+	$plugin_prefix = $wpdb->prefix.'geodir_';
 
 
 if (!defined('GEODIRMARKERCLUSTER_TEXTDOMAIN')) define('GEODIRMARKERCLUSTER_TEXTDOMAIN','geodir_markercluster');
@@ -142,9 +149,70 @@ function geodir_map_marker_cluster($arr){
 				'class'		=> 'chosen_select',
 				'options' => array_unique( geodir_map_marker_cluster_choose_maps())
 			   );
+		
 	
-	$arr[] = array( 'type' => 'sectionend', 'id' => 'geodir_marker_cluster_end');
+	$arr[] = array( 'type' => 'sectionend', 'id' => 'geodir_marker_cluster_settings');
 	
+	
+	$arr[] = array( 	'name' => __( 'Marker Cluster Settings',  GEODIRMARKERCLUSTER_TEXTDOMAIN), 
+				'type' => 'sectionstart',
+				'desc' => '', 
+				'id' => 'geodir_marker_cluster_settings_options' );
+	
+	$arr[] = array(  
+			'name' => __( 'Grid Size', GEODIRECTORY_TEXTDOMAIN ),
+			'desc' 		=> __( 'The grid size of a cluster in pixel. Each cluster will be a square. If you want the algorithm to run faster, you can set this value larger. The default value is 60', GEODIRECTORY_TEXTDOMAIN ),
+			'id' 		=> 'geodir_marker_cluster_size',
+			'css' 		=> 'min-width:300px;',
+			'std' 		=> '60',
+			'type' 		=> 'select',
+			'class'		=> 'chosen_select',
+			'options' => array_unique( array( 
+				'60' => __( 'Default (60)', GEODIRECTORY_TEXTDOMAIN ),
+				'10' => __( '10', GEODIRECTORY_TEXTDOMAIN ),
+				'20' => __( '20', GEODIRECTORY_TEXTDOMAIN ),
+				'30' => __( '30', GEODIRECTORY_TEXTDOMAIN ),
+				'40' => __( '40', GEODIRECTORY_TEXTDOMAIN ),
+				'50' => __( '50', GEODIRECTORY_TEXTDOMAIN ),
+				'70' => __( '70', GEODIRECTORY_TEXTDOMAIN ),
+				'80' => __( '80', GEODIRECTORY_TEXTDOMAIN ),
+				'90' => __( '90', GEODIRECTORY_TEXTDOMAIN ),
+				'100' => __( '100', GEODIRECTORY_TEXTDOMAIN ),
+				))
+		);
+	
+	$arr[] = array(  
+			'name' => __( 'Max Zoom', GEODIRECTORY_TEXTDOMAIN ),
+			'desc' 		=> __( 'The max zoom level monitored by a marker cluster. When maxZoom is reached or exceeded all markers will be shown without cluster.', GEODIRECTORY_TEXTDOMAIN ),
+			'id' 		=> 'geodir_marker_cluster_zoom',
+			'css' 		=> 'min-width:300px;',
+			'std' 		=> '15',
+			'type' 		=> 'select',
+			'class'		=> 'chosen_select',
+			'options' => array_unique( array( 
+				'15' => __( 'Default (15)', GEODIRECTORY_TEXTDOMAIN ),
+				'1' => __( '1', GEODIRECTORY_TEXTDOMAIN ),
+				'2' => __( '2', GEODIRECTORY_TEXTDOMAIN ),
+				'3' => __( '3', GEODIRECTORY_TEXTDOMAIN ),
+				'4' => __( '4', GEODIRECTORY_TEXTDOMAIN ),
+				'5' => __( '5', GEODIRECTORY_TEXTDOMAIN ),
+				'6' => __( '6', GEODIRECTORY_TEXTDOMAIN ),
+				'7' => __( '7', GEODIRECTORY_TEXTDOMAIN ),
+				'8' => __( '8', GEODIRECTORY_TEXTDOMAIN ),
+				'9' => __( '9', GEODIRECTORY_TEXTDOMAIN ),
+				'10' => __( '10', GEODIRECTORY_TEXTDOMAIN ),
+				'11' => __( '11', GEODIRECTORY_TEXTDOMAIN ),
+				'12' => __( '12', GEODIRECTORY_TEXTDOMAIN ),
+				'13' => __( '13', GEODIRECTORY_TEXTDOMAIN ),
+				'14' => __( '14', GEODIRECTORY_TEXTDOMAIN ),
+				'16' => __( '16', GEODIRECTORY_TEXTDOMAIN ),
+				'17' => __( '17', GEODIRECTORY_TEXTDOMAIN ),
+				'18' => __( '18', GEODIRECTORY_TEXTDOMAIN ),
+				'19' => __( '19', GEODIRECTORY_TEXTDOMAIN ),
+
+				))
+		);
+	$arr[] = array( 'type' => 'sectionend', 'id' => 'geodir_marker_cluster_settings_options');
 	return $arr;
 }
 
@@ -181,4 +249,21 @@ function geodir_marker_cluster_update_map_options($map_options)
 {
 	$map_options['enable_marker_cluster'] = true ;
 	return $map_options ;
+}
+
+
+
+add_filter( 'geodir_all_js_msg', 'geodir_marker_cluster_add_settings_msg', 10, 1 );
+
+function geodir_marker_cluster_add_settings_msg($msgs){
+	global $wpdb;
+	
+	if($size = get_option('geodir_marker_cluster_size')){
+		$msgs['geodir_marker_cluster_size'] = $size;
+	}
+	
+	if($size = get_option('geodir_marker_cluster_zoom')){
+		$msgs['geodir_marker_cluster_zoom'] = $size;
+	}
+	return $msgs;
 }

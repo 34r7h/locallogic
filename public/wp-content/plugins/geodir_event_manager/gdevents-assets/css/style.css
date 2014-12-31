@@ -60,3 +60,7 @@
 .geodir-company_info.geodir_event_dates_display .geodir_event_schedule p{
 	padding:0px;
 }
+
+#geodir_content .geodir_event_listing {
+padding: 0px;
+}

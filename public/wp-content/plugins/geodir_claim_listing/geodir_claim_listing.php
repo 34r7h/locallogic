@@ -3,19 +3,28 @@
 Plugin Name: GeoDirectory Claim Manager
 Plugin URI: http://wpgeodirectory.com
 Description: GeoDirectory Cliam Manager plugin.
-Version: 1.0.6
+Version: 1.1.0
 Author: GeoDirectory
 Author URI: http://wpgeodirectory.com
 */
 
+define("GEODIRCLAIM_VERSION", "1.1.0");
 global $wpdb,$plugin_prefix,$site_login_url,$geodir_addon_list;
 if(is_admin()){
 	require_once('gd_update.php'); // require update script
 }
+
+///GEODIRECTORY CORE ALIVE CHECK START
+if(is_admin()){
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+if(!is_plugin_active('geodirectory/geodirectory.php')){
+return;
+}}/// GEODIRECTORY CORE ALIVE CHECK END
+
 $geodir_addon_list['geodir_claim_manager'] = 'yes' ;
 
 if(!isset($plugin_prefix))
-	$plugin_prefix = 'geodir_';
+	$plugin_prefix = $wpdb->prefix.'geodir_';
 
 
 $site_login_url = get_option('siteurl').'?geodir_signup=true';
@@ -58,7 +67,9 @@ include_once('geodir_claim_hooks_actions.php');
 include_once('geodir_claim_template_tags.php');
 include_once('geodir_claim_template_functions.php');
 include_once('geodir_claim_functions.php');
-
+if ( is_admin() ){
+require_once('gd_upgrade.php');	
+}
 add_action('activated_plugin','geodir_claim_listing_plugin_activated') ;
 function geodir_claim_listing_plugin_activated($plugin)
 {

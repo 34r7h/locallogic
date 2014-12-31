@@ -15,15 +15,45 @@ jQuery(document).ready(function(){
 
 	jQuery('.gd-rate-cat-in span.lable').css({'width':min_lablewidth+'px'});
 
-
 	jQuery('#gd_comment_replaylink a').bind('click',function(){
+		jQuery('#commentform #err_no_rating').remove();
 		jQuery('#commentform #gd_ratings_module').hide();
 	});
 	
 	jQuery('#gd_cancle_replaylink a').bind('click',function(){
+		jQuery('#commentform #err_no_rating').remove();
 		jQuery('#commentform #gd_ratings_module').show();
 	});
 	
+	jQuery('#gd_ratings_module').each(function(){
+		var rat_obj = this;
+		var $frm_obj = jQuery(rat_obj).closest('#commentform');
+		if(parseInt($frm_obj.find('#comment_parent').val()) > 0) {
+			jQuery('#commentform #err_no_rating').remove();
+			jQuery('#commentform #gd_ratings_module').hide();
+		}
+		jQuery(rat_obj).closest('form#commentform').find('input[name="submit"]').click(function(e){
+			jQuery(rat_obj).find('#err_no_rating').remove();
+			var is_review = jQuery(rat_obj).closest('form#commentform').find('#comment_parent').val();
+			is_review = parseInt(is_review) == 0 ? true : false;
+			if(is_review){
+				var btn_obj = this;
+				var invalid = 0;
+				jQuery(rat_obj).find('[name^=geodir_rating]').each(function(){
+					var star_obj = this;
+					var star = parseInt(jQuery(star_obj).val());
+					if(!star>0){
+						invalid++;
+					}
+				});
+				if (invalid>0) {
+					jQuery(rat_obj).append('<div id="err_no_rating" class="err-no-rating">'+geodir_all_js_msg.gd_cmt_err_no_rating+'</div>');
+					return false;
+				}
+				return true;
+			}
+		});
+	});	
 	
 	jQuery('#rating_frm ul li').hover(
 		function(){
@@ -475,8 +505,13 @@ function chek_overall_category_firs_make_or_not()
 
 function overall_the_text_box(check_cond){	
 		var total= document.getElementById('hidden-text').value;
+		var serialized = jQuery('#hidden-serialized').val();
 		
-		totalarr=total.split(",");
+		if(serialized=='1' && total!=''){
+			totalarr = geodir_reviewrating_unserialize(total);
+		}else{
+			totalarr = total.split(",");
+		}
 		len = totalarr.length;
 		
 		
@@ -508,11 +543,14 @@ function overall_the_text_box(check_cond){
 				{	
 					if(len>=cond)
 					{
-					input_box = +cond+"&nbsp;"+geodir_reviewrating_all_js_msg.geodir_reviewrating_score_text+" &nbsp;&nbsp; <input class = 'overall_rating_text' type = 'text' name = 'overall_rating_text[]' value='"+totalarr[num]+"' style='width:247px;'><br>";
+						var rat_text = totalarr[num];
+						rat_text = rat_text!= '' ? rat_text.replace(/\\'/g, "'") : rat_text;
+						rat_text = rat_text!= '' ? rat_text.replace(/\\"/g, '&quot;') : rat_text;
+						input_box = +cond+'&nbsp;'+geodir_reviewrating_all_js_msg.geodir_reviewrating_score_text+' &nbsp;&nbsp;<input class="overall_rating_text" type="text" name="overall_rating_text[]" value="'+rat_text+'" style="width:247px;"><br>';
 					
 					}else
 					{
-						input_box = +cond+"&nbsp;"+geodir_reviewrating_all_js_msg.geodir_reviewrating_score_text+" &nbsp;&nbsp; <input class = 'overall_rating_text' type = 'text' name = 'overall_rating_text[]' value='' style='width:247px;'><br>";
+						input_box = +cond+'&nbsp;'+geodir_reviewrating_all_js_msg.geodir_reviewrating_score_text+' &nbsp;&nbsp;<input class="overall_rating_text" type="text" name="overall_rating_text[]" value="" style="width:247px;"><br>';
 					}
 					num++;
 					n = n+input_box; 
@@ -537,10 +575,14 @@ function style_the_text_box(check_cond){
 		
 		
 		var total= document.getElementById('hidden-stles-text').value;
+		var serialized = jQuery('#hidden-stles-serialized').val();
 		
-		totalarr=total.split(",");
+		if(serialized=='1' && total!=''){
+			totalarr = geodir_reviewrating_unserialize(total);
+		}else{
+			totalarr = total.split(",");
+		}
 		len = totalarr.length;
-		
 		var numeric = isNaN(document.getElementById('style_count').value);
 		var numeric_value = document.getElementById('style_count').value;
 		
@@ -567,11 +609,14 @@ function style_the_text_box(check_cond){
 				{	
 					if(len>=cond)
 					{
-					input_box = +cond+" Star Text &nbsp;&nbsp;<input class = 'star_rating_text' type = 'text' name = 'star_rating_text[]' value='"+totalarr[num]+"' style='width:247px;'><br>";
+						var rat_text = totalarr[num];
+						rat_text = rat_text!= '' ? rat_text.replace(/\\'/g, "'") : rat_text;
+						rat_text = rat_text!= '' ? rat_text.replace(/\\"/g, '&quot;') : rat_text;
+						input_box = +cond+'&nbsp;'+geodir_reviewrating_all_js_msg.geodir_reviewrating_star_text+' &nbsp;&nbsp;<input class="star_rating_text" type="text" name="star_rating_text[]" value="'+rat_text+'" style="width:247px;"><br>';
 					
 					}else
 					{
-						input_box = +cond+" Star Text &nbsp;&nbsp;<input class = 'star_rating_text' type = 'text' name = 'star_rating_text[]' value='' style='width:247px;'><br>";
+						input_box = +cond+'&nbsp;'+geodir_reviewrating_all_js_msg.geodir_reviewrating_star_text+' &nbsp;&nbsp;<input class="star_rating_text" type="text" name="star_rating_text[]" value="" style="width:247px;"><br>';
 					}
 					num++;
 					n = n+input_box; 
@@ -589,3 +634,135 @@ function style_the_text_box(check_cond){
 			document.getElementById('overall_count').value ='';
 		}
 	}
+	
+function geodir_reviewrating_unserialize(data) {
+	var that = this,
+		utf8Overhead = function(chr) {
+			var code = chr.charCodeAt(0);
+			if(code < 0x0080) {
+				return 0;
+			}
+			if(code < 0x0800) {
+				return 1;
+			}
+			return 2;
+		};
+	error = function(type, msg, filename, line) {
+		throw new that.window[type](msg, filename, line);
+	};
+	read_until = function(data, offset, stopchr) {
+		var i = 2,
+			buf = [],
+			chr = data.slice(offset, offset + 1);
+		while(chr != stopchr) {
+			if((i + offset) > data.length) {
+				error('Error', 'Invalid');
+			}
+			buf.push(chr);
+			chr = data.slice(offset + (i - 1), offset + i);
+			i += 1;
+		}
+		return [buf.length, buf.join('')];
+	};
+	read_chrs = function(data, offset, length) {
+		var i, chr, buf;
+		buf = [];
+		for(i = 0; i < length; i++) {
+			chr = data.slice(offset + (i - 1), offset + i);
+			buf.push(chr);
+			length -= utf8Overhead(chr);
+		}
+		return [buf.length, buf.join('')];
+	};
+	_unserialize = function(data, offset) {
+		var dtype, dataoffset, keyandchrs, keys, contig,
+			length, array, readdata, readData, ccount,
+			stringlength, i, key, kprops, kchrs, vprops,
+			vchrs, value, chrs = 0,
+			typeconvert = function(x) {
+				return x;
+			};
+		if(!offset) {
+			offset = 0;
+		}
+		dtype = (data.slice(offset, offset + 1)).toLowerCase();
+		dataoffset = offset + 2;
+		switch(dtype) {
+			case 'i':
+				typeconvert = function(x) {
+					return parseInt(x, 10);
+				};
+				readData = read_until(data, dataoffset, ';');
+				chrs = readData[0];
+				readdata = readData[1];
+				dataoffset += chrs + 1;
+				break;
+			case 'b':
+				typeconvert = function(x) {
+					return parseInt(x, 10) !== 0;
+				};
+				readData = read_until(data, dataoffset, ';');
+				chrs = readData[0];
+				readdata = readData[1];
+				dataoffset += chrs + 1;
+				break;
+			case 'd':
+				typeconvert = function(x) {
+					return parseFloat(x);
+				};
+				readData = read_until(data, dataoffset, ';');
+				chrs = readData[0];
+				readdata = readData[1];
+				dataoffset += chrs + 1;
+				break;
+			case 'n':
+				readdata = null;
+				break;
+			case 's':
+				ccount = read_until(data, dataoffset, ':');
+				chrs = ccount[0];
+				stringlength = ccount[1];
+				dataoffset += chrs + 2;
+				readData = read_chrs(data, dataoffset + 1, parseInt(stringlength, 10));
+				chrs = readData[0];
+				readdata = readData[1];
+				dataoffset += chrs + 2;
+				if(chrs != parseInt(stringlength, 10) && chrs != readdata.length) {
+					error('SyntaxError', 'String length mismatch');
+				}
+				break;
+			case 'a':
+				readdata = {};
+				keyandchrs = read_until(data, dataoffset, ':');
+				chrs = keyandchrs[0];
+				keys = keyandchrs[1];
+				dataoffset += chrs + 2;
+				length = parseInt(keys, 10);
+				contig = true;
+				for(i = 0; i < length; i++) {
+					kprops = _unserialize(data, dataoffset);
+					kchrs = kprops[1];
+					key = kprops[2];
+					dataoffset += kchrs;
+					vprops = _unserialize(data, dataoffset);
+					vchrs = vprops[1];
+					value = vprops[2];
+					dataoffset += vchrs;
+					if(key !== i) contig = false;
+					readdata[key] = value;
+				}
+				if(contig) {
+					array = new Array(length);
+					for(i = 0; i < length; i++) array[i] = readdata[i];
+					readdata = array;
+				}
+				dataoffset += 1;
+				break;
+			default:
+				error('SyntaxError', 'Unknown / Unhandled data type(s): ' + dtype);
+				break;
+		}
+		return [dtype, dataoffset - offset, typeconvert(readdata)];
+	};
+	return _unserialize((data + ''), 0)[2];
+}

@@ -78,7 +78,7 @@ There is so much great eating in and around the Italian Market that you&acute;ll
 					"geodir_website"		=> 'http://www.italianmarketfestival.com/',
 					"geodir_twitter"		=> 'http://twitter.com/italianmarketfestival',
 					"geodir_facebook"		=> 'http://facebook.com/italianmarketfestival',
-					"event_recurring_dates"	=> '2010-10-21',
+					"event_recurring_dates"	=> date('Y-m-d', strtotime("+30 days")),
 					"starttime"					=> '10:00 AM',
 					"endtime"						=> '12:00 PM',
 					"post_dummy" 	=> '1'
@@ -162,7 +162,7 @@ There is so much great eating in and around the Italian Market that you&acute;ll
 							"geodir_website"		=> 'http://www.italianmarketfestival.com/',
 							"geodir_twitter"		=> 'http://twitter.com/italianmarketfestival',
 							"geodir_facebook"		=> 'http://facebook.com/italianmarketfestival',
-							"event_recurring_dates"	=> '2010-9-21',
+							"event_recurring_dates"	=> date('Y-m-d', strtotime("+4 days")),
 							"starttime"					=> '11:00 AM',
 							"endtime"						=> '3:00 PM',
 							"post_dummy" 	=> '1'
@@ -212,7 +212,7 @@ There is so much great eating in and around the Italian Market that you&acute;ll
 							"geodir_website"		=> 'http://www.pennslandingcorp.com/',
 							"geodir_twitter"		=> 'http://twitter.com/pennslandingcorp',
 							"geodir_facebook"		=> 'http://facebook.com/pennslandingcorp',
-							"event_recurring_dates"	=> '2010-10-25',
+							"event_recurring_dates"	=> date('Y-m-d', strtotime("+5 days")),
 							"starttime"					=> '12:00 PM',
 							"endtime"						=> '6:00 PM',		
 							"post_dummy" 	=> '1'
@@ -262,7 +262,7 @@ There is so much great eating in and around the Italian Market that you&acute;ll
 							"geodir_website"		=> 'http://www.pennslandingcorp.com/',
 							"geodir_twitter"		=> 'http://twitter.com/pennslandingcorp',
 							"geodir_facebook"		=> 'http://facebook.com/pennslandingcorp',
-							"event_recurring_dates"	=> '2010-9-5',
+							"event_recurring_dates"	=> date('Y-m-d', strtotime("+7 days")),
 							"starttime"					=> '8:00 AM',
 							"endtime"						=> '9:00 PM',	
 							"post_dummy" 	=> '1'
@@ -311,7 +311,7 @@ There is so much great eating in and around the Italian Market that you&acute;ll
 							"geodir_website"		=> 'http://www.pennslandingcorp.com/',
 							"geodir_twitter"		=> 'http://twitter.com/pennslandingcorp',
 							"geodir_facebook"		=> 'http://facebook.com/pennslandingcorp',
-							"event_recurring_dates"	=> '2010-10-5',
+							"event_recurring_dates"	=> date('Y-m-d', strtotime("+7 days")),
 							"starttime"					=> '10:00 AM',
 							"endtime"						=> '12:00 PM',	
 							"post_dummy" 	=> '1'
@@ -358,7 +358,7 @@ There is so much great eating in and around the Italian Market that you&acute;ll
 							"geodir_website"		=> 'http://www.readingterminalmarket.org/',
 							"geodir_twitter"		=> 'http://twitter.com/readingterminalmarket',
 							"geodir_facebook"		=> 'http://facebook.com/readingterminalmarket',
-							"event_recurring_dates"	=> '2010-10-7',
+							"event_recurring_dates"	=> date('Y-m-d', strtotime("+10 days")),
 							"starttime"					=> '10:30 AM',
 							"endtime"						=> '12:30 PM',	
 							"post_dummy" 	=> '1'
@@ -402,7 +402,7 @@ There is so much great eating in and around the Italian Market that you&acute;ll
 							"geodir_website"		=> 'http://www.pgltf.org/',
 							"geodir_twitter"		=> 'http://twitter.com/pgltf',
 							"geodir_facebook"		=> 'http://facebook.com/pgltf',
-							"event_recurring_dates"	=> '2010-10-11',
+							"event_recurring_dates"	=> date('Y-m-d', strtotime("+10 days")),
 							"starttime"					=> '11:30 AM',
 							"endtime"						=> '3:00 PM',
 							"post_dummy" 	=> '1'
@@ -451,7 +451,7 @@ There is so much great eating in and around the Italian Market that you&acute;ll
 							"geodir_website"		=> 'http://www.welcomeamerica.com/',
 							"geodir_twitter"		=> 'http://twitter.com/welcomeamerica',
 							"geodir_facebook"		=> 'http://facebook.com/welcomeamerica',
-							"event_recurring_dates"	=> '2010-10-4',
+							"event_recurring_dates"	=> date('Y-m-d', strtotime("+10 days")),
 							"starttime"					=> '10:15 AM',
 							"endtime"						=> '12:15 PM',
 							"post_dummy" 	=> '1'
@@ -499,7 +499,7 @@ There is so much great eating in and around the Italian Market that you&acute;ll
 							"geodir_website"		=> 'http://www.okayplayer.com/rootspicnic/',
 							"geodir_twitter"		=> 'http://twitter.com/okayplayer',
 							"geodir_facebook"		=> 'http://facebook.com/okayplayer',
-							"event_recurring_dates"	=> '2010-10-7',
+							"event_recurring_dates"	=> date('Y-m-d', strtotime("+10 days")),
 							"starttime"					=> '10:10 AM',
 							"endtime"						=> '12:10 PM',
 							"post_dummy" 	=> '1'
@@ -552,7 +552,7 @@ There is so much great eating in and around the Italian Market that you&acute;ll
 							"geodir_website"		=> 'http://www.revolutionarygermantown.org/',
 							"geodir_twitter"		=> 'http://twitter.com/revolutionarygermantown',
 							"geodir_facebook"		=> 'http://facebook.com/revolutionarygermantown',
-							"event_recurring_dates"	=> '2010-10-9',
+							"event_recurring_dates"	=> date('Y-m-d', strtotime("+10 days")),
 							"starttime"					=> '10:00 AM',
 							"endtime"						=> '12:00 PM',
 							"post_dummy" 	=> '1'
@@ -596,7 +596,7 @@ There is so much great eating in and around the Italian Market that you&acute;ll
 							"geodir_website"		=> 'http://www.peddlersvillage.com/',
 							"geodir_twitter"		=> 'http://twitter.com/peddlersvillage',
 							"geodir_facebook"		=> 'http://facebook.com/peddlersvillage',
-							"event_recurring_dates"	=> '2010-10-2',
+							"event_recurring_dates"	=> date('Y-m-d', strtotime("+14 days")),
 							"starttime"					=> '9:00 AM',
 							"endtime"						=> '4:00 PM',
 							"post_dummy" 	=> '1'
@@ -652,7 +652,7 @@ There is so much great eating in and around the Italian Market that you&acute;ll
 							"geodir_website"		=> 'http://www.welcomeamerica.com/',
 							"geodir_twitter"		=> 'http://twitter.com/welcomeamerica',
 							"geodir_facebook"		=> 'http://facebook.com/welcomeamerica',
-							"event_recurring_dates"	=> '2010-10-15',
+							"event_recurring_dates"	=> date('Y-m-d', strtotime("+14 days")),
 							"starttime"					=> '10:00 AM',
 							"endtime"						=> '12:00 PM',
 							"post_dummy" 	=> '1'
@@ -712,7 +712,7 @@ There is so much great eating in and around the Italian Market that you&acute;ll
 							"geodir_website"		=> 'http://www.riverfrontramble.org/',
 							"geodir_twitter"		=> 'http://twitter.com/riverfrontramble',
 							"geodir_facebook"		=> 'http://facebook.com/riverfrontramble',
-							"event_recurring_dates"	=> '2010-10-13',
+							"event_recurring_dates"	=> date('Y-m-d', strtotime("+15 days")),
 							"starttime"					=> '10:00 AM',
 							"endtime"						=> '12:00 PM',
 							"post_dummy" 	=> '1'
@@ -770,7 +770,7 @@ There is so much great eating in and around the Italian Market that you&acute;ll
 							"geodir_website"		=> 'http://www.folkfest.org/',
 							"geodir_twitter"		=> 'http://twitter.com/folkfest',
 							"geodir_facebook"		=> 'http://facebook.com/folkfest',
-							"event_recurring_dates"	=> '2010-10-18',
+							"event_recurring_dates"	=> date('Y-m-d', strtotime("+30 days")),
 							"starttime"					=> '10:00 AM',
 							"endtime"						=> '12:50 PM',
 							"post_dummy" 	=> '1'

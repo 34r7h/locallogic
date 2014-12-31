@@ -4,13 +4,13 @@
 //set_site_transient('update_plugins', null);
 
 if (!defined('GEODIRECTORY_TEXTDOMAIN')) define('GEODIRECTORY_TEXTDOMAIN', 'geodirectory');	
-$api_url = 'http://wpgeodirectory.com/updates/';
+$gd_api_url = 'http://wpgeodirectory.com/updates/';
 $plugin_slug = basename(dirname(__FILE__));
 
 
 if (!function_exists('gd_check_for_plugin_update')) {
 function gd_check_for_plugin_update($checked_data) {
-	global $api_url, $plugin_slug;
+	global $gd_api_url, $plugin_slug;
 
 	$gd_arr = array();
 	if (empty($checked_data->checked)){
@@ -29,10 +29,8 @@ function gd_check_for_plugin_update($checked_data) {
 	);
 	
 	$request_string = gd_prepare_request('basic_check', $request_args);
-
 	// Start checking for an update
-	$raw_response = wp_remote_post($api_url, $request_string);
-	
+	$raw_response = wp_remote_post($gd_api_url, $request_string);
 	if (!is_wp_error($raw_response) && ($raw_response['response']['code'] == 200))
 		$response = unserialize($raw_response['body']);
 		
@@ -56,7 +54,7 @@ function gd_check_for_plugin_update($checked_data) {
 
 if (!function_exists('gd_api_info_call')) {
 function gd_api_info_call($def, $action, $args) {
-	global $plugin_slug, $api_url;
+	global $plugin_slug, $gd_api_url;
 		
 	if(isset($args->slug) && strpos($args->slug,'geodir_') !== false){}else{return false;}// if not a geodir plugin bail
 
@@ -68,7 +66,7 @@ function gd_api_info_call($def, $action, $args) {
 	
 	$request_string = gd_prepare_request($action, $args);
 	
-	$request = wp_remote_post($api_url, $request_string);
+	$request = wp_remote_post($gd_api_url, $request_string);
 //print_r($request);
 	if (is_wp_error($request)) {
 		$res = new WP_Error('plugins_api_failed', __('An Unexpected HTTP Error occurred during the API request.</p> <p><a href="?" onclick="document.location.reload(); return false;">Try again</a>'), $request->get_error_message());

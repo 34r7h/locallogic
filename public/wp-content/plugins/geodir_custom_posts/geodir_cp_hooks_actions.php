@@ -20,6 +20,22 @@ add_action( 'wp_ajax_nopriv_geodir_cp_ajax_action', 'geodir_custom_post_type_aja
 add_action('admin_init', 'geodir_payment_remove_unnecessary_fields');
 
 
+add_filter('geodir_diagnose_multisite_conversion' , 'geodir_diagnose_multisite_conversion_CPT', 10,1); 
+function geodir_diagnose_multisite_conversion_CPT($table_arr){
+	global $wpdb;
+	$post_types = geodir_get_posttypes();
+	
+	if(!empty($post_types))
+	{
+		foreach($post_types as $p_type)
+		{	if($p_type=='gd_place' || $p_type=='gd_event'){continue;}
+			$table_arr["geodir_".$p_type."_detail"] = "CTP: geodir_".$p_type."_detail";
+		}
+		
+	}
+	return $table_arr;
+}
+
 // This is used to change the post type args before saving into the post type options array in database.
 // This helps to rewrite the post type url on wordpress default rule.
 add_filter('geodir_post_type_args', 'geodir_custom_post_type_args_modify',1, 2) ;
@@ -156,20 +172,22 @@ add_filter('previous_post_link', 'geodir_single_next_previous_fix',10,4);
 
 if (!function_exists('geodir_single_next_previous_fix')) { // we add this in location manager and CPT 
 function geodir_single_next_previous_fix($url,$link,$direction,$post) {
-	global $wpdb,$plugin_prefix;
+	global $wpdb,$plugin_prefix,$post;
 	$post_type_array = geodir_get_posttypes();
-	if(is_array($post) && !empty($post->post_type) && in_array($post->post_type, $post_type_array)) {
+	if(isset($post->post_type) && in_array($post->post_type , $post_type_array))
+	{
+	
 		$post_date = $timestamp = strtotime($post->post_date);
 
-		$where ='';
-		if(isset($post->country_slug) && $post->country_slug != '')
-			$where .= " AND FIND_IN_SET('[".$post->country_slug."]', post_locations) ";
-		
-		if(isset($post->region_slug) && $post->region_slug != '')
-			$where .= " AND FIND_IN_SET('[".$post->region_slug."]', post_locations) ";
+	$where ='';
+	if(isset($post->country_slug) && $post->country_slug != '')
+		$where .= " AND FIND_IN_SET('[".$post->country_slug."]', post_locations) ";
 	
-		if(isset($post->city_slug) && $post->city_slug != '')
-			$where .= " AND FIND_IN_SET('[".$post->city_slug."]', post_locations) ";
+	if(isset($post->region_slug) && $post->region_slug != '')
+		$where .= " AND FIND_IN_SET('[".$post->region_slug."]', post_locations) ";
+
+	if(isset($post->city_slug) && $post->city_slug != '')
+		$where .= " AND FIND_IN_SET('[".$post->city_slug."]', post_locations) ";
 
 	
 		
@@ -177,8 +195,8 @@ function geodir_single_next_previous_fix($url,$link,$direction,$post) {
 		$table = $plugin_prefix.$post->post_type.'_detail';
 			$pid = $wpdb->get_var(
 				$wpdb->prepare(
-				"SELECT  post_id FROM ".$table." WHERE submit_time $op %d  AND post_status='publish' $where LIMIT 1",
-				$post_date
+				"SELECT  post_id FROM ".$table." WHERE submit_time $op %d  AND post_status='publish' $where AND post_id !=%d LIMIT 1",
+				$post_date,$post->ID
 				)
 			);
 

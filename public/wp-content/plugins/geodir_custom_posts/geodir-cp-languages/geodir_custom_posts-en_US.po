@@ -1,33 +1,43 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: GeoDirectory CPT 1.0.3\n"
+"Project-Id-Version: GeoDirectory CPT 1.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-17 21:37-0000\n"
-"PO-Revision-Date: 2014-06-17 21:38-0000\n"
+"POT-Creation-Date: 2014-12-27 19:45-0000\n"
+"PO-Revision-Date: 2014-12-27 19:46-0000\n"
 "Last-Translator: Stiofan <info@geotheme.com>\n"
 "Language-Team: GeoDirectory <info@wpgeodirectory.com>\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;_n:1,2;_n_noop:1,2;_nx:1,2\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;_n:1,2;_n_noop:1,2;"
+"_nx:1,2\n"
 "X-Poedit-Basepath: ../\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Poedit-Language: English\n"
-"X-Poedit-Country: UNITED STATES\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.6.9\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: gd_update.php:74
-msgid "An Unexpected HTTP Error occurred during the API request.</p> <p><a href=\"?\" onclick=\"document.location.reload(); return false;\">Try again</a>"
+#: gd_update.php:73
+msgid ""
+"An Unexpected HTTP Error occurred during the API request.</p> <p><a href=\"?"
+"\" onclick=\"document.location.reload(); return false;\">Try again</a>"
 msgstr ""
 
-#: gd_update.php:78
+#: gd_update.php:77
 msgid "An unknown error occurred"
 msgstr ""
 
+#: gd_update.php:105
+msgid ""
+"Login details for GeoDirectory failed! Please check GeoDirectory > Auto "
+"Updates and that your membership is active."
+msgstr ""
+
 #: gd_update.php:106
-#: gd_update.php:107
-msgid "Login details for GeoDirectory failed! Please check GeoDirectory>Auto Updates and that your membership is active."
+msgid ""
+"Login details for GeoDirectory failed! Please check GeoDirectory>Auto "
+"Updates and that your membership is active."
 msgstr ""
 
 #: gd_update.php:163
@@ -35,7 +45,9 @@ msgid "Auto Updates"
 msgstr ""
 
 #: gd_update.php:193
-msgid "Enter your GeoDirectory membership details to allow you to update plugins from dashboard"
+msgid ""
+"Enter your GeoDirectory membership details to allow you to update plugins "
+"from dashboard"
 msgstr ""
 
 #: gd_update.php:203
@@ -54,8 +66,7 @@ msgstr ""
 msgid "Enter your GeoDirectory password"
 msgstr ""
 
-#: gd_update.php:224
-#: geodir_cp_template_tags.php:605
+#: gd_update.php:224 geodir_cp_template_tags.php:729
 msgid "Save changes"
 msgstr ""
 
@@ -64,15 +75,20 @@ msgid "Warning!!"
 msgstr ""
 
 #: geodir_cp_functions.php:23
-msgid "You are about to delete a Geodirectory Adon which has important option and custom data associated to it."
+msgid ""
+"You are about to delete a Geodirectory Ad-on which has important option and "
+"custom data associated to it."
 msgstr ""
 
 #: geodir_cp_functions.php:23
-msgid "Deleting this and activating another version, will be treated as a new installation of plugin, so all the data will be lost."
+msgid ""
+"Deleting this and activating another version, will be treated as a new "
+"installation of plugin, so all the data will be lost."
 msgstr ""
 
 #: geodir_cp_functions.php:23
-msgid "If you have any problem in upgrading the plugin please contact Geodirectroy"
+msgid ""
+"If you have any problem in upgrading the plugin please contact Geodirectroy"
 msgstr ""
 
 #: geodir_cp_functions.php:23
@@ -87,290 +103,276 @@ msgstr ""
 msgid "Delete both plugin files and data"
 msgstr ""
 
-#: geodir_cp_functions.php:167
+#: geodir_cp_functions.php:174
 msgid "Post Type already exists."
 msgstr ""
 
-#: geodir_cp_functions.php:174
-#: geodir_cp_functions.php:197
+#: geodir_cp_functions.php:181 geodir_cp_functions.php:204
 msgid "Listing Slug already exists."
 msgstr ""
 
-#: geodir_cp_functions.php:271
+#: geodir_cp_functions.php:274
 msgid " Categories"
 msgstr ""
 
-#: geodir_cp_functions.php:272
+#: geodir_cp_functions.php:275
 msgid " Category"
 msgstr ""
 
-#: geodir_cp_functions.php:273
-#: geodir_cp_functions.php:310
+#: geodir_cp_functions.php:276 geodir_cp_functions.php:308
 msgid "Search "
 msgstr ""
 
-#: geodir_cp_functions.php:274
-#: geodir_cp_functions.php:311
+#: geodir_cp_functions.php:277 geodir_cp_functions.php:309
 msgid "Popular "
 msgstr ""
 
-#: geodir_cp_functions.php:275
-#: geodir_cp_functions.php:312
+#: geodir_cp_functions.php:278 geodir_cp_functions.php:310
 msgid "All "
 msgstr ""
 
-#: geodir_cp_functions.php:276
-#: geodir_cp_functions.php:313
+#: geodir_cp_functions.php:279 geodir_cp_functions.php:311
 msgid "Edit "
 msgstr ""
 
-#: geodir_cp_functions.php:277
-#: geodir_cp_functions.php:314
+#: geodir_cp_functions.php:280 geodir_cp_functions.php:312
 msgid "Update "
 msgstr ""
 
-#: geodir_cp_functions.php:278
-#: geodir_cp_functions.php:315
-#: geodir_cp_functions.php:333
+#: geodir_cp_functions.php:281 geodir_cp_functions.php:313
+#: geodir_cp_functions.php:330
 msgid "Add New "
 msgstr ""
 
-#: geodir_cp_functions.php:279
-#: geodir_cp_functions.php:316
+#: geodir_cp_functions.php:282 geodir_cp_functions.php:314
 msgid "New "
 msgstr ""
 
-#: geodir_cp_functions.php:280
-#: geodir_cp_functions.php:317
+#: geodir_cp_functions.php:283 geodir_cp_functions.php:315
 msgid "Add or remove "
 msgstr ""
 
-#: geodir_cp_functions.php:308
+#: geodir_cp_functions.php:306
 msgid " Tags"
 msgstr ""
 
-#: geodir_cp_functions.php:309
+#: geodir_cp_functions.php:307
 msgid " Tag"
 msgstr ""
 
-#: geodir_cp_functions.php:318
+#: geodir_cp_functions.php:316
 msgid "Choose from the most used "
 msgstr ""
 
-#: geodir_cp_functions.php:319
+#: geodir_cp_functions.php:317
 msgid "Separate "
 msgstr ""
 
-#: geodir_cp_functions.php:334
+#: geodir_cp_functions.php:331
 msgid "Add New Item"
 msgstr ""
 
-#: geodir_cp_functions.php:335
+#: geodir_cp_functions.php:332
 msgid "Edit Item"
 msgstr ""
 
-#: geodir_cp_functions.php:336
+#: geodir_cp_functions.php:333
 msgid "New Item"
 msgstr ""
 
-#: geodir_cp_functions.php:337
+#: geodir_cp_functions.php:334
 msgid "View Item"
 msgstr ""
 
-#: geodir_cp_functions.php:338
+#: geodir_cp_functions.php:335
 msgid "Search Items"
 msgstr ""
 
-#: geodir_cp_functions.php:339
+#: geodir_cp_functions.php:336
 msgid "Not Found"
 msgstr ""
 
-#: geodir_cp_functions.php:340
+#: geodir_cp_functions.php:337
 msgid "Not Found In Trash"
 msgstr ""
 
-#: geodir_cp_functions.php:477
+#: geodir_cp_functions.php:486
 msgid "Post type created successfully."
 msgstr ""
 
-#: geodir_cp_functions.php:480
+#: geodir_cp_functions.php:489
 msgid "Post type updated successfully."
 msgstr ""
 
-#: geodir_cp_functions.php:565
+#: geodir_cp_functions.php:574
 msgid "Post type deleted successfully."
 msgstr ""
 
-#: geodir_cp_functions.php:620
-#: geodir_cp_functions.php:622
-#: geodir_cp_functions.php:629
+#: geodir_cp_functions.php:629 geodir_cp_functions.php:631
+#: geodir_cp_functions.php:638
 msgid "Category"
 msgstr ""
 
-#: geodir_cp_functions.php:621
+#: geodir_cp_functions.php:630
 msgid "Select listing category from here. Select at least one category"
 msgstr ""
 
-#: geodir_cp_functions.php:634
-#: geodir_cp_functions.php:636
+#: geodir_cp_functions.php:643 geodir_cp_functions.php:645
 msgid "Address"
 msgstr ""
 
-#: geodir_cp_functions.php:644
+#: geodir_cp_functions.php:653
 msgid "Address fields are required"
 msgstr ""
 
-#: geodir_cp_functions.php:646
+#: geodir_cp_functions.php:655
 msgid "City"
 msgstr ""
 
-#: geodir_cp_functions.php:647
+#: geodir_cp_functions.php:656
 msgid "Region"
 msgstr ""
 
-#: geodir_cp_functions.php:648
+#: geodir_cp_functions.php:657
 msgid "Country"
 msgstr ""
 
-#: geodir_cp_functions.php:649
+#: geodir_cp_functions.php:658
 msgid "Zip/Post Code"
 msgstr ""
 
-#: geodir_cp_functions.php:650
+#: geodir_cp_functions.php:659
 msgid "Set Address On Map"
 msgstr ""
 
-#: geodir_cp_functions.php:651
+#: geodir_cp_functions.php:660
 msgid "Select Map View"
 msgstr ""
 
-#: geodir_cp_functions.php:658
-#: geodir_cp_functions.php:660
-#: geodir_cp_functions.php:667
+#: geodir_cp_functions.php:667 geodir_cp_functions.php:669
+#: geodir_cp_functions.php:676
 msgid "Time"
 msgstr ""
 
-#: geodir_cp_functions.php:659
-msgid "Enter Business or Listing Timing Information.<br/>eg. : 10.00 am to 6 pm every day"
+#: geodir_cp_functions.php:668
+msgid ""
+"Enter Business or Listing Timing Information.<br/>eg. : 10.00 am to 6 pm "
+"every day"
 msgstr ""
 
-#: geodir_cp_functions.php:672
-#: geodir_cp_functions.php:674
-#: geodir_cp_functions.php:681
+#: geodir_cp_functions.php:681 geodir_cp_functions.php:683
+#: geodir_cp_functions.php:690
 msgid "Phone"
 msgstr ""
 
-#: geodir_cp_functions.php:673
+#: geodir_cp_functions.php:682
 msgid "You can enter phone number,cell phone number etc."
 msgstr ""
 
-#: geodir_cp_functions.php:686
-#: geodir_cp_functions.php:688
-#: geodir_cp_functions.php:695
+#: geodir_cp_functions.php:695 geodir_cp_functions.php:697
+#: geodir_cp_functions.php:704
 msgid "Email"
 msgstr ""
 
-#: geodir_cp_functions.php:687
+#: geodir_cp_functions.php:696
 msgid "You can enter your business or listing email."
 msgstr ""
 
-#: geodir_cp_functions.php:700
-#: geodir_cp_functions.php:702
-#: geodir_cp_functions.php:708
+#: geodir_cp_functions.php:709 geodir_cp_functions.php:711
+#: geodir_cp_functions.php:717
 msgid "Website"
 msgstr ""
 
-#: geodir_cp_functions.php:701
+#: geodir_cp_functions.php:710
 msgid "You can enter your business or listing website."
 msgstr ""
 
-#: geodir_cp_functions.php:713
-#: geodir_cp_functions.php:715
-#: geodir_cp_functions.php:722
+#: geodir_cp_functions.php:722 geodir_cp_functions.php:724
+#: geodir_cp_functions.php:731
 msgid "Twitter"
 msgstr ""
 
-#: geodir_cp_functions.php:714
+#: geodir_cp_functions.php:723
 msgid "You can enter your business or listing twitter url."
 msgstr ""
 
-#: geodir_cp_functions.php:727
-#: geodir_cp_functions.php:729
-#: geodir_cp_functions.php:736
+#: geodir_cp_functions.php:736 geodir_cp_functions.php:738
+#: geodir_cp_functions.php:745
 msgid "Facebook"
 msgstr ""
 
-#: geodir_cp_functions.php:728
+#: geodir_cp_functions.php:737
 msgid "You can enter your business or listing facebook url."
 msgstr ""
 
-#: geodir_cp_functions.php:741
-#: geodir_cp_functions.php:743
-#: geodir_cp_functions.php:750
+#: geodir_cp_functions.php:750 geodir_cp_functions.php:752
+#: geodir_cp_functions.php:759
 msgid "Video"
 msgstr ""
 
-#: geodir_cp_functions.php:742
+#: geodir_cp_functions.php:751
 msgid "Add video code here, YouTube etc."
 msgstr ""
 
-#: geodir_cp_functions.php:755
-#: geodir_cp_functions.php:757
-#: geodir_cp_functions.php:764
+#: geodir_cp_functions.php:764 geodir_cp_functions.php:766
+#: geodir_cp_functions.php:773
 msgid "Special Offers"
 msgstr ""
 
-#: geodir_cp_functions.php:756
+#: geodir_cp_functions.php:765
 msgid "Note: List out any special offers (optional)"
 msgstr ""
 
-#: geodir_cp_functions.php:808
+#: geodir_cp_functions.php:833
 msgid "Post type related data deleted successfully."
 msgstr ""
 
-#: geodir_cp_hooks_actions.php:59
+#: geodir_cp_hooks_actions.php:75
 msgid "Custom Post Types"
 msgstr ""
 
-#: geodir_cp_hooks_actions.php:74
+#: geodir_cp_hooks_actions.php:90
 #, php-format
 msgid "%s Settings"
 msgstr ""
 
-#: geodir_cp_hooks_actions.php:77
+#: geodir_cp_hooks_actions.php:93
 msgid "Custom Fields"
 msgstr ""
 
-#: geodir_cp_hooks_actions.php:80
+#: geodir_cp_hooks_actions.php:96
 msgid "Sorting Options"
 msgstr ""
 
-#: geodir_cp_hooks_actions.php:131
+#: geodir_cp_hooks_actions.php:147
 msgid "Post Type can not be more than 17 characters."
 msgstr ""
 
-#: geodir_cp_hooks_actions.php:132
+#: geodir_cp_hooks_actions.php:148
 msgid "Post Type contains illegal characters."
 msgstr ""
 
-#: geodir_cp_hooks_actions.php:133
+#: geodir_cp_hooks_actions.php:149
 msgid "Post Type must not be blank."
 msgstr ""
 
-#: geodir_cp_hooks_actions.php:134
+#: geodir_cp_hooks_actions.php:150
 msgid "Listing Slug contains illegal characters."
 msgstr ""
 
-#: geodir_cp_hooks_actions.php:135
+#: geodir_cp_hooks_actions.php:151
 msgid "Listing Slug must not be blank."
 msgstr ""
 
-#: geodir_cp_hooks_actions.php:136
+#: geodir_cp_hooks_actions.php:152
 msgid "Enter valid order value."
 msgstr ""
 
-#: geodir_cp_template_tags.php:14
-#: geodir_cp_template_tags.php:37
+#: geodir_cp_hooks_actions.php:194
+msgid "Next"
+msgstr ""
+
+#: geodir_cp_template_tags.php:14 geodir_cp_template_tags.php:37
 #: geodir_cp_template_tags.php:120
 msgid "Delete"
 msgstr ""
@@ -383,8 +385,7 @@ msgstr ""
 msgid "Add Post Type"
 msgstr ""
 
-#: geodir_cp_template_tags.php:27
-#: geodir_cp_template_tags.php:242
+#: geodir_cp_template_tags.php:27 geodir_cp_template_tags.php:258
 msgid "Post Type"
 msgstr ""
 
@@ -396,14 +397,12 @@ msgstr ""
 msgid "Taxonomies"
 msgstr ""
 
-#: geodir_cp_template_tags.php:33
-#: geodir_cp_template_tags.php:573
-#: geodir_cp_template_tags.php:577
+#: geodir_cp_template_tags.php:33 geodir_cp_template_tags.php:669
+#: geodir_cp_template_tags.php:673
 msgid "Can Export"
 msgstr ""
 
-#: geodir_cp_template_tags.php:35
-#: geodir_cp_template_tags.php:117
+#: geodir_cp_template_tags.php:35 geodir_cp_template_tags.php:117
 msgid "Edit"
 msgstr ""
 
@@ -419,214 +418,313 @@ msgstr ""
 msgid "Are you wish to delete this Post Type?"
 msgstr ""
 
-#: geodir_cp_template_tags.php:246
+#: geodir_cp_template_tags.php:262
 msgid "Post type"
 msgstr ""
 
-#: geodir_cp_template_tags.php:249
-msgid "The new post type system name ( max. 17 characters ). Lower-case characters and underscores only. Min 2 letters. Once added the post type system name cannot be changed."
+#: geodir_cp_template_tags.php:265
+msgid ""
+"The new post type system name ( max. 17 characters ). Lower-case characters "
+"and underscores only. Min 2 letters. Once added the post type system name "
+"cannot be changed."
 msgstr ""
 
-#: geodir_cp_template_tags.php:257
+#: geodir_cp_template_tags.php:273
 msgid "Listing slug"
 msgstr ""
 
-#: geodir_cp_template_tags.php:260
-msgid "The listing slug name ( max. 20 characters ). Alphanumeric lower-case characters and underscores  and hyphen(-) only. Min 2 letters. Once added the post type 'Listing Slug' name cannot be changed."
+#: geodir_cp_template_tags.php:276
+msgid ""
+"The listing slug name ( max. 20 characters ). Alphanumeric lower-case "
+"characters and underscores  and hyphen(-) only. Min 2 letters. Once added "
+"the post type 'Listing Slug' name cannot be changed."
 msgstr ""
 
-#: geodir_cp_template_tags.php:267
+#: geodir_cp_template_tags.php:283
 msgid "Order in post type list"
 msgstr ""
 
-#: geodir_cp_template_tags.php:270
-msgid "Position at which this post type will appear in post type list everywhere on the website."
+#: geodir_cp_template_tags.php:286
+msgid ""
+"Position at which this post type will appear in post type list everywhere on "
+"the website."
 msgstr ""
 
-#: geodir_cp_template_tags.php:272
-msgid "Note: If the entered value is already an order of other post type then this will not make any effect."
+#: geodir_cp_template_tags.php:288
+msgid ""
+"Note: If the entered value is already an order of other post type then this "
+"will not make any effect."
 msgstr ""
 
-#: geodir_cp_template_tags.php:285
+#: geodir_cp_template_tags.php:301 geodir_cp_template_tags.php:505
 msgid "Categories"
 msgstr ""
 
-#: geodir_cp_template_tags.php:296
+#: geodir_cp_template_tags.php:312 geodir_cp_template_tags.php:513
 msgid "Tags"
 msgstr ""
 
-#: geodir_cp_template_tags.php:309
+#: geodir_cp_template_tags.php:325
 msgid "Labels"
 msgstr ""
 
-#: geodir_cp_template_tags.php:313
+#: geodir_cp_template_tags.php:329
 msgid "Name"
 msgstr ""
 
-#: geodir_cp_template_tags.php:316
+#: geodir_cp_template_tags.php:332
 msgid "General name for the post type, usually plural."
 msgstr ""
 
-#: geodir_cp_template_tags.php:324
+#: geodir_cp_template_tags.php:340
 msgid "Singular name"
 msgstr ""
 
-#: geodir_cp_template_tags.php:327
+#: geodir_cp_template_tags.php:343
 msgid "Name for one object of this post type. Defaults to value of name."
 msgstr ""
 
-#: geodir_cp_template_tags.php:335
+#: geodir_cp_template_tags.php:351
 msgid "Add new"
 msgstr ""
 
-#: geodir_cp_template_tags.php:338
-msgid "The add new text. The default is Add New for both hierarchical and non-hierarchical types."
+#: geodir_cp_template_tags.php:354
+msgid ""
+"The add new text. The default is Add New for both hierarchical and non-"
+"hierarchical types."
 msgstr ""
 
-#: geodir_cp_template_tags.php:346
+#: geodir_cp_template_tags.php:362
 msgid "Add new item"
 msgstr ""
 
-#: geodir_cp_template_tags.php:349
+#: geodir_cp_template_tags.php:365
 msgid "The add new item text. Default is Add New Post/Add New Page."
 msgstr ""
 
-#: geodir_cp_template_tags.php:357
+#: geodir_cp_template_tags.php:373
 msgid "Edit item"
 msgstr ""
 
-#: geodir_cp_template_tags.php:360
+#: geodir_cp_template_tags.php:376
 msgid "The edit item text. Default is Edit Post/Edit Page."
 msgstr ""
 
-#: geodir_cp_template_tags.php:368
+#: geodir_cp_template_tags.php:384
 msgid "New item"
 msgstr ""
 
-#: geodir_cp_template_tags.php:371
+#: geodir_cp_template_tags.php:387
 msgid "The new item text. Default is New Post/New Page."
 msgstr ""
 
-#: geodir_cp_template_tags.php:379
+#: geodir_cp_template_tags.php:395
 msgid "View item"
 msgstr ""
 
-#: geodir_cp_template_tags.php:382
+#: geodir_cp_template_tags.php:398
 msgid "The view item text. Default is View Post/View Page."
 msgstr ""
 
-#: geodir_cp_template_tags.php:390
+#: geodir_cp_template_tags.php:406
 msgid "Search items"
 msgstr ""
 
-#: geodir_cp_template_tags.php:393
+#: geodir_cp_template_tags.php:409
 msgid "The search items text. Default is Search Posts/Search Pages."
 msgstr ""
 
-#: geodir_cp_template_tags.php:401
+#: geodir_cp_template_tags.php:417
 msgid "Not found"
 msgstr ""
 
-#: geodir_cp_template_tags.php:404
+#: geodir_cp_template_tags.php:420
 msgid "The not found text. Default is No posts found/No pages found."
 msgstr ""
 
-#: geodir_cp_template_tags.php:412
+#: geodir_cp_template_tags.php:428
 msgid "Not found in trash"
 msgstr ""
 
-#: geodir_cp_template_tags.php:415
-msgid "The not found in trash text. Default is No posts found in Trash/No pages found in Trash."
-msgstr ""
-
-#: geodir_cp_template_tags.php:426
 #: geodir_cp_template_tags.php:431
-msgid "Supports"
+msgid ""
+"The not found in trash text. Default is No posts found in Trash/No pages "
+"found in Trash."
 msgstr ""
 
-#: geodir_cp_template_tags.php:434
-msgid "Register support of certain features for a post type."
+#: geodir_cp_template_tags.php:438
+msgid "Profile tab label"
 msgstr ""
 
-#: geodir_cp_template_tags.php:443
-#: geodir_cp_template_tags.php:446
-msgid "Title"
+#: geodir_cp_template_tags.php:442
+msgid "Text label for \"Profile\" tab on post detail page.(optional)"
 msgstr ""
 
-#: geodir_cp_template_tags.php:454
-msgid "Editor"
+#: geodir_cp_template_tags.php:447
+msgid "More Info tab label"
 msgstr ""
 
-#: geodir_cp_template_tags.php:457
-msgid "Editor - Content"
+#: geodir_cp_template_tags.php:451
+msgid "Text label for \"More Info\" tab on post detail page.(optional)"
+msgstr ""
+
+#: geodir_cp_template_tags.php:456
+msgid "Photo tab label"
+msgstr ""
+
+#: geodir_cp_template_tags.php:460
+msgid "Text label for Photo\" tab on post detail page.(optional)"
 msgstr ""
 
 #: geodir_cp_template_tags.php:465
+msgid "Map tab label"
+msgstr ""
+
 #: geodir_cp_template_tags.php:469
-msgid "Author"
+msgid "Text label for \"Map\" tab on post detail page.(optional)"
 msgstr ""
 
-#: geodir_cp_template_tags.php:477
-msgid "Thumbnail"
+#: geodir_cp_template_tags.php:474
+msgid "Reviews tab label"
 msgstr ""
 
-#: geodir_cp_template_tags.php:480
-msgid "Thumbnail - featured image - current theme must also support post-thumbnails."
+#: geodir_cp_template_tags.php:478
+msgid "Text label for \"Reviews\" tab on post detail page.(optional)"
 msgstr ""
 
-#: geodir_cp_template_tags.php:488
-#: geodir_cp_template_tags.php:491
-msgid "Excerpt"
+#: geodir_cp_template_tags.php:483
+msgid "Related Listing tab label"
+msgstr ""
+
+#: geodir_cp_template_tags.php:487
+msgid "Text label for \"Related Listing\" tab on post detail page.(optional)"
+msgstr ""
+
+#: geodir_cp_template_tags.php:493
+msgid "Nav Menus"
+msgstr ""
+
+#: geodir_cp_template_tags.php:497
+msgid "Posts"
 msgstr ""
 
 #: geodir_cp_template_tags.php:500
-#: geodir_cp_template_tags.php:503
+msgid "Disable posts in nav menus."
+msgstr ""
+
+#: geodir_cp_template_tags.php:508
+msgid "Disable post categories in nav menus."
+msgstr ""
+
+#: geodir_cp_template_tags.php:516
+msgid "Disable posts tags in nav menus."
+msgstr ""
+
+#: geodir_cp_template_tags.php:522 geodir_cp_template_tags.php:527
+msgid "Supports"
+msgstr ""
+
+#: geodir_cp_template_tags.php:530
+msgid "Register support of certain features for a post type."
+msgstr ""
+
+#: geodir_cp_template_tags.php:539 geodir_cp_template_tags.php:542
+msgid "Title"
+msgstr ""
+
+#: geodir_cp_template_tags.php:550
+msgid "Editor"
+msgstr ""
+
+#: geodir_cp_template_tags.php:553
+msgid "Editor - Content"
+msgstr ""
+
+#: geodir_cp_template_tags.php:561 geodir_cp_template_tags.php:565
+msgid "Author"
+msgstr ""
+
+#: geodir_cp_template_tags.php:573
+msgid "Thumbnail"
+msgstr ""
+
+#: geodir_cp_template_tags.php:576
+msgid ""
+"Thumbnail - featured image - current theme must also support post-thumbnails."
+msgstr ""
+
+#: geodir_cp_template_tags.php:584 geodir_cp_template_tags.php:587
+msgid "Excerpt"
+msgstr ""
+
+#: geodir_cp_template_tags.php:596 geodir_cp_template_tags.php:599
 msgid "Custom fields"
 msgstr ""
 
-#: geodir_cp_template_tags.php:511
+#: geodir_cp_template_tags.php:607
 msgid "Comments"
 msgstr ""
 
-#: geodir_cp_template_tags.php:514
+#: geodir_cp_template_tags.php:610
 msgid "Comments - also will see comment count balloon on edit screen."
 msgstr ""
 
-#: geodir_cp_template_tags.php:522
+#: geodir_cp_template_tags.php:618
 msgid "Post formats"
 msgstr ""
 
-#: geodir_cp_template_tags.php:525
+#: geodir_cp_template_tags.php:621
 msgid "Post formats - add post formats."
 msgstr ""
 
-#: geodir_cp_template_tags.php:535
-#: geodir_cp_template_tags.php:539
+#: geodir_cp_template_tags.php:631 geodir_cp_template_tags.php:635
 msgid "Description"
 msgstr ""
 
-#: geodir_cp_template_tags.php:543
+#: geodir_cp_template_tags.php:639
 msgid "A short descriptive summary of what the post type is."
 msgstr ""
 
-#: geodir_cp_template_tags.php:554
-#: geodir_cp_template_tags.php:558
+#: geodir_cp_template_tags.php:650 geodir_cp_template_tags.php:654
 msgid "Menu Icon"
 msgstr ""
 
-#: geodir_cp_template_tags.php:562
+#: geodir_cp_template_tags.php:658
 msgid "The url to the icon to be used for this menu."
 msgstr ""
 
-#: geodir_cp_template_tags.php:581
+#: geodir_cp_template_tags.php:677
 msgid "True"
 msgstr ""
 
-#: geodir_cp_template_tags.php:593
+#: geodir_cp_template_tags.php:689
 msgid "False"
 msgstr ""
 
-#: geodir_custom_posts.php:86
-msgid "<span style=\"color:#FF0000\">There was an issue determining where GeoDirectory Plugin is installed and activated. Please install or activate GeoDirectory Plugin.</span>"
+#: geodir_cp_template_tags.php:698
+msgid "SEO"
 msgstr ""
 
+#: geodir_cp_template_tags.php:702
+msgid "Meta Keywords"
+msgstr ""
+
+#: geodir_cp_template_tags.php:706
+msgid "Meta keywords will appear in head tag of this post type listing page."
+msgstr ""
+
+#: geodir_cp_template_tags.php:714
+msgid "Meta Description"
+msgstr ""
+
+#: geodir_cp_template_tags.php:718
+msgid ""
+"Meta description will appear in head tag of this post type listing page."
+msgstr ""
+
+#: geodir_custom_posts.php:97
+msgid ""
+"<span style=\"color:#FF0000\">There was an issue determining where "
+"GeoDirectory Plugin is installed and activated. Please install or activate "
+"GeoDirectory Plugin.</span>"
+msgstr ""

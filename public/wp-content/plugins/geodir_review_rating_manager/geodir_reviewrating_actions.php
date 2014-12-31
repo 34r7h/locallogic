@@ -26,6 +26,7 @@ endif;
 
  
 add_action('init','geodir_reviewrating_remove_all_filters',100);
+add_action( 'init', 'geodir_reviewrating_action_on_init' );
 
 function geodir_reviewrating_remove_all_filters(){
 	
@@ -154,7 +155,7 @@ function geodir_reviewrating_localize_all_js_msg(){
 							'geodir_reviewrating_select_overall_rating_half_img' => __('Please select Overall rating half image.', GEODIRREVIEWRATING_TEXTDOMAIN),
 							'geodir_reviewrating_please_enter' => __('Please enter', GEODIRREVIEWRATING_TEXTDOMAIN),
 							'geodir_reviewrating_score_text' => __('Score text', GEODIRREVIEWRATING_TEXTDOMAIN),
-							'geodir_reviewrating_star_text' => __('Star Text.', GEODIRREVIEWRATING_TEXTDOMAIN),
+							'geodir_reviewrating_star_text' => __('Star Text', GEODIRREVIEWRATING_TEXTDOMAIN),
 							'geodir_reviewrating_enter_title' => __('Please enter Title.', GEODIRREVIEWRATING_TEXTDOMAIN),
 							'geodir_reviewrating_rating_delete_confirmation' => __('Do you want to delete this rating?', GEODIRREVIEWRATING_TEXTDOMAIN),
 							'geodir_reviewrating_please_select' => __('Please select', GEODIRREVIEWRATING_TEXTDOMAIN),

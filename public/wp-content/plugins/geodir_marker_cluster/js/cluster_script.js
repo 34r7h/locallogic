@@ -5,6 +5,8 @@ function create_marker_cluster(map_canvas_name)
 	var clusert_already_exists = false;
 	var map_id = (map_canvas_name);
 	var map_hash = "#" + map_canvas_name ;
+	if(geodir_all_js_msg.geodir_marker_cluster_size){var size = geodir_all_js_msg.geodir_marker_cluster_size;}else{var size = 60;}
+	if(geodir_all_js_msg.geodir_marker_cluster_zoom){var zoom = geodir_all_js_msg.geodir_marker_cluster_zoom;}else{var zoom = 15;}
 	
 	jQuery(map_hash).goMap();
 	for(i=0 ; i < map_clusters_arr.length ; i++ )
@@ -18,8 +20,8 @@ function create_marker_cluster(map_canvas_name)
 	}
 	
 	if(!clusert_already_exists)
-	{
-		var mcOptions = { maxZoom: 15,ignoreHidden:true };
+	{	
+		var mcOptions = { maxZoom: parseInt(zoom),ignoreHidden:true,gridSize:  parseInt(size)};
 		var cluster_obj ={};
 		cluster_obj.label = map_id ;
 		marker_clusterer = new MarkerClusterer(jQuery.goMap.map, null, mcOptions);

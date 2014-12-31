@@ -51,11 +51,13 @@ function geodir_location_breadcrumb( $breadcrumb, $saprator, $echo= false ) {
 			
 		foreach ( $locations as $key => $location ) {
 			if ( get_option('permalink_structure') != '' ) {
-				$location_link .= $location.'/';
+				$location_link .= $location;
 			}
 			else {
 				$location_link .= '&'.$key.'='.$location;
 			}
+			
+			$location_link = geodir_location_permalink_url( $location_link );
 			
 			$location = urldecode( $location );
 			
@@ -213,10 +215,12 @@ function geodir_get_current_location($args = null)
 		{
 					
 			if ( get_option('permalink_structure') != '' )
-				$location_link .= $location.'/';
+				$location_link .= $location;
 			else	
 				$location_link .= '&'.$key.'='.$location;
-		}		
+		}
+		
+		$location_link = geodir_location_permalink_url( $location_link );	
 		
 		if($c_l_config['link_traget'] != '')
 			$link_traget = " target=\"".$link_traget."\" " ;
@@ -303,7 +307,7 @@ function geodir_get_location_switcher($args = null)
 									{
 								?>
                               <li class="geodir_loc_clearfix">
-                                <a href="<?php echo $base_location_link . $country_item->location_link;?>"><?php echo __( $country_item->country, GEODIRECTORY_TEXTDOMAIN ) ;?></a>
+                                <a href="<?php echo geodir_location_permalink_url( $base_location_link . $country_item->location_link );?>"><?php echo __( $country_item->country, GEODIRECTORY_TEXTDOMAIN ) ;?></a>
                                 <span class="geodir_loc_arrow"><a href="javascript:void(0);">&nbsp;</a></span>
                               </li>
                               	<?php
@@ -338,7 +342,7 @@ function geodir_get_location_switcher($args = null)
 									{
 								?>
                               <li class="geodir_loc_clearfix">
-                                <a href="<?php echo $base_location_link . $region_item->location_link;?>"><?php echo __( $region_item->region, GEODIRECTORY_TEXTDOMAIN ) ;?></a>
+                                <a href="<?php echo geodir_location_permalink_url( $base_location_link . $region_item->location_link );?>"><?php echo __( $region_item->region, GEODIRECTORY_TEXTDOMAIN ) ;?></a>
                                 <span class="geodir_loc_arrow"><a href="javascript:void(0);">&nbsp;</a></span>
                               </li>
                               	<?php
@@ -373,7 +377,7 @@ function geodir_get_location_switcher($args = null)
 									{
 								?>
                               <li class="geodir_loc_clearfix">
-                                <a href="<?php echo $base_location_link . $city_item->location_link;?>"><?php echo __( $city_item->city, GEODIRECTORY_TEXTDOMAIN ) ;?></a> </li>
+                                <a href="<?php echo geodir_location_permalink_url(  $base_location_link . $city_item->location_link );?>"><?php echo __( $city_item->city, GEODIRECTORY_TEXTDOMAIN ) ;?></a> </li>
                               	<?php
                                 	} // end of foreach
 								}//end of if
@@ -401,7 +405,7 @@ function geodir_get_location_list($args=null)
 		{
 	?>
    		 	<li>
-         		<h2><a href="<?php echo $base_location . $country->location_link;?>"><?php echo $country->country; ?></a></h2>
+         		<h2><a href="<?php echo geodir_location_permalink_url( $base_location . $country->location_link );?>"><?php echo $country->country; ?></a></h2>
               	<?php $region_list = geodir_get_location_array(array('what'=> 'region', 'country_val' => $country->country, 'format'=>array('type'=> 'array')));
 					if(!empty($region_list))
 					{
@@ -411,7 +415,7 @@ function geodir_get_location_list($args=null)
 							{
 							?>
                             	<li class="geodir_region">
-                                	 <h3><a href="<?php echo $base_location . $region->location_link?>"><?php echo $region->region; ?></a></h3>
+                                	 <h3><a href="<?php echo geodir_location_permalink_url( $base_location . $region->location_link )?>"><?php echo $region->region; ?></a></h3>
                            		<?php	$city_list = geodir_get_location_array(array('what'=> 'city', 'country_val' => $country->country,'region_val'=> $region->region, 'format'=>array('type'=> 'array')));
 										if(!empty($city_list))
 										{
@@ -421,7 +425,7 @@ function geodir_get_location_list($args=null)
 											foreach($city_list as $city)
 											{
 											?>
-                                            	 <li><a href="<?php echo $base_location . $city->location_link?>"><?php echo $city->city; ?></a></li>
+                                            	 <li><a href="<?php echo geodir_location_permalink_url( $base_location . $city->location_link )?>"><?php echo $city->city; ?></a></li>
                                             <?php
                                             } // end of city list foreach
 											?>
@@ -477,13 +481,15 @@ function geodir_location_tab_switcher($args = null)
 			$what_is_current_location = 'city';
 			$city_div = 'gd-tab-active';
 		}
-		
-		if($autoredirect){
+		$location_value = '';
+		if($autoredirect==='0'){}
+		else{
 			$location_value = geodir_get_location_link('base');
-			$onchange = ' onchange="window.location.href=this.value" ';	
+			$onchange = ' onchange="window.location.href=this.value" ';
+			$autoredirect = '1';
 		}
-		else
-			$location_value = '';
+		
+			
 		
 		
 		$base_location = geodir_get_location_link('base') ;
@@ -619,7 +625,7 @@ function geodir_location_tab_switcher($args = null)
 							break;		
 						}
 						
-						$output .= '<option value="' . $base_location . $locations->location_link . '" ' . $selected . '>' . ucwords( $locations->$what_is_current_location ) . '</option>';
+						$output .= '<option value="' . geodir_location_permalink_url( $base_location . $locations->location_link ) . '" ' . $selected . '>' . ucwords( $locations->$what_is_current_location ) . '</option>';
 						
 						if( !$item_set_selected && $selected != '' ) {
 							$item_set_selected = true;
@@ -655,7 +661,7 @@ function geodir_location_tab_switcher($args = null)
 							break;			
 						}
 						
-						$output .= '<option value="' . $base_location . $current_location->location_link . '" ' . $selected . '>' . ucwords( $current_location->$what_is_current_location ) . '</option>';
+						$output .= '<option value="' . geodir_location_permalink_url( $base_location . $current_location->location_link ) . '" ' . $selected . '>' . ucwords( $current_location->$what_is_current_location ) . '</option>';
 					}
 				}
 						

@@ -17,6 +17,10 @@ function geodir_event_tables_install() {
 	global $wpdb;
 
 	$wpdb->hide_errors();
+	
+	// rename db for multisite
+	if($wpdb->query("SHOW TABLES LIKE 'geodir_gd_event_detail'")>0 && $wpdb->query("SHOW TABLES LIKE '".$wpdb->prefix."geodir_gd_event_detail'")==0){$wpdb->query("RENAME TABLE geodir_gd_event_detail TO ".$wpdb->prefix."geodir_gd_event_detail");}
+	if($wpdb->query("SHOW TABLES LIKE 'geodir_event_schedule'")>0 && $wpdb->query("SHOW TABLES LIKE '".$wpdb->prefix."geodir_event_schedule'")==0){$wpdb->query("RENAME TABLE geodir_event_schedule TO ".$wpdb->prefix."geodir_event_schedule");}
 
 	$collate = '';
 	if($wpdb->has_cap( 'collation' )) {
@@ -26,7 +30,7 @@ function geodir_event_tables_install() {
 	
 	$event_detail = "CREATE TABLE IF NOT EXISTS ".EVENT_DETAIL_TABLE." (
 					`post_id` int(11) NOT NULL,
-					`post_title` varchar(100) NULL DEFAULT NULL,
+					`post_title` text NULL DEFAULT NULL,
 					`post_status` varchar(20) NULL DEFAULT NULL,
 					`default_category` INT NULL DEFAULT NULL,
 					`post_tags` varchar(254) NULL DEFAULT NULL,
@@ -42,13 +46,19 @@ function geodir_event_tables_install() {
 					`alive_days` INT(11) NOT NULL DEFAULT '0',
 					`paymentmethod` varchar(30) NULL DEFAULT NULL,
 					`expire_date` VARCHAR( 25 ) NULL DEFAULT NULL,
+					`recurring_dates` TEXT NOT NULL,
+					`event_reg_desc` text NULL DEFAULT NULL,
+					`event_reg_fees` varchar(200) NULL DEFAULT NULL,
 					`submit_time` varchar(15) NULL DEFAULT NULL,
 					`submit_ip` varchar(254) NULL DEFAULT NULL,
 					`overall_rating` float(11) DEFAULT NULL, 
 					`rating_count` INT(11) DEFAULT '0', 
 					`post_locations` VARCHAR( 254 ) NULL DEFAULT NULL,
+					`post_latitude` varchar(20) NULL,
+					`post_longitude` varchar(20) NULL,
 					`post_dummy` ENUM( '1', '0' ) NULL DEFAULT '0', 
 					PRIMARY KEY (`post_id`)) $collate ";
+	
 					
 	$wpdb->query($event_detail);
 	
@@ -64,6 +74,14 @@ function geodir_event_tables_install() {
 					ADD `event_reg_fees` varchar(200) NULL DEFAULT NULL AFTER `event_reg_desc` 
 					");
 			}
+			
+		if(!$wpdb->get_var("SHOW COLUMNS FROM ".EVENT_DETAIL_TABLE." WHERE field = 'post_latitude'")){
+		
+			$wpdb->query("ALTER TABLE ".EVENT_DETAIL_TABLE."
+					ADD `post_latitude` varchar(20) NULL AFTER `post_locations` ,
+					ADD `post_longitude` varchar(20) NULL AFTER `post_latitude` 
+					");
+			}
 	}
 	
 	
@@ -73,6 +91,7 @@ function geodir_event_tables_install() {
 		`event_starttime` time,
 		`event_endtime` time
 	)  $collate ");
+	
 	
 	
 }	

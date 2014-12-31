@@ -1,0 +1,159 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GeoDirectory Social Importer 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-11-01 20:54-0000\n"
+"PO-Revision-Date: 2014-11-01 20:55-0000\n"
+"Last-Translator: Stiofan <info@geotheme.com>\n"
+"Language-Team: GeoDirectory <info@wpgeodirectory.com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;_n:1,2;_n_noop:1,2;"
+"_nx:1,2\n"
+"X-Poedit-Basepath: ../\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.6.9\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: geodir_social_importer.php:57 geodir_social_importer.php:226
+msgid "Your settings have been saved."
+msgstr ""
+
+#: geodir_social_importer.php:71
+msgid "Social Importer"
+msgstr ""
+
+#: geodir_social_importer.php:74
+msgid "Facebook"
+msgstr ""
+
+#: geodir_social_importer.php:77
+msgid "Yelp"
+msgstr ""
+
+#: geodir_social_importer.php:87
+msgid "Facebook Integration"
+msgstr ""
+
+#: geodir_social_importer.php:121
+msgid "Enter your Facebook app details."
+msgstr ""
+
+#: geodir_social_importer.php:130
+msgid "Facebook App ID"
+msgstr ""
+
+#: geodir_social_importer.php:133
+msgid "Enter your Facebook app ID"
+msgstr ""
+
+#: geodir_social_importer.php:138
+msgid "Facebook App Secret"
+msgstr ""
+
+#: geodir_social_importer.php:141 yelp-functions.php:201
+msgid "Enter your Facebook app secret"
+msgstr ""
+
+#: geodir_social_importer.php:161 yelp-functions.php:187
+msgid "Connect App"
+msgstr ""
+
+#: geodir_social_importer.php:163 yelp-functions.php:189
+msgid "Refresh Access Token"
+msgstr ""
+
+#: geodir_social_importer.php:163 yelp-functions.php:189
+msgid "Connect Your App"
+msgstr ""
+
+#: geodir_social_importer.php:169
+msgid "Post to page"
+msgstr ""
+
+#: geodir_social_importer.php:172
+msgid "Select page"
+msgstr ""
+
+#: geodir_social_importer.php:175
+msgid "Select a Facebook page to post new listings to."
+msgstr ""
+
+#: geodir_social_importer.php:185 yelp-functions.php:198
+msgid "Facebook Access Token"
+msgstr ""
+
+#: geodir_social_importer.php:187 yelp-functions.php:200
+msgid "Active, expires: "
+msgstr ""
+
+#: geodir_social_importer.php:197 yelp-functions.php:209
+msgid "Save changes"
+msgstr ""
+
+#: geodir_social_importer.php:242
+msgid "Something went wrong"
+msgstr ""
+
+#: geodir_social_importer.php:529
+msgid "Something went wrong[111]"
+msgstr ""
+
+#: geodir_social_importer.php:581
+msgid "Please enter a value"
+msgstr ""
+
+#: geodir_social_importer.php:727
+msgid "Import Details from Social"
+msgstr ""
+
+#: geodir_social_importer.php:728
+msgid "Enter facebook page/event url or Yelp url"
+msgstr ""
+
+#: geodir_social_importer.php:729
+msgid "Import Details"
+msgstr ""
+
+#: yelp-functions.php:121
+msgid "Enter your Yelp API settings"
+msgstr ""
+
+#: yelp-functions.php:121
+msgid "Find them here"
+msgstr ""
+
+#: yelp-functions.php:135
+msgid "Consumer Key"
+msgstr ""
+
+#: yelp-functions.php:138
+msgid "Enter your Yelp Consumer Key"
+msgstr ""
+
+#: yelp-functions.php:143
+msgid "Consumer Secret"
+msgstr ""
+
+#: yelp-functions.php:146
+msgid "Enter your Yelp Consumer Secret"
+msgstr ""
+
+#: yelp-functions.php:152
+msgid "Token"
+msgstr ""
+
+#: yelp-functions.php:155
+msgid "Enter your Yelp Token"
+msgstr ""
+
+#: yelp-functions.php:160
+msgid "Token Secret"
+msgstr ""
+
+#: yelp-functions.php:163
+msgid "Enter your Yelp Token Secret"
+msgstr ""

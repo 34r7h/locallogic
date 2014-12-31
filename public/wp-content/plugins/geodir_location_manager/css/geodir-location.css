@@ -133,3 +133,48 @@ margin-top:25px;
   padding:0;}
   
 .geodir_locListing_main ul li .geodir_loc_arrow a:hover, .geodir_locListing_main ul li.geodir_active .geodir_loc_arrow{ background:url(../images/small-arrow-h.png) no-repeat center center; }
+
+
+.geodir_location_sugestion .geodir-chosen-container .chosen-results{max-height:120px;}
+
+
+/* additional styles for location selector */
+.geodir_shortcode_location_tab_container .geodir_location_tab_container {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: medium none;
+}
+
+.geodir_shortcode_location_tab_container .geodir_location_tabs_head {
+    margin: 0;
+    padding: 0;
+}
+
+.geodir_shortcode_location_tab_container .geodir_location_tabs {
+    width: 33%;
+}
+
+.geodir_shortcode_location_tab_container .geodir_location_tabs_head .geodir_location_tabs a {
+    display: block;
+    font-size: 12px;
+    text-decoration: none;
+    width: auto;
+}
+
+.geodir_shortcode_location_tab_container .geodir_location_sugestion .chosen-single {
+    color: #444;
+    font-size: 12px;
+    padding: 0 0 0 8px;
+    width: auto;
+}
+
+.geodir_shortcode_location_tab_container .geodir-chosen-container-single .chosen-single div b {
+    margin-top: 0px;
+}
+
+/* alternative fix for chosen not supported on mobile device */
+.gd-chosen-no-support .geodir_location_tab_container{max-width:300px}
+.gd-chosen-no-support .geodir_location_tab_container dl.geodir_location_tabs_head{min-height:24px}
+.gd-chosen-no-support .gd-no-chosen-seach{margin-top:3px;margin-bottom:3px;display:inline-block;width:93%}
+.gd-chosen-no-support .geodir_location_sugestion select[name="gd_location"]{width:100%}
+.gd-chosen-no-support select.geodir-loc-select-list{min-height:40px;height:auto;padding-left:0;padding-right:0}
+.gd-chosen-no-support select.geodir-loc-select-list option{padding:4px 10px}

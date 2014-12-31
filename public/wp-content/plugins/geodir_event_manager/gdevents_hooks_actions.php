@@ -50,6 +50,16 @@ add_filter('geodir_search_page_title',"geodir_event_calender_search_page_title",
 
 add_action('geodir_after_listing_post_title',"geodir_calender_event_details_after_post_title", 1);
 
+
+add_filter('geodir_diagnose_multisite_conversion' , 'geodir_diagnose_multisite_conversion_events', 10,1); 
+function geodir_diagnose_multisite_conversion_events($table_arr){
+	
+	// Diagnose Claim listing details table
+	$table_arr['geodir_gd_event_detail'] = __('Events',GEODIREVENTS_TEXTDOMAIN);
+	$table_arr['geodir_event_schedule'] = __('Event schedule',GEODIREVENTS_TEXTDOMAIN);
+	return $table_arr;
+}
+
 function geodir_event_templates_styles(){
 	
 	wp_register_style( 'geodir-event-frontend-style', geodir_event_plugin_url().'/gdevents-assets/css/style.css' );

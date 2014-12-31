@@ -1,0 +1,92 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GeoDirectory Custom Google Maps 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-11-17 17:43+0530\n"
+"PO-Revision-Date: 2014-11-17 17:43+0530\n"
+"Last-Translator: \n"
+"Language-Team: GeoDirectory <info@wpgeodirectory.com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;_n:1,2;_n_noop:1,2;"
+"_nx:1,2\n"
+"X-Poedit-Basepath: ../\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.6.9\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: gd_update.php:72
+msgid ""
+"An Unexpected HTTP Error occurred during the API request.</p> <p><a href=\"?"
+"\" onclick=\"document.location.reload(); return false;\">Try again</a>"
+msgstr ""
+
+#: gd_update.php:76
+msgid "An unknown error occurred"
+msgstr ""
+
+#: gd_update.php:104 gd_update.php:105
+msgid ""
+"Login details for GeoDirectory failed! Please check GeoDirectory>Auto "
+"Updates and that your membership is active."
+msgstr ""
+
+#: gd_update.php:161
+msgid "Auto Updates"
+msgstr ""
+
+#: gd_update.php:191
+msgid ""
+"Enter your GeoDirectory membership details to allow you to update plugins "
+"from dashboard"
+msgstr ""
+
+#: gd_update.php:201
+msgid "Geodirectory username/email"
+msgstr ""
+
+#: gd_update.php:204
+msgid "Enter your GeoDirectory username or email"
+msgstr ""
+
+#: gd_update.php:209
+msgid "Geodirectory password"
+msgstr ""
+
+#: gd_update.php:212
+msgid "Enter your GeoDirectory password"
+msgstr ""
+
+#: gd_update.php:222
+msgid "Save changes"
+msgstr ""
+
+#: geodir_custom_google_maps.php:78
+msgid ""
+"<span style=\"color:#FF0000\">There was an issue determining where "
+"GeoDirectory Plugin is installed and activated. Please install or activate "
+"GeoDirectory Plugin.</span>"
+msgstr ""
+
+#: geodir_custom_google_maps.php:107
+msgid "Custom Google Maps"
+msgstr ""
+
+#: geodir_custom_google_maps.php:110
+msgid "General"
+msgstr ""
+
+#: geodir_custom_google_maps.php:115
+msgid "Home Page Map"
+msgstr ""
+
+#: geodir_custom_google_maps.php:120
+msgid "Listing Page Map"
+msgstr ""
+
+#: geodir_custom_google_maps.php:125
+msgid "Detail Page Map"
+msgstr ""

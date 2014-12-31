@@ -1,0 +1,166 @@
+/* GeoDirectory Style Modifications for Enfold - Version 1.0.3 */
+
+/* Remove background image from select elements */
+#top.wpgeo-enfold select,
+#top.wpgeo-enfold .avia_ajax_form .select,
+#top.wpgeo-enfold .entry-content-wrapper select,
+#top.wpgeo-enfold .mobileMenu {
+	background-image: none;
+}
+/* Nav bar */
+.wpgeo-enfold .av-main-nav ul {
+	width: 222px;
+}
+
+/* Search Widget */
+.geodir-listing-search .geodir-loc-bar {
+	border-top: none;
+	padding: 0;
+}
+
+#main .geodir-listing-search,
+.geodir-listing-search .geodir-loc-bar {
+	margin-bottom: 0;
+}
+
+#main .geodir-loc-bar-in,
+#main .geodir-category-list-in {
+	background-color: #fcfcfc;
+	margin: 20px 0;
+	padding: 20px;
+}
+
+#main .geodir-loc-bar-in {
+	padding: 20px;
+}
+
+#main .geodir-search {
+	margin: 0;
+	width: 100%;
+}
+
+#main .geodir-search select {
+	margin: 0 3% 0 0;
+	padding: 8px 10px;
+	width: 13%;
+}
+
+#main .geodir-search input[type="text"] {
+	margin: 0 3% 0 0;
+	padding: 10px;
+	width: 32.4%;
+}
+
+#main .geodir-search input[type="button"],
+#main .geodir-search input[type="submit"] {
+	font-size: inherit;
+	line-height: 2.25;
+	margin: 0;
+	padding: 7px;
+	width: 13%;
+}
+
+/* Home page */
+.enfold-home-top section.widget {
+	margin: 0;
+	padding: 0;
+}
+
+.enfold-home-top .top_banner_section {
+	margin-bottom: 0;
+}
+
+.enfold-home-top .geodir-loc-bar {
+	background: #fcfcfc;
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+#main .enfold-home-top .geodir-loc-bar-in {
+	background: none;
+	border: none;
+	margin: 0 auto;
+	padding: 20px 0;
+}
+
+#main .geodir-breadcrumb {
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+}
+
+/* Detail page */
+#gd-tabs dt {
+	clear: none;
+}
+
+#geodir_slider ul li {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#respond {
+	clear: both;
+}
+
+#comments .comments-title span {
+	display: inline;
+	font-size: inherit;
+	font-weight: bold;
+}
+
+#reviewsTab .comments-area .bypostauthor cite span {
+	display: inline;
+}
+
+#top #comments .commentlist .comment,
+#top #comments .commentlist .comment > div {
+	min-height: 0;
+}
+
+.commentlist .commenttext {
+	padding-top: 15px;
+}
+
+#comment_imagesdropbox {
+	margin-bottom: 20px;
+}
+
+/* Listings page */
+.wpgeo-enfold .geodir_category_list_view li {
+	margin-left: 0;
+	padding: 0;
+}
+
+/* Sidebar Widgets */
+.widget ul.geodir-loginbox-list {
+	overflow: visible;
+}
+
+.geodir_category_list_view li .geodir-post-img {
+	display: block;
+}
+
+/* Event Calendar */
+.wpgeo-enfold .geodir_event_listing_calendar tr.title {
+	background: #ccc;
+}
+
+@media only screen and (max-width:480px) {
+
+  .geodir_category_list_view li .geodir-content,
+  .geodir_category_list_view li .geodir-post-img,
+  .geodir_category_list_view li .geodir-addinfo {
+  	float:none; width:100%; margin:10px 0;
+  }
+
+  #main .geodir-search input[type="text"],
+  #main .geodir-search input[type="button"],
+  #main .geodir-search input[type="submit"],
+  #main .geodir-search select {
+  	margin: 10px 0;
+  	width: 100%;
+  }
+
+}

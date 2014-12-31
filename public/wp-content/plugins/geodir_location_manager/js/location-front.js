@@ -1,5 +1,7 @@
-
 jQuery(document).ready(function(){
+								
+	setTimeout(function() {// add small delay incase mobile menu is created on the fly. 100 shoudl do it
+   
 	var keyup_timer
 	
 	jQuery('input[name="loc_pick_country_filter"]').keyup(function(){
@@ -134,69 +136,98 @@ jQuery(document).ready(function(){
 				
 				jQuery(tab).parents('.geodir_location_tab_container').find('.geodir_location_tabs').removeClass('gd-tab-active');
 				jQuery(tab).addClass('gd-tab-active');
+				
+				/* alternative fix for chosen not supported on mobile device */
+				if(!geodir_lm_chosen_supported()){
+					geodir_no_chosen_add_search(jQuery(tab).parents('.geodir_location_tab_container'));
+				}
+				/* alternative fix for chosen not supported on mobile device */
 			
 				geodir_location_switcher_chosen_ajax();
 			});
 			
 			
-		// Chosen selects
-		if(jQuery("select.geodir_location_switcher_chosen").length > 0)
-		{
-			jQuery("select.geodir_location_switcher_chosen").chosen({no_results_text: geodir_location_all_js_msg.LOCATION_CHOSEN_NO_RESULT_TEXT});
-			
-		}
 		
-		if(jQuery("select.geodir_location_add_listing_chosen").length > 0)
-		{
-			jQuery("select.geodir_location_add_listing_chosen").chosen({no_results_text: geodir_location_all_js_msg.LOCATION_CHOSEN_NO_RESULT_TEXT});
-			
-		}
 		
 		// now add an ajax function when value is entered in chose select text field
 		
-		geodir_location_switcher_chosen_ajax();
-		geodir_enable_click_on_chosen_list_item();
-	
-}); // end of document.ready jquery
-	
-	function geodir_location_switcher_chosen_ajax()
-	{
-		jQuery("select.geodir_location_switcher_chosen").each(function(){
-			var curr_chosen = jQuery(this);
-			var autoredirect = curr_chosen.data('autoredirect');
-			var countrysearch= curr_chosen.data('countrysearch');
-			var ajax_url = geodir_location_all_js_msg.geodir_location_admin_ajax_url; 
+		/* alternative fix for chosen not supported on mobile device */
+		if(!geodir_lm_chosen_supported()) {
+			jQuery('body').removeClass('gd-chosen-no-support').addClass('gd-chosen-no-support');
+			jQuery('.geodir_location_tab_container').each(function() {
+				var $this = this;
+				geodir_no_chosen_add_search($this);
+			});
+		}else{
 			
-			if(curr_chosen.data('ajaxchosen') == '1' || curr_chosen.data('ajaxchosen') === undefined)
+			// Chosen selects
+			if(jQuery("select.geodir_location_switcher_chosen").length > 0)
 			{
-				var listfor = curr_chosen.parents('.geodir_location_tab_container').find('.gd-tab-active').data('location')
+				jQuery("select.geodir_location_switcher_chosen").chosen({no_results_text: geodir_location_all_js_msg.LOCATION_CHOSEN_NO_RESULT_TEXT});
 				
+			}
+			
+			if(jQuery("select.geodir_location_add_listing_chosen").length > 0)
+			{
+				jQuery("select.geodir_location_add_listing_chosen").chosen({no_results_text: geodir_location_all_js_msg.LOCATION_CHOSEN_NO_RESULT_TEXT});
 				
-				var show_every_where = curr_chosen.data('showeverywhere');
-				
-				curr_chosen.ajaxChosen({
-					keepTypingMsg: geodir_location_all_js_msg.LOCATION_CHOSEN_KEEP_TYPE_TEXT,
-					lookingForMsg: geodir_location_all_js_msg.LOCATION_CHOSEN_LOOKING_FOR_TEXT,
-					type: 'GET',
-					url: ajax_url+'?action=geodir_location_ajax&gd_loc_ajax_action=fill_location&autoredirect='+autoredirect+'&gd_which_location='+listfor+'&show_every_where='+show_every_where ,
-					dataType: 'html',
-					success: function (data) {
-						curr_chosen.html(data).chosen().trigger("chosen:updated");
-						geodir_enable_click_on_chosen_list_item();
-					}
-				}, 
-				null,
-				{}
-				);
-			}	
+			}
+			geodir_location_switcher_chosen_ajax();
 			
 		}
 		
-
-		);	
-	}
+		/* alternative fix for chosen not supported on mobile device */
+		
+		
+		geodir_enable_click_on_chosen_list_item();
+		
+		/* alternative fix for chosen not supported on mobile device */
+		if(!geodir_lm_chosen_supported()) {
+			jQuery(document).click(function(e) {;
+				var isSwitcher = jQuery(e.target).closest('.geodir_location_sugestion').html();
+				if(typeof isSwitcher == 'undefined') {
+					jQuery(document).find('.geodir_location_sugestion').each(function() {
+						jQuery(this).find('select[name="gd_location"]').removeAttr('size');
+						jQuery(this).find('select[name="gd_location"]').removeClass('geodir-loc-select-list');
+					});
+				}
+			});
+			jQuery(document).find('.geodir_location_sugestion select[name="gd_location"] option').click(function() {
+				if(jQuery(this).attr('selected') == 'selected' || jQuery(this).attr('value') == geodir_location_all_js_msg.gd_base_location) {
+					jQuery(this).closest('select').removeAttr('size');
+					jQuery(this).closest('select').removeClass('geodir-loc-select-list');
+				}
+			});
+		}
+		/* alternative fix for chosen not supported on mobile device */
+		
+    }, 100);
 	
-
+}); // end of document.ready jquery
+	
+function geodir_location_switcher_chosen_ajax() {
+	jQuery("select.geodir_location_switcher_chosen").each(function() {
+		var curr_chosen = jQuery(this);
+		var autoredirect = curr_chosen.data('autoredirect');
+		var countrysearch = curr_chosen.data('countrysearch');
+		var ajax_url = geodir_location_all_js_msg.geodir_location_admin_ajax_url;
+		if(curr_chosen.data('ajaxchosen') == '1' || curr_chosen.data('ajaxchosen') === undefined) {
+			var listfor = curr_chosen.parents('.geodir_location_tab_container').find('.gd-tab-active').data('location')
+			var show_every_where = curr_chosen.data('showeverywhere');
+			curr_chosen.ajaxChosen({
+				keepTypingMsg: geodir_location_all_js_msg.LOCATION_CHOSEN_KEEP_TYPE_TEXT,
+				lookingForMsg: geodir_location_all_js_msg.LOCATION_CHOSEN_LOOKING_FOR_TEXT,
+				type: 'GET',
+				url: ajax_url + '?action=geodir_location_ajax&gd_loc_ajax_action=fill_location&autoredirect=' + autoredirect + '&gd_which_location=' + listfor + '&show_every_where=' + show_every_where,
+				dataType: 'html',
+				success: function(data) {
+					curr_chosen.html(data).chosen().trigger("chosen:updated");
+					geodir_enable_click_on_chosen_list_item();
+				}
+			}, null, {});
+		}
+	});
+}
 
 /* Script for the Add new listing page, country/Region/City chosen */
 	
@@ -378,16 +409,170 @@ function geodir_enable_click_on_chosen_list_item()
 }
 
 	
-function geodir_set_map_default_location(mapid, lat, lng){
-	
-	if(mapid != '' && lat != '' && lng != '' ){
-		
-		jQuery("#"+mapid).goMap();
+function geodir_set_map_default_location(mapid, lat, lng) {
+	if(mapid != '' && lat != '' && lng != '') {
+		jQuery("#" + mapid).goMap();
 		jQuery.goMap.map.setCenter(new google.maps.LatLng(lat, lng));
 		baseMarker.setPosition(new google.maps.LatLng(lat, lng));
 		updateMarkerPosition(baseMarker.getPosition());
 		geocodePosition(baseMarker.getPosition());
-	
 	}
-	
 }
+
+/* alternative fix for chosen not supported on mobile device */
+function geodir_lm_chosen_supported() {
+	if(window.navigator.appName === "Microsoft Internet Explorer") {
+		return document.documentMode >= 8;
+	}
+	if(/iP(od|hone|ad)/i.test(window.navigator.userAgent)) {
+		return false;
+	}
+	if(/Android/i.test(window.navigator.userAgent)) {
+		if(/Mobile/i.test(window.navigator.userAgent)) {
+			return false;
+		}
+	}
+	return true;
+}
+
+function geodir_no_chosen_add_search(cont, tab) {
+	var contLoc = jQuery(cont).find('select[name="gd_location"]');
+	jQuery(contLoc).removeAttr('size');
+	jQuery(contLoc).removeClass('geodir-loc-select-list');
+	jQuery(cont).find('.gd-no-chosen-seach').remove();
+	var inputSearch = '<div class="chosen-search"><input type="text" name="term" class="gd-no-chosen-seach" value="" onkeyup="javascript:geodir_no_chosen_search(this);" /></div>';
+	jQuery(contLoc).before(inputSearch);
+	if(typeof tab == 'undefined' || tab == '') {
+		tab = jQuery(cont).find('.geodir_location_tabs.gd-tab-active').attr('data-location');
+	}
+	var placeHold = '';
+	if(tab == 'city') {
+		placeHold = geodir_location_all_js_msg.gd_text_search_city;
+	} else if(tab == 'region') {
+		placeHold = geodir_location_all_js_msg.gd_text_search_region;
+	} else if(tab == 'country') {
+		placeHold = geodir_location_all_js_msg.gd_text_search_country;
+	}
+	placeHold = placeHold != '' ? placeHold : geodir_location_all_js_msg.gd_text_search_location;
+	jQuery(cont).find('.gd-no-chosen-seach').attr('placeholder', placeHold);
+}
+
+function geodir_no_chosen_search(obj) {
+	var term = jQuery(obj).val();
+	if(typeof term != 'undefined' && term != '') {
+		term = term.replace(/^\s+/, '');;
+	} else {
+		term = '';
+	}
+	var ajax_url = geodir_location_all_js_msg.geodir_location_admin_ajax_url;
+	var attach_term = term != '' ? '&term=' + term : '';
+	var cont = jQuery(obj).closest(".geodir_location_tab_container");
+	var tab = jQuery(cont).find('.geodir_location_tabs.gd-tab-active');
+	var tab_id = jQuery(tab).data('location');
+	var autoredirect = jQuery(tab).parents(".geodir_location_tab_container").find(".geodir_location_switcher_chosen").data('autoredirect');
+	var show_every_where = jQuery(tab).parents(".geodir_location_tab_container").find(".geodir_location_switcher_chosen").data('showeverywhere');
+	jQuery.post(ajax_url + '?action=geodir_location_ajax&gd_loc_ajax_action=fill_location&autoredirect=' + autoredirect + '&gd_which_location=' + tab_id + "&show_every_where=" + show_every_where + attach_term, function(data) {
+		jQuery(tab).parents(".geodir_location_tab_container").find(".geodir_location_switcher_chosen").html(data).chosen().trigger("chosen:updated");
+		geodir_enable_click_on_chosen_list_item();
+		geodir_expand_option(cont);
+		jQuery(cont).find('select[name="gd_location"] option').each(function() {
+			jQuery(this).bind('click', function() {
+				if(jQuery(this).attr('selected') == 'selected' || jQuery(this).attr('value') == geodir_location_all_js_msg.gd_base_location) {
+					jQuery(this).closest('select').removeAttr('size');
+					jQuery(this).closest('select').removeClass('geodir-loc-select-list');
+				}
+			});
+		});
+	});
+	geodir_location_switcher_chosen_ajax();
+}
+
+function geodir_expand_option(cont, one) {
+	var objSel = jQuery(cont).find('select[name="gd_location"]');
+	var optCount = jQuery(objSel).children('option').length;
+	if(typeof one != 'undefined') {
+		jQuery(objSel).removeAttr('size');
+		jQuery(objSel).removeClass('geodir-loc-select-list');
+	} else {
+		if(parseInt(optCount) < 2) {
+			jQuery(objSel).removeAttr('size');
+			jQuery(objSel).removeClass('geodir-loc-select-list');
+		} else {
+			jQuery(objSel).attr('size', optCount);
+			jQuery(objSel).addClass('geodir-loc-select-list');
+		}
+	}
+}
+/* alternative fix for chosen not supported on mobile device */
+
+
+
+jQuery(document).ready(function(){
+locationSPage=[];								
+locationSPage['city']=1;
+locationSPage['region']=1;
+locationSPage['country']=1;
+locationSActive = false;
+
+  setTimeout(function(){ // wait for JS chosen to have loaded
+					  
+		jQuery('.geodir_location_sugestion .geodir-chosen-container .chosen-results').scroll(function(){
+																									  
+			if(jQuery(this).scrollTop() + jQuery(this).innerHeight() >= jQuery(this)[0].scrollHeight) {
+				
+				if(locationSActive){return;}
+				
+				if(jQuery(this).scrollTop()==0){return;}
+				
+				
+				
+				
+							obj = this;
+							
+							var tempScrollTop = jQuery(this).scrollTop();
+							
+							var term='';
+							var ajax_url = geodir_location_all_js_msg.geodir_location_admin_ajax_url;
+							var attach_term = term != '' ? '&term=' + term : '';
+							var cont = jQuery(obj).closest(".geodir_location_tab_container");
+							var tab = jQuery(cont).find('.geodir_location_tabs.gd-tab-active');
+							var tab_id = jQuery(tab).data('location');							
+							var autoredirect = jQuery(tab).parents(".geodir_location_tab_container").find(".geodir_location_switcher_chosen").data('autoredirect');
+							var show_every_where = jQuery(tab).parents(".geodir_location_tab_container").find(".geodir_location_switcher_chosen").data('showeverywhere');
+							if(locationSPage[tab_id]=='0'){return;}
+							locationSActive = true;
+							//jQuery(this).parent().prepend('<div class="loading_div loc-loading" style="height: 157px; width: 100%;"></div>');return;
+							jQuery(obj).addClass('loading_div_loc');
+							
+							jQuery.post(ajax_url + '?action=geodir_location_ajax&gd_loc_ajax_action=fill_location&autoredirect=' + autoredirect + '&gd_which_location=' + tab_id + "&show_every_where=" + show_every_where + attach_term+"&lscroll=true&spage="+locationSPage[tab_id], function(data) {
+								//jQuery('.loc-loading').remove();	
+								jQuery(obj).removeClass('loading_div_loc');
+								locationSPage[tab_id]++;
+								if(data==''){locationSPage[tab_id]='0';}
+								
+								var orig_data = jQuery(tab).parents(".geodir_location_tab_container").find(".geodir_location_switcher_chosen").html();
+								jQuery(tab).parents(".geodir_location_tab_container").find(".geodir_location_switcher_chosen").html(orig_data+data).chosen().trigger("chosen:updated");
+								geodir_enable_click_on_chosen_list_item();
+								geodir_expand_option(cont);
+								jQuery(cont).find('select[name="gd_location"] option').each(function() {
+									jQuery(this).bind('click', function() {
+										if(jQuery(this).attr('selected') == 'selected' || jQuery(this).attr('value') == geodir_location_all_js_msg.gd_base_location) {
+											jQuery(this).closest('select').removeAttr('size');
+											jQuery(this).closest('select').removeClass('geodir-loc-select-list');
+										}
+									});
+								});
+								
+								jQuery(obj).scrollTop(tempScrollTop);
+								locationSActive = false;
+							});
+							geodir_location_switcher_chosen_ajax();
+				
+				
+				
+			} 
+		});
+					  					  
+					  
+	}, 1000);
+});

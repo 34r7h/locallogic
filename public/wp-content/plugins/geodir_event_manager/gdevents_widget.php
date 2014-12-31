@@ -381,6 +381,9 @@ class geodir_event_postview extends WP_Widget {
 		
 		echo $before_widget;
 		
+		global $gdevents_widget;
+		$gdevents_widget = true;
+		
 		$title = empty($instance['title']) ? ucwords($instance['category_title']) : apply_filters('widget_title', __($instance['title'],GEODIREVENTS_TEXTDOMAIN));
 		
 		$post_type = 'gd_event';
@@ -484,9 +487,8 @@ class geodir_event_postview extends WP_Widget {
 								}
 								
 								global $gridview_columns;
-								
 								query_posts( $query_args );
-								
+
 								if(strstr($layout,'gridview')){
 									
 									$listing_view_exp = explode('_',$layout);
@@ -500,15 +502,16 @@ class geodir_event_postview extends WP_Widget {
 								$template = apply_filters( "geodir_template_part-listing-listview", geodir_plugin_path() . '/geodirectory-templates/listing-listview.php' );
 
 								include( $template );
-							   
+							    
 								wp_reset_query(); 
 							 ?>				
 						   
 						</div>
 		
 		
-		<?php 
-		
+		<?php	
+		$gdevents_widget = NULL;
+		unset( $gdevents_widget );
 		echo $after_widget;
 	}
 	

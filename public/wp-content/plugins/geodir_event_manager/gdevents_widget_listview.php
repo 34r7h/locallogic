@@ -57,9 +57,9 @@ if ( !empty( $widget_events ) ) {
         <?php /// Print Distance
 			if ( isset( $_REQUEST['sgeo_lat'] ) && $_REQUEST['sgeo_lat'] != '' ) {
 				$startPoint = array( 'latitude'	=> $_REQUEST['sgeo_lat'], 'longitude' => $_REQUEST['sgeo_lon']);	
-				$endLat = geodir_get_post_meta( $post->ID, 'post_latitude', true);
-				$endLon = geodir_get_post_meta( $post->ID, 'post_longitude', true);
-				$endPoint = array( 'latitude' => $endLat, 'longitude' => $endLon );
+				$endLat = $post->post_latitude; 
+				$endLon = $post->post_longitude;
+				$endPoint = array( 'latitude'	=> $endLat, 'longitude'	=> $endLon);
 				$uom = get_option( 'geodir_search_dist_1' );
 				$distance = geodir_calculateDistanceFromLatLong( $startPoint, $endPoint, $uom );
 				?>
@@ -68,9 +68,9 @@ if ( !empty( $widget_events ) ) {
 				if (round((int)$distance,2) == 0){
 					$uom = get_option('geodir_search_dist_2');
 					$distance = geodir_calculateDistanceFromLatLong ($startPoint,$endPoint,$uom);
-					echo round($distance).' '.$uom.'<br />';
+					echo round($distance).' '.__( $uom, GEODIRECTORY_TEXTDOMAIN ).'<br />';
 				} else {
-					echo round($distance,2).' '.$uom.'<br />';
+					echo round($distance,2).' '.__( $uom, GEODIRECTORY_TEXTDOMAIN ).'<br />';
 				}
 			?>
         </h3>
@@ -98,8 +98,7 @@ if ( !empty( $widget_events ) ) {
           <?php 
 				$review_show = geodir_is_reviews_show('listview');
 				if ($review_show) {
-					$comment_count = geodir_get_review_count_total($post->ID); 
-					$post_ratings = geodir_get_review_total($post->ID);
+					
 					global $preview;
 					if (!$preview) {
 						$post_avgratings = geodir_get_commentoverall_number($post->ID);
@@ -110,7 +109,7 @@ if ( !empty( $widget_events ) ) {
 					}
 					?>
           <a href="<?php comments_link(); ?>" class="geodir-pcomments"><i class="fa fa-comments"></i>
-          <?php comments_number( __('No Reviews',GEODIRECTORY_TEXTDOMAIN), __('1 Review',GEODIRECTORY_TEXTDOMAIN), __('% Reviews',GEODIRECTORY_TEXTDOMAIN) ); ?>
+          <?php geodir_comments_number( $post->rating_count ); ?>
           </a>
           <?php 
 				}

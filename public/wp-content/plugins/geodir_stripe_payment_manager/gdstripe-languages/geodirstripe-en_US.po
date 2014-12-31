@@ -1,0 +1,129 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GeoDirectory Stripe 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-12-12 11:20-0000\n"
+"PO-Revision-Date: 2014-12-12 11:21-0000\n"
+"Last-Translator: Stiofan <info@geotheme.com>\n"
+"Language-Team: GeoDirectory <info@wpgeodirectory.com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;_n:1,2;_n_noop:1,2;"
+"_nx:1,2\n"
+"X-Poedit-Basepath: ../\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.6.9\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: gd_update.php:72
+msgid ""
+"An Unexpected HTTP Error occurred during the API request.</p> <p><a href=\"?"
+"\" onclick=\"document.location.reload(); return false;\">Try again</a>"
+msgstr ""
+
+#: gd_update.php:76
+msgid "An unknown error occurred"
+msgstr ""
+
+#: gd_update.php:104
+msgid ""
+"Login details for GeoDirectory failed! Please check GeoDirectory > Auto "
+"Updates and that your membership is active."
+msgstr ""
+
+#: gd_update.php:105
+msgid ""
+"Login details for GeoDirectory failed! Please check GeoDirectory>Auto "
+"Updates and that your membership is active."
+msgstr ""
+
+#: gd_update.php:161
+msgid "Auto Updates"
+msgstr ""
+
+#: gd_update.php:191
+msgid ""
+"Enter your GeoDirectory membership details to allow you to update plugins "
+"from dashboard"
+msgstr ""
+
+#: gd_update.php:201
+msgid "Geodirectory username/email"
+msgstr ""
+
+#: gd_update.php:204
+msgid "Enter your GeoDirectory username or email"
+msgstr ""
+
+#: gd_update.php:209
+msgid "Geodirectory password"
+msgstr ""
+
+#: gd_update.php:212
+msgid "Enter your GeoDirectory password"
+msgstr ""
+
+#: gd_update.php:222
+msgid "Save changes"
+msgstr ""
+
+#: geodir_stripe_payment_manager.php:297
+msgid ""
+"THIS IS A SUBSCRIPTION SIGNUP AND IF A FREE TRIAL WAS OFFERD NO PAYMENT WILL "
+"BE RECIVED"
+msgstr ""
+
+#: geodir_stripe_payment_manager.php:299
+#, php-format
+msgid "Payment Details for Listing ID #%s"
+msgstr ""
+
+#: geodir_stripe_payment_manager.php:301
+#, php-format
+msgid "Listing Title: %s"
+msgstr ""
+
+#: geodir_stripe_payment_manager.php:303
+#, php-format
+msgid "Trans ID: %s"
+msgstr ""
+
+#: geodir_stripe_payment_manager.php:304
+#, php-format
+msgid "Status: %s"
+msgstr ""
+
+#: geodir_stripe_payment_manager.php:305
+#, php-format
+msgid "Amount: %s"
+msgstr ""
+
+#: geodir_stripe_payment_manager.php:306
+#, php-format
+msgid "Type: %s"
+msgstr ""
+
+#: geodir_stripe_payment_manager.php:307
+#, php-format
+msgid "Date: %s"
+msgstr ""
+
+#: geodir_stripe_payment_manager.php:323
+#, php-format
+msgid "Method: %s"
+msgstr ""
+
+#: geodir_stripe_payment_manager.php:325
+msgid "Information Submitted URL"
+msgstr ""
+
+#: geodir_stripe_payment_manager.php:352
+msgid "ORIGINAL SUBSCRIPTION INFO BELOW"
+msgstr ""
+
+#: geodir_stripe_payment_manager.php:401
+msgid "Stripe"
+msgstr ""

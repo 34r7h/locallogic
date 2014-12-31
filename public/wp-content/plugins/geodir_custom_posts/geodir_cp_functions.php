@@ -436,7 +436,7 @@ function geodir_cp_from_submit_handler(){
 						
 						$newposttype_detail = "CREATE TABLE IF NOT EXISTS ".$newtable_name." (
 										`post_id` int(11) NOT NULL,
-										`post_title` varchar(100) NULL DEFAULT NULL,
+										`post_title` text NULL DEFAULT NULL,
 										`post_status` varchar(20) NULL DEFAULT NULL,
 										`default_category` INT NULL DEFAULT NULL,
 										`post_tags` varchar(254) NULL DEFAULT NULL,

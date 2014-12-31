@@ -497,6 +497,37 @@ function geodir_event_loop_filter_where($where) {
 				$where .= " AND ".EVENT_SCHEDULE.".event_date <= '".date('Y-m-d',strtotime($_REQUEST['event_end']))."' ";
 		}
 		
+		
+		
+		if(isset($_SESSION['all_near_me'])){
+			global $plugin_prefix,$wp_query;
+			//print_r($wp_query);
+			
+			if(!$geodir_post_type){$geodir_post_type = $wp_query->query_vars['post_type'];}
+			$table = $plugin_prefix . $geodir_post_type . '_detail';
+			$DistanceRadius = geodir_getDistanceRadius(get_option('geodir_search_dist_1'));
+			$mylat = $_SESSION['user_lat'];
+			$mylon = $_SESSION['user_lon'];
+			
+			if(isset($_SESSION['near_me_range']) && is_numeric($_SESSION['near_me_range'])){$dist =$_SESSION['near_me_range']; }
+			elseif(get_option('geodir_near_me_dist')!=''){$dist = get_option('geodir_near_me_dist');}
+			else{ $dist = '200';  }
+			
+			$lon1 = $mylon-$dist/abs(cos(deg2rad($mylat))*69); 
+			$lon2 = $mylon+$dist/abs(cos(deg2rad($mylat))*69);
+			$lat1 = $mylat-($dist/69);
+			$lat2 = $mylat+($dist/69);
+			
+			$rlon1 = is_numeric(min($lon1,$lon2)) ? min($lon1,$lon2) : '';
+			$rlon2 = is_numeric(max($lon1,$lon2)) ? max($lon1,$lon2) : '';
+			$rlat1 = is_numeric(min($lat1,$lat2)) ? min($lat1,$lat2) : '';
+			$rlat2 = is_numeric(max($lat1,$lat2)) ? max($lat1,$lat2) : '';
+			
+			$where .= " AND ( ".$table.".post_latitude between $rlat1 and $rlat2 ) 
+						AND ( ".$table.".post_longitude between $rlon1 and $rlon2 ) ";
+		}
+		
+		
 	}
 	
 	if( is_search() && isset($_REQUEST['geodir_search']) && isset($_REQUEST['event_calendar'])  && is_main_query()){
@@ -510,43 +541,67 @@ function geodir_event_loop_filter_where($where) {
 		}
 		
 	}
+	
+	
+	
+	
+	
+	
+	
 	return $where;
 }
 
-function geodir_event_date_calendar_fields($fields){
-
-	global $query,$wp_query, $wpdb,$geodir_post_type,$table, $plugin_prefix;
+function geodir_event_date_calendar_fields( $fields ) {
+	global $query, $wp_query, $wpdb, $geodir_post_type, $table, $plugin_prefix;
+	
+	if ( !empty( $geodir_post_type ) && $geodir_post_type != 'gd_event' ) {
+		return $fields;
+	}
+	
+	$schedule_table = EVENT_SCHEDULE;
 		
-		$schedule_table = EVENT_SCHEDULE;
+	if ( get_query_var( 'geodir_event_date_calendar' ) ) {
+		$current_year = date( 'Y', get_query_var( 'geodir_event_date_calendar' ) );
+		$current_month = date( 'm', get_query_var( 'geodir_event_date_calendar' ) );
 		
-		if(get_query_var('geodir_event_date_calendar')){
-		
-			$current_year = date('Y', get_query_var('geodir_event_date_calendar'));
-			$current_month = date('m', get_query_var('geodir_event_date_calendar'));
-			
-			$condition = " YEAR(event_date) = ".$current_year." AND MONTH(event_date) = ".$current_month." ";
-			
-			$fields = " (SELECT GROUP_CONCAT( DISTINCT ".$schedule_table.".event_date) FROM ".$schedule_table." WHERE ".$condition.") AS event_dates";
-			
-		}else{
-			if((is_main_query() && (geodir_is_page('listing') || ( is_search() && isset($_REQUEST['geodir_search'])) || isset($_REQUEST['geodir_dashbord']))) || get_query_var('geodir_event_listing_filter')){
-				$fields .= ", ".$table.".*".", ".EVENT_SCHEDULE.".* ";
-			}
-				
+		$condition = " YEAR(event_date) = ".$current_year." AND MONTH(event_date) = ".$current_month." ";
+		$fields = " (SELECT GROUP_CONCAT( DISTINCT ".$schedule_table.".event_date) FROM ".$schedule_table." WHERE ".$condition.") AS event_dates";
+	} else {
+		if ( ( is_main_query() && ( geodir_is_page( 'listing' ) || ( is_search() && isset($_REQUEST['geodir_search'])) || isset($_REQUEST['geodir_dashbord'] ) ) ) || get_query_var( 'geodir_event_listing_filter' ) ) {
+			$fields .= ", ".$table.".*".", ".EVENT_SCHEDULE.".* ";
 		}
-		
-		
+	}
+	
+	
+	if(isset($_SESSION['all_near_me'])){
+			$DistanceRadius = geodir_getDistanceRadius(get_option('geodir_search_dist_1'));
+			$mylat = $_SESSION['user_lat'];
+			$mylon = $_SESSION['user_lon'];
+			
+			
+			
+			$fields .= " , (".$DistanceRadius." * 2 * ASIN(SQRT( POWER(SIN((ABS($mylat) - ABS(".$table.".post_latitude)) * pi()/180 / 2), 2) +COS(ABS($mylat) * pi()/180) * COS( ABS(".$table.".post_latitude) * pi()/180) *POWER(SIN(($mylon - ".$table.".post_longitude) * pi()/180 / 2), 2) )))as distance ";
+		}
+	
 	return $fields;
 }
 
 
 function geodir_event_date_calendar_join($join)
 {
-	global $wpdb,$query,$geodir_post_type,$table,$table_prefix,$plugin_prefix;
+	global $wpdb,$query,$geodir_post_type,$table,$table_prefix,$plugin_prefix, $gdevents_widget;
+	
+	if ( !empty( $geodir_post_type ) && $geodir_post_type != 'gd_event' ) {
+		return $join;
+	}
 	
 	$schedule_table = EVENT_SCHEDULE;
-	
 	if(((is_main_query() && (geodir_is_page('listing') || ( is_search() && isset($_REQUEST['geodir_search'])))) || get_query_var('geodir_event_date_calendar') || isset($_REQUEST['geodir_dashbord'])) || get_query_var('geodir_event_listing_filter')){
+		if ( !geodir_is_geodir_page() && $gdevents_widget ) {
+			$geodir_post_type = 'gd_event';
+			$table = $plugin_prefix . $geodir_post_type . '_detail';
+			$join .= " INNER JOIN ".$table." ON (".$table.".post_id = $wpdb->posts.ID)  " ;
+		}
 		$join .= " INNER JOIN ".$schedule_table." ON (".$schedule_table.".event_id = $wpdb->posts.ID)  " ;
 	}
 
@@ -555,11 +610,34 @@ function geodir_event_date_calendar_join($join)
 
 
 function geodir_event_posts_order_by_sort($orderby, $sort_by, $table){
-	global $query, $geodir_post_type;
+	global $query, $geodir_post_type,$wpdb;
+	
+	if ( !empty( $geodir_post_type ) && $geodir_post_type != 'gd_event' ) {
+		return $orderby;
+	}
 	
 	if(((is_main_query() && (geodir_is_page('listing') || ( is_search() && isset($_REQUEST['geodir_search']))) || get_query_var('geodir_event_date_calendar') || isset($_REQUEST['geodir_dashbord']))) || get_query_var('geodir_event_listing_filter')){
 	
-		$orderby .= " geodir_event_schedule.event_date asc,  geodir_event_schedule.event_starttime asc , ";
+		$orderby .= " ".$wpdb->prefix."geodir_event_schedule.event_date asc,  ".$wpdb->prefix."geodir_event_schedule.event_starttime asc , ";
+		
+	}
+	
+	return $orderby;
+	
+}
+
+function geodir_event_posts_order_by_sort_distance($orderby){
+	global $query, $geodir_post_type,$wpdb;
+	
+	if ( !empty( $geodir_post_type ) && $geodir_post_type != 'gd_event' ) {
+		return $orderby;
+	}
+	
+	if(((is_main_query() && (geodir_is_page('listing') || ( is_search() && isset($_REQUEST['geodir_search']))) || get_query_var('geodir_event_date_calendar') || isset($_REQUEST['geodir_dashbord']))) || get_query_var('geodir_event_listing_filter')){
+	
+		if(isset($_SESSION['all_near_me'])){
+		$orderby =	" distance, ".$orderby;
+		}
 		
 	}
 	
@@ -573,7 +651,7 @@ function geodir_event_loop_filter_groupby( $groupby )
   global $wp_query,$query,$wpdb,$geodir_post_type,$table,$condition_date;
 	
 	if($geodir_post_type == 'gd_event' && is_main_query() && geodir_is_page('listing')){
-		$groupby = '';
+		$groupby = " $wpdb->posts.ID," . EVENT_SCHEDULE . ".event_date";
 	}elseif(get_query_var('geodir_event_date_calendar')){
 		 $groupby = ' event_id';
 	}
@@ -592,6 +670,7 @@ function geodir_event_loop_filter($query){
 			add_filter('geodir_posts_order_by_sort', 'geodir_event_posts_order_by_sort', 2, 3);
 			add_filter('posts_where', 'geodir_event_loop_filter_where', 2);
 			add_filter('posts_groupby', 'geodir_event_loop_filter_groupby' );
+			//add_filter('posts_orderby', 'geodir_event_posts_order_by_sort_distance' ,1 );
 	}
 	
 	return $query;
@@ -599,10 +678,10 @@ function geodir_event_loop_filter($query){
 
 
 function geodir_event_cat_post_count_join($join,$post_type){
-	
+	global $plugin_prefix;
 	if($post_type == 'gd_event')
 	{
-		$join .= ", geodir_event_schedule sch ";
+		$join .= ", ".$plugin_prefix."event_schedule sch ";
 	}
 	
 	return $join;
@@ -611,12 +690,12 @@ function geodir_event_cat_post_count_join($join,$post_type){
 add_filter('geodir_cat_post_count_join', 'geodir_event_cat_post_count_join', 1, 2);
 
 function geodir_event_cat_post_count_where($where, $post_type){
-	
+	global $plugin_prefix;
 	$current_date = date('Y-m-d');
 	
 	if($post_type == 'gd_event')
 	{
-		$table_name = 'geodir_'.$post_type.'_detail';
+		$table_name = $plugin_prefix.$post_type.'_detail';
 		
 		$where .= " AND ".$table_name.".post_id=sch.event_id AND sch.event_date >= '".$current_date."' ";
 	}
@@ -949,3 +1028,40 @@ function geodir_event_get_my_listings( $post_type = 'all', $search = '', $limit 
 	
 	return $rows;
 }
+
+add_filter('geodir_filter_widget_listings_fields','geodir_filter_event_widget_listings_fields',10,3);
+function geodir_filter_event_widget_listings_fields($fields,$table,$post_type){
+	global $plugin_prefix;
+	if($post_type=='gd_event'){
+	$fields .= ", ".EVENT_SCHEDULE.".* ";	
+	}
+	return $fields;
+}
+
+add_filter('geodir_filter_widget_listings_join','geodir_filter_event_widget_listings_join',10,2);
+function geodir_filter_event_widget_listings_join($join,$post_type){
+	global $plugin_prefix,$wpdb;
+	if($post_type=='gd_event'){
+	$join .= " INNER JOIN ".EVENT_SCHEDULE." ON (".EVENT_SCHEDULE.".event_id = $wpdb->posts.ID) ";	
+	}
+	return $join;
+}
+
+add_filter('geodir_filter_widget_listings_where','geodir_filter_event_widget_listings_where',10,2);
+function geodir_filter_event_widget_listings_where($where,$post_type){
+	global $plugin_prefix,$wpdb;
+	if($post_type=='gd_event'){
+	$where .= " AND ".EVENT_SCHEDULE.".event_date >= '".date('Y-m-d')."' ";	
+	}
+	return $where;
+}
+
+add_filter('geodir_filter_widget_listings_orderby','geodir_filter_event_widget_listings_orderby',10,3);
+function geodir_filter_event_widget_listings_orderby($orderby,$table,$post_type){
+	global $plugin_prefix,$wpdb;
+	if($post_type=='gd_event'){
+	$orderby = " ".EVENT_SCHEDULE.".event_date asc,".EVENT_SCHEDULE.".event_starttime asc , ".EVENT_DETAIL_TABLE.".is_featured asc, $wpdb->posts.post_date desc, ";	
+	}
+	return $orderby;
+}
+

@@ -252,9 +252,13 @@ function geodir_reviewrating_draw_overall_rating($rating) {
 	while ($x<=$overall_star) {
 		$rating_imgs .= $rating_img;
 		$x++;
-	}	
+	}
 	
-	$overall_rating ='<div class="geodir-rating"><div class="gd_rating_show" data-average="'.$rating.'" ><div class="geodir_RatingAverage" style="width: '.$rating_percent.'%;background-color:'.$star_color.'"></div><div class="geodir_Star">'.$rating_imgs.'</div></div></div>';
+	/* fix rating star for safari */
+	global $is_safari, $is_iphone, $ios, $is_chrome;
+	$attach_style = ( $is_safari || $is_iphone || $ios || $is_chrome ) && $star_width > 0 ? 'width:' . $star_width . 'px;max-width:none' : '';	
+	
+	$overall_rating ='<div class="geodir-rating" style="' . $attach_style . '"><div class="gd_rating_show" data-average="'.$rating.'" ><div class="geodir_RatingAverage" style="width: '.$rating_percent.'%;background-color:'.$star_color.'"></div><div class="geodir_Star">'.$rating_imgs.'</div></div></div>';
 		
 	return $overall_rating;
 }
@@ -327,7 +331,8 @@ function geodir_reviewrating_draw_ratings($ratings = ''){
 										$title = isset($rating_style[$id]->title) ? $rating_style[$id]->title : '';
 										$max_star = isset($rating_style[$id]->star_number) ? $rating_style[$id]->star_number : '';
 										$rating_style_star_lables = isset($rating_style[$id]->star_lables) ? $rating_style[$id]->star_lables : '';
-										$star_lable = explode(",",$rating_style_star_lables);
+										//$star_lable = explode(",",$rating_style_star_lables);
+										$star_lable = geodir_reviewrating_star_lables_to_arr( $rating_style_star_lables );
 										$star_width = isset($rating_style[$id]->s_img_width) ? $rating_style[$id]->s_img_width : '';
 										$star_height = isset($rating_style[$id]->s_img_height) ? $rating_style[$id]->s_img_height : '';
 										$star_color = isset($rating_style[$id]->star_color) ? $rating_style[$id]->star_color : '#ff9900';
@@ -758,22 +763,29 @@ function geodir_reviewrating_overall_settings_form(){
 										$getoratting = get_option('geodir_reviewrating_overall_rating_texts');
 								
 								if(isset($getoratting) && count($getoratting)>0)
-								{ $impl = implode(',',$getoratting); }
+								{
+									//$impl = implode(',',$getoratting);
+									$impl = geodir_reviewrating_serialize_star_lables( $getoratting );
+								}
 								
 								?>
-								<input type="hidden" id="hidden-text" value="<?php if(isset($impl)){ echo $impl;}?>" /></td>
+								<input type="hidden" id="hidden-text" value="<?php echo ( isset( $impl ) ? esc_attr( $impl ) : '' ); ?>" />
+								<input type="hidden" id="hidden-serialized" value="<?php echo ( isset($impl) && is_serialized( $impl ) ? 1 : 0 ); ?>" />
+								</td>
 						<td id="overall_texts">
 								<?php   
 								$i=1;
 								
 								if(isset($getoratting) && count($getoratting)>0){
 										foreach($getoratting as $value){
-											echo $i." ".__('Score text', GEODIRREVIEWRATING_TEXTDOMAIN)." &nbsp;&nbsp;<input class='overall_rating_text' type = 'text' name = 'overall_rating_text[]' value='".$value."' style='width:247px;'><br>";
+											$value = esc_attr( $value );
+											$value = stripslashes_deep( $value );
+											echo $i.' '.__('Score text', GEODIRREVIEWRATING_TEXTDOMAIN).' &nbsp;&nbsp;<input class="overall_rating_text" type="text" name="overall_rating_text[]" value="'.$value.'" style="width:247px;"/><br>';
 											$i++;
 										}
 								}else{
 										for($k=1;$k<=5;$k++){
-											echo $k." ".__('Score text', GEODIRREVIEWRATING_TEXTDOMAIN)."&nbsp;&nbsp;<input class='overall_rating_text' type = 'text' name = 'overall_rating_text[]' value='' style='width:247px;'><br>";
+											echo $k.' '.__('Score text', GEODIRREVIEWRATING_TEXTDOMAIN).'&nbsp;&nbsp;<input class="overall_rating_text" type="text" name="overall_rating_text[]" value="" style="width:247px;"><br>';
 										}
 								}?>
 						</td>
@@ -819,7 +831,12 @@ function geodir_reviewrating_manage_rating_style_form(){
 				<tr>
 						<th scope="row"><?php _e('Rating score (default 5)', GEODIRREVIEWRATING_TEXTDOMAIN);?></th>
 						<td>
-						<input type="hidden" id="hidden-stles-text" value="<?php if(isset($category_select_info->star_lables)) echo $category_select_info->star_lables; ?>" />
+						<?php 
+							$star_lables = isset( $category_select_info->star_lables ) ? $category_select_info->star_lables : '';
+							$star_lables = esc_attr( $star_lables );
+						?>
+						<input type="hidden" id="hidden-stles-text" value="<?php if ( $star_lables != '' ) { echo $star_lables; } ?>" />
+						<input type="hidden" id="hidden-stles-serialized" value="<?php echo ( isset($category_select_info->star_lables) && is_serialized( $category_select_info->star_lables ) ? 1 : 0 ); ?>" />
 						<input class="regular-text" type="text" name="style_count" id="style_count" value="<?php if(isset($category_select_info->star_number) && $category_select_info->star_number!=""){echo $category_select_info->star_number; }else { echo '5';}; ?>" onBlur="style_the_text_box()" autocomplete="off" />
 						</td>
 				</tr>
@@ -832,22 +849,26 @@ function geodir_reviewrating_manage_rating_style_form(){
 								
 								$values = isset($category_select_info->star_lables) ? $category_select_info->star_lables : '';
 								$arr = array();
-								if($values!='')
-								{ $arr = explode(',',$values); }
-								
+								if ( $values != '' ) {
+									//$arr = explode(',',$values);
+									$arr = geodir_reviewrating_star_lables_to_arr( $values );
+								}
+
 								if(count($arr)>0)
 								{
 										$i=1;
 										foreach($arr as $value)
 										{
-												echo $i." ".__('Star Text', GEODIRREVIEWRATING_TEXTDOMAIN)." &nbsp;&nbsp;<input class='star_rating_text' type = 'text' name = 'star_rating_text[]' value='".$value."' style='width:247px;'><br>";
-												$i++;
+											$value = esc_attr( $value );
+											$value = stripslashes_deep( $value );
+											echo $i.' '.__('Star Text', GEODIRREVIEWRATING_TEXTDOMAIN).' &nbsp;&nbsp;<input class="star_rating_text" type="text" name="star_rating_text[]" value="'.$value.'" style="width:247px;"/><br>';
+											$i++;
 										}
 								}else{
 								
 										for($k=1;$k<=5;$k++)
 										{
-												echo $k." ".__('Star Text', GEODIRREVIEWRATING_TEXTDOMAIN)." &nbsp;&nbsp;<input class='star_rating_text's type = 'text' name = 'star_rating_text[]' value='' style='width:247px;'/><br>";
+											echo $k.' '.__('Star Text', GEODIRREVIEWRATING_TEXTDOMAIN).' &nbsp;&nbsp;<input class="star_rating_text" type="text" name="star_rating_text[]" value="" style="width:247px;"/><br>';
 										}
 								
 								}?>
@@ -906,7 +927,7 @@ function geodir_reviewrating_manage_rating_style_form(){
 				echo '<tr style="background-color:'.$bgcolor.';height:40px;">';
 				echo '<td>'.$counter.'</td>';
 				echo '<td>'.$geodir_category_reviews->name.'</td>';
-				echo '<td>'.$geodir_category_reviews->star_lables.'</td>';
+				echo '<td>' . geodir_reviewrating_star_lables_to_str( $geodir_category_reviews->star_lables ) . '</td>';
 				echo '<td><img style="background-color:'.$geodir_category_reviews->star_color.'" src="'.$geodir_category_reviews->s_img_off.'"/>
 				</td>';
 				echo '<td>'.$geodir_category_reviews->star_number.'</td>';
@@ -1214,8 +1235,11 @@ function geodir_reviewrating_rating_frm_html(){
 								 <div class="gd-rate-area clearfix">
 										<span class="gd-ratehead"><?php printf(__('Rate this %s (overall):', GEODIRREVIEWRATING_TEXTDOMAIN),get_post_type_singular_label($post->post_type));?></span>
 										<ul class="rate-area-list">
-											 <?php for($star=1; $star <= $overall_star; $star++){ ?>
-												 <li star_rating="<?php echo $star;?>" star_lable="<?php echo $overall_star_lable[$star-1];?>" class="gd-multirating-star"><a><img src="<?php echo $overall_star_offimg;?>" style="width:<?php echo $star_width;?>px; height:auto;"  /></a></li>
+											 <?php for($star=1; $star <= $overall_star; $star++){ 
+											 	$overall_star_text = isset( $overall_star_lable[$star-1] ) ? esc_attr( $overall_star_lable[$star-1] ) : '';
+												$overall_star_text = stripslashes_deep( $overall_star_text );
+												?>
+												 <li star_rating="<?php echo $star;?>" star_lable="<?php echo $overall_star_text;?>" class="gd-multirating-star"><a><img src="<?php echo $overall_star_offimg;?>" style="width:<?php echo $star_width;?>px; height:auto;"  /></a></li>
 											 <?php } ?>
 										</ul>
                                         <style>ul.geodir-tabs-content li ul.rate-area-list li.active, ul.rate-area-list li.active{background-color:<?php echo $star_color;?>}</style>
@@ -1236,8 +1260,11 @@ function geodir_reviewrating_rating_frm_html(){
 								
 									$rating_style_html = '';
 									foreach($ratings as $rating){
-																		
-										$star_lable = explode(",",$rating->star_lables);
+										
+										if (!in_array($post->post_type, explode(",", $rating->post_type))) {continue;}// if not for this post type then skip.
+																				
+										//$star_lable = explode(",",$rating->star_lables);
+										$star_lable = geodir_reviewrating_star_lables_to_arr( $rating->star_lables );
 																		
 																		$rating_cat = explode(",",$rating->category);
 																	
@@ -1252,7 +1279,9 @@ function geodir_reviewrating_rating_frm_html(){
 														$rating_style_html .= '<span class="lable">'. __($rating->title, GEODIRREVIEWRATING_TEXTDOMAIN).'</span>';
 														$rating_style_html .= '<ul class="rate-area-list rating-'.$rating->id.'">';
 															for($star=1; $star <= $rating->star_number; $star++){ 
-																$rating_style_html .= '<li star_rating="'.$star.'" star_lable="'. $star_lable[$star-1].'"  class="gd-multirating-star"><a><img src="'.$rating->s_img_off.'" style="width:'.$rating->s_img_width.'px;height:auto" /></a></li>';
+																$star_lable_text = isset( $star_lable[$star-1] ) ? esc_attr( $star_lable[$star-1] ) : '';
+																$star_lable_text = stripslashes_deep( $star_lable_text );
+																$rating_style_html .= '<li star_rating="'.$star.'" star_lable="'. $star_lable_text.'"  class="gd-multirating-star"><a><img src="'.$rating->s_img_off.'" style="width:'.$rating->s_img_width.'px;height:auto" /></a></li>';
 															 } 
 															$rating_style_html .= '</ul>';
 															$rating_style_html .= ' <style>ul.geodir-tabs-content li ul.rating-'.$rating->id.' li.active, body ul.rating-'.$rating->id.' li.active{background-color:'.$rating->star_color.'}</style>';
@@ -1267,8 +1296,10 @@ function geodir_reviewrating_rating_frm_html(){
 														$rating_style_html .= '<span class="lable">'.__($rating->title).'</span>';
 														$rating_style_html .= '<select name="geodir_rating['.$rating->id.']" > ';
 														for($star=1; $star <= $rating->star_number; $star++){
+															$star_lable_text = isset( $star_lable[$star-1] ) ? esc_attr( $star_lable[$star-1] ) : '';
+															$star_lable_text = stripslashes_deep( $star_lable_text );
 															$rating_style_html .= '<option value="'.$star.'">';
-															$rating_style_html .= $star_lable[$star-1];
+															$rating_style_html .= $star_lable_text;
 															$rating_style_html .= '</option>	';
 														} 
 															$rating_style_html .= '</select>';
@@ -1339,13 +1370,18 @@ function geodir_reviewrating_comment_rating_box($comment) {
 												else
 													$active = '';
 												
+												$overall_star_text = isset( $overall_star_lable[$star-1] ) ? esc_attr( $overall_star_lable[$star-1] ) : '';
+												$overall_star_text = stripslashes_deep( $overall_star_text );
 												?>
-													<li star_rating="<?php echo $star;?>" star_lable="<?php echo $overall_star_lable[$star-1];?>"  class="gd-multirating-star <?php echo $active;?>"><a><img src="<?php echo $overall_star_offimg;?>" style="width:<?php echo $star_width;?>px"  /></a></li>
+													<li star_rating="<?php echo $star;?>" star_lable="<?php echo $overall_star_text;?>"  class="gd-multirating-star <?php echo $active;?>"><a><img src="<?php echo $overall_star_offimg;?>" style="width:<?php echo $star_width;?>px"  /></a></li>
 											<?php } ?>
 											</ul>
-                                            
+                                          <?php
+										  $overall_star_text = isset( $overall_star_lable[$comment_ratings->overall_rating - 1] ) ? esc_attr( $overall_star_lable[$comment_ratings->overall_rating - 1] ) : '';
+										  $overall_star_text = stripslashes_deep( $overall_star_text );
+										  ?> 
                                         <style>#rating_frm ul.rate-area-list li.active{background-color:<?php echo $star_color;?>}</style>
-											<span class="gd-rank"><?php echo ($comment_ratings->overall_rating) ? $overall_star_lable[$comment_ratings->overall_rating - 1] : '&nbsp;';?></span>
+											<span class="gd-rank"><?php echo ($comment_ratings->overall_rating) ? $overall_star_text : '&nbsp;';?></span>
 											<input type="hidden" name="geodir_rating[overall]" value="<?php echo ($comment_ratings->overall_rating) ? $comment_ratings->overall_rating : '0'; ?>"  />
 								</div> 
 					<?php 
@@ -1364,7 +1400,8 @@ function geodir_reviewrating_comment_rating_box($comment) {
 											
 													foreach($ratings as $rating):
 													
-													$star_lable = explode(",",$rating->star_lables);
+													//$star_lable = explode(",",$rating->star_lables);
+													$star_lable = geodir_reviewrating_star_lables_to_arr( $rating->star_lables );
 													
 													$rating_cat = explode(",",$rating->category);
 													
@@ -1384,13 +1421,20 @@ function geodir_reviewrating_comment_rating_box($comment) {
 																			$active = 'active';
 																		else
 																			$active = '';
+																		
+																		$star_lable_text = isset( $star_lable[$star-1] ) ? esc_attr( $star_lable[$star-1] ) : '';
+																		$star_lable_text = stripslashes_deep( $star_lable_text );
 																		?>
-																		<li star_rating="<?php echo $star;?>" star_lable="<?php echo $star_lable[$star-1];?>"  class="gd-multirating-star <?php echo $active;?>"><a><img src="<?php echo $rating->s_img_off;?>" style="width:<?php echo $rating->s_img_width;?>px" /></a></li>
+																		<li star_rating="<?php echo $star;?>" star_lable="<?php echo $star_lable_text;?>"  class="gd-multirating-star <?php echo $active;?>"><a><img src="<?php echo $rating->s_img_off;?>" style="width:<?php echo $rating->s_img_width;?>px" /></a></li>
 																	<?php } ?>
 																	</ul>
+																	<?php
+																	$star_lable_text = isset( $star_lable[$old_ratings[$rating->id] - 1] ) ? esc_attr( $star_lable[$old_ratings[$rating->id] - 1] ) : '';
+																	$star_lable_text = stripslashes_deep( $star_lable_text );
+																	?>
                                           <style>#rating_frm ul.rating-<?php echo $rating->id;?> li.active{background-color:<?php echo $rating->star_color;?>}</style>
 
-																	<span class="gd-rank"><?php echo ($old_ratings[$rating->id]) ? $star_lable[$old_ratings[$rating->id] - 1] : '&nbsp;';?></span>
+																	<span class="gd-rank"><?php echo ($old_ratings[$rating->id]) ? $star_lable_text : '&nbsp;';?></span>
 																	<input type="hidden" name="geodir_rating[<?php echo $rating->id;?>]" value="<?php echo ($old_ratings[$rating->id]) ? $old_ratings[$rating->id] : '0'; ?>"  />
 															</div>
 						<?php 
@@ -1399,8 +1443,11 @@ function geodir_reviewrating_comment_rating_box($comment) {
 							<div class="clearfix gd-rate-cat-in">
 									<span class="lable"><?php _e($rating->title, GEODIRREVIEWRATING_TEXTDOMAIN);?></span>
 									<select name="geodir_rating[<?php echo $rating->id;?>]" > 
-										<?php for($star=1; $star <= $rating->star_number; $star++){ ?>
-										<option value="<?php echo $star;?>" <?php if($old_ratings[$rating->id]) echo 'selected="selected"'; ?>  ><?php echo $star_lable[$star-1];?></option>	
+										<?php for($star=1; $star <= $rating->star_number; $star++){ 
+											$star_lable_text = isset( $star_lable[$star-1] ) ? esc_attr( $star_lable[$star-1] ) : '';
+											$star_lable_text = stripslashes_deep( $star_lable_text );
+										?>
+										<option value="<?php echo $star;?>" <?php if($old_ratings[$rating->id]) echo 'selected="selected"'; ?>  ><?php echo $star_lable_text;?></option>	
 									<?php } ?>
 									</select>
 							</div>

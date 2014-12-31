@@ -1,5 +1,15 @@
 <?php
 
+add_filter('geodir_diagnose_multisite_conversion' , 'geodir_diagnose_multisite_conversion_location_manager', 10,1); 
+function geodir_diagnose_multisite_conversion_location_manager($table_arr){
+	
+	// Diagnose Claim listing details table
+	$table_arr['geodir_post_neighbourhood'] = __('Neighbourhood',GEODIRLOCATION_TEXTDOMAIN);
+	$table_arr['geodir_post_locations'] = __('Locations',GEODIRLOCATION_TEXTDOMAIN);
+	$table_arr['geodir_location_seo'] = __('Location SEO',GEODIRLOCATION_TEXTDOMAIN);
+	return $table_arr;
+}
+
 /**************************
 /* ACTIVATION/DEACTIVATION
 ***************************/
@@ -25,6 +35,14 @@ function geodir_location_activation_script()
 	global $wpdb,$plugin_prefix;
 	$is_set_default_location = geodir_get_default_location();
 	$wpdb->hide_errors();
+	
+	// rename tables if we need to
+	if($wpdb->query("SHOW TABLES LIKE 'geodir_post_locations'")>0){$wpdb->query("RENAME TABLE geodir_post_locations TO ".$wpdb->prefix."geodir_post_locations");}
+	if($wpdb->query("SHOW TABLES LIKE 'geodir_post_neighbourhood'")>0){$wpdb->query("RENAME TABLE geodir_post_neighbourhood TO ".$wpdb->prefix."geodir_post_neighbourhood");}
+	if($wpdb->query("SHOW TABLES LIKE 'geodir_countries'")>0){$wpdb->query("RENAME TABLE geodir_countries TO ".$wpdb->prefix."geodir_countries");}
+	if($wpdb->query("SHOW TABLES LIKE 'geodir_location_seo'")>0){$wpdb->query("RENAME TABLE geodir_location_seo TO ".$wpdb->prefix."geodir_location_seo");}
+	
+	
 	$collate = '';
 	if($wpdb->has_cap( 'collation' )) {
 		if(!empty($wpdb->charset)) $collate = "DEFAULT CHARACTER SET $wpdb->charset";
@@ -48,8 +66,8 @@ function geodir_location_activation_script()
 					`city_meta` VARCHAR( 254 ) NOT NULL,
 					`city_desc` TEXT NOT NULL,
 					PRIMARY KEY (`location_id`)) $collate ";
-					
-		$wpdb->query($location_table);
+		if($wpdb->query("SHOW TABLES LIKE 'geodir_post_locations'")>0){$wpdb->query("RENAME TABLE geodir_post_locations TO ".$wpdb->prefix."geodir_post_locations");}			
+		else{$wpdb->query($location_table);}
 	}
 	
 	
@@ -82,8 +100,8 @@ function geodir_location_activation_script()
 					`hood_longitude` varchar(254) NOT NULL,
 					`hood_slug` varchar(254) NOT NULL,
 					PRIMARY KEY (`hood_id`)) $collate ";
-		
-		$wpdb->query($neighbourhood_table);
+		if($wpdb->query("SHOW TABLES LIKE 'geodir_post_neighbourhood'")>0){$wpdb->query("RENAME TABLE geodir_post_neighbourhood TO ".$wpdb->prefix."geodir_post_neighbourhood");}
+		else{$wpdb->query($neighbourhood_table);}
 	}	
 	
 	$address_extra_info = $wpdb->get_results("select id, extra_fields from ".GEODIR_CUSTOM_FIELDS_TABLE." where field_type = 'address'");
@@ -134,8 +152,8 @@ function geodir_location_activation_script()
 					  `date_updated` datetime NOT NULL,
 					  PRIMARY KEY (`seo_id`)
 					) $collate ";
-		
-		$wpdb->query($location_table);
+		if($wpdb->query("SHOW TABLES LIKE 'geodir_location_seo'")>0){$wpdb->query("RENAME TABLE geodir_location_seo TO ".$wpdb->prefix."geodir_location_seo");}
+		else{$wpdb->query($location_table);}
 	}
 }
 
@@ -446,6 +464,11 @@ function geodir_location_localize_all_js_msg()
 							'LOCATION_CHOSEN_LOOKING_FOR_TEXT' =>__('We are searching for', GEODIRLOCATION_TEXTDOMAIN),
 							'select_location_translate_msg' => MSG_LOCATION_JS_SELECT_COUNTRY,
 							'select_location_translate_confirm_msg' => MSG_LOCATION_JS_SELECT_COUNTRY_CONFIRM,
+							'gd_text_search_city' => __( 'Search City', GEODIRLOCATION_TEXTDOMAIN ),
+							'gd_text_search_region' => __( 'Search Region', GEODIRLOCATION_TEXTDOMAIN ),
+							'gd_text_search_country' => __( 'Search Country', GEODIRLOCATION_TEXTDOMAIN ),
+							'gd_text_search_location' => __( 'Search location', GEODIRLOCATION_TEXTDOMAIN ),
+							'gd_base_location' => geodir_get_location_link('base'),
 							
 						);
 	
@@ -527,6 +550,50 @@ function geodir_detail_page_related_post_add_location_filter_checkbox($arr)
 /**************************
 /* LOCATION ADONS QUERY FILTERS
 **************************	*/
+
+function geodir_set_user_location_near_me(){?>
+	<script>
+	(function(){
+		// Try HTML5 geolocation
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+		lat = position.coords.latitude;									  
+		lon = position.coords.longitude;
+		my_location=1;
+		if(typeof gdSetupUserLoc === 'function') { gdSetupUserLoc();}
+		
+		
+		 jQuery.ajax({
+       // url: url,
+        url: "<?php echo admin_url('admin-ajax.php'); ?>",
+        type: 'POST',
+        dataType: 'html',
+		data: {action: 'gd_location_manager_set_user_location',lat:lat,lon:lon,myloc:1},
+        beforeSend: function () {
+        },
+        success: function (data, textStatus, xhr) {
+			window.location.href="<?php echo geodir_get_location_link('base').'me/';?>";
+		},
+        error: function (xhr, textStatus, errorThrown) {
+			alert(textStatus);
+        }
+    });
+		
+
+  }); }else {
+    // Browser doesn't support Geolocation
+    alert('error');
+  }
+ 
+}());		  
+	 </script>
+	<?php
+}
+
+
+
+
+
 add_filter('query_vars', 'add_location_var');
 function add_location_var($public_query_vars) {
 
@@ -555,6 +622,43 @@ echo geodir_calculateDistanceFromLatLong($point1, $point2);
 //1. usign location switcher, in this case the url will always have location prefix
 // Query Vars will have page_id parameter
 // check if query var has page_id and that page id is location page 
+
+
+//print_r($_SESSION);
+// my location set start
+		
+		if((isset($wp->query_vars['gd_country']) &&  $wp->query_vars['gd_country'] == 'me' && isset($_SESSION['user_lat']) && $_SESSION['user_lat'] && isset($_SESSION['user_lon']) && $_SESSION['user_lon']) || (isset($_SESSION['all_near_me']) && is_admin()) ){
+			
+		if(isset($_REQUEST['user_lat']) && $_REQUEST['user_lat']){$_SESSION['user_lat']=$_REQUEST['user_lat'];}
+		if(isset($_REQUEST['user_lon']) && $_REQUEST['user_lon']){$_SESSION['user_lon']=$_REQUEST['user_lon'];}
+		if(isset($_SESSION['near_me_range']) && $_SESSION['near_me_range']){$_REQUEST['sdist']=$_SESSION['near_me_range'];}
+			
+		$_SESSION['all_near_me']=1;
+		$_REQUEST['sgeo_lat'] = $_SESSION['user_lat'];
+		$_REQUEST['sgeo_lon'] = $_SESSION['user_lon'];
+		$_REQUEST['snear'] = 1;
+		$_SESSION['gd_multi_location'] = 0;
+		
+			//unset any locations
+			unset($_SESSION['gd_city'],$_SESSION['gd_region'],$_SESSION['gd_country'] );	
+		
+	
+	
+	
+	return;
+	
+		}
+		elseif(isset($wp->query_vars['gd_country']) &&  $wp->query_vars['gd_country'] == 'me'){
+		// at the near me page but with no location
+		add_action('wp_head','geodir_set_user_location_near_me');
+		return;
+		
+		}else{
+		unset($_SESSION['all_near_me']);	
+		}
+		// my location set end
+
+
 	geodir_set_is_geodir_page($wp) ;
 	if(!get_option('geodir_set_as_home'))
 	{
@@ -566,8 +670,10 @@ echo geodir_calculateDistanceFromLatLong($point1, $point2);
 		}
 			
 	}
-	if(isset($wp->query_vars['page_id']) && $wp->query_vars['page_id'] == get_option('geodir_location_page'))
-	{
+	if(isset($wp->query_vars['page_id']) && $wp->query_vars['page_id'] == get_option('geodir_location_page') || (isset($_REQUEST['set_location_type']) && $_REQUEST['set_location_type'] && isset($_REQUEST['set_location_val']) && $_REQUEST['set_location_val']))
+	{	
+		
+		
 		$gd_country = '' ;
 		$gd_region = '' ;
 		$gd_city = '' ;
@@ -1114,8 +1220,66 @@ function searching_filter_location_where($where)
 	return $where ;
 }
 
-function geodir_default_location_where( $where ) {
-	global $wp_query, $wpdb, $table, $wp;
+
+
+add_action('geodir_filter_widget_listings_fields','geodir_filter_widget_listings_fields_set',10,2);
+function geodir_filter_widget_listings_fields_set($fields,$table){
+	// my location set start
+	if(isset($_SESSION['all_near_me'])){
+		global $wpdb;
+	$mylat = $_SESSION['user_lat'];
+	$mylon = $_SESSION['user_lon'];
+	$DistanceRadius = geodir_getDistanceRadius(get_option('geodir_search_dist_1'));
+	$fields .= $wpdb->prepare(" , (".$DistanceRadius." * 2 * ASIN(SQRT( POWER(SIN((ABS(%s) - ABS(".$table.".post_latitude)) * pi()/180 / 2), 2) +COS(ABS(%s) * pi()/180) * COS( ABS(".$table.".post_latitude) * pi()/180) *POWER(SIN((%s - ".$table.".post_longitude) * pi()/180 / 2), 2) )))as distance ",$mylat,$mylat,$mylon);
+	}
+	return $fields;	
+}
+
+
+add_action('geodir_filter_widget_listings_orderby','geodir_filter_widget_listings_orderby_set',10,2);
+function geodir_filter_widget_listings_orderby_set($orderby,$table){
+	// my location set start
+	if(isset($_SESSION['all_near_me'])){
+	$orderby = " distance, ".$orderby;
+	}
+	return $orderby;	
+}
+
+
+function geodir_default_location_where( $where,$p_table='' ) {
+	global $wp_query, $wpdb, $table, $wp,$plugin_prefix;
+	
+	//print_r($_SESSION);
+	// my location set start
+	if(isset($_SESSION['all_near_me'])){
+		
+	$mylat = $_SESSION['user_lat'];
+	$mylon = $_SESSION['user_lon'];
+	
+	if(isset($_SESSION['near_me_range']) && is_numeric($_SESSION['near_me_range'])){$dist =$_SESSION['near_me_range']; }
+	elseif(get_option('geodir_near_me_dist')!=''){$dist = get_option('geodir_near_me_dist');}
+	else{ $dist = '200';  }
+	
+	$lon1 = $mylon- $dist/abs(cos(deg2rad($mylat))*69); 
+	$lon2 = $mylon+$dist/abs(cos(deg2rad($mylat))*69);
+	$lat1 = $mylat-($dist/69);
+	$lat2 = $mylat+($dist/69);	
+	
+	$rlon1 = is_numeric(min($lon1,$lon2)) ? min($lon1,$lon2) : '';
+	$rlon2 = is_numeric(max($lon1,$lon2)) ? max($lon1,$lon2) : '';
+	$rlat1 = is_numeric(min($lat1,$lat2)) ? min($lat1,$lat2) : '';
+	$rlat2 = is_numeric(max($lat1,$lat2)) ? max($lat1,$lat2) : '';
+	
+	$where .= " AND post_latitude between $rlat1 and $rlat2 
+	AND post_longitude between $rlon1 and $rlon2 ";
+	return $where;
+	}
+
+
+
+	
+
+	
 	
 	$where = str_replace( "0 = 1", "1=1", $where );
 	$country = '';
@@ -1164,6 +1328,16 @@ function geodir_default_location_where( $where ) {
 		}
 	}	
 	
+	// added for map calls
+	if ( empty( $neighbourhood ) ) {	
+		if ( isset( $_REQUEST['gd_neighbourhood'] ) && $_REQUEST['gd_neighbourhood'] != '' ) {
+			$neighbourhood = $_REQUEST['gd_neighbourhood'];
+					if ( isset( $_REQUEST['gd_posttype'] ) && $_REQUEST['gd_posttype'] != '' ) {
+						$p_table = "pd";
+					}
+		}
+	}
+	
 	$format = "''";
 	if ( is_array( $neighbourhood ) && !empty( $neighbourhood ) ) {
 		$neighbourhood_length = count( $neighbourhood );
@@ -1189,6 +1363,7 @@ function geodir_default_location_where( $where ) {
 
 	if ( $neighbourhood != '' ) {
 		$post_table = $table != '' ? $table . '.' : ''; /* fixed db error when $table is not set */
+		if(!empty($p_table)){$post_table = $p_table. '.';}
 		$where .= $wpdb->prepare( " AND " . $post_table . "post_neighbourhood IN ($format) " , $neighbourhood );
 	}
 
@@ -1223,6 +1398,14 @@ function geodir_location_ajax_handler()
 				
 				if(isset($_REQUEST['gd_country_val']) && $_REQUEST['gd_country_val'] != '')
 					$country_val =  $_REQUEST['gd_country_val'];
+					
+				if(isset($_REQUEST['spage']) && $_REQUEST['spage'] != ''){
+					$spage =  $_REQUEST['spage'];}
+					else{$spage = '';}
+					
+				if(isset($_REQUEST['lscroll']) && $_REQUEST['lscroll'] != ''){
+					$no_of_records = '5';  
+				}else{$no_of_records = '';}
 						
 				$location_args =array(  'what' => $_REQUEST['gd_which_location'] ,
 										'city_val' => $city_val, 
@@ -1234,8 +1417,9 @@ function geodir_location_ajax_handler()
 										'city_column_name' => 'city' ,
 										'location_link_part' => true , 
 										'order_by' => ' asc ',
-										'no_of_records' => '',
-										'format' => array('type' => 'array')
+										'no_of_records' => $no_of_records,
+										'format' => array('type' => 'array'),
+										'spage' => $spage
 									);
 				$location_array =  geodir_get_location_array($location_args);
 				if(isset($_REQUEST['gd_formated_for']) && $_REQUEST['gd_formated_for'] == 'location_switcher')
@@ -1251,7 +1435,7 @@ function geodir_location_ajax_handler()
 						{
 							$location_name = $_REQUEST['gd_which_location'] == 'country' ? __( $location_item->$_REQUEST['gd_which_location'], GEODIRECTORY_TEXTDOMAIN ) : $location_item->$_REQUEST['gd_which_location'];
 							
-							echo "<li class=\"geodir_loc_clearfix\"><a href='$base_location_link" .$location_item->location_link."' >" . $location_name . "</a>$arrow_html</li>"  ;
+							echo "<li class=\"geodir_loc_clearfix\"><a href='" . geodir_location_permalink_url( $base_location_link . $location_item->location_link ) . "' >" . $location_name . "</a>$arrow_html</li>"  ;
 						}
 					}
 					else
@@ -1277,6 +1461,14 @@ function geodir_location_ajax_handler()
 			$city_val = geodir_get_current_location( array( 'what' => 'city', 'echo' => false ) );
 			$item_set_selected = false;
 			
+			if(isset($_REQUEST['spage']) && $_REQUEST['spage'] != ''){
+					$spage =  $_REQUEST['spage'];}
+					else{$spage = '';}
+					
+			if(isset($_REQUEST['lscroll']) && $_REQUEST['lscroll'] != ''){
+				$no_of_records = '5';  
+			}else{$no_of_records = '';}
+			
 			$location_switcher_list_mode = get_option( 'geodir_location_switcher_list_mode' );
 			if( empty( $location_switcher_list_mode ) ) {
 				$location_switcher_list_mode = 'drill';
@@ -1288,15 +1480,17 @@ function geodir_location_ajax_handler()
 							'country_val' => ( strtolower( $gd_which_location ) == 'region' || strtolower( $gd_which_location ) =='city' ) ? $country_val : '',
 							'region_val' => ( strtolower( $gd_which_location ) == 'city' ) ? $region_val : '',
 							'echo' => false,
-							'no_of_records' => '5',
-							'format' => array( 'type' => 'array' )
+							'no_of_records' => $no_of_records,
+							'format' => array('type' => 'array'),
+							'spage' => $spage
 						);
 			} else {
 				$args = array(
 							'what' => $gd_which_location , 
 							'echo' => false,
-							'no_of_records' => '5',
-							'format' => array( 'type' => 'array' )
+							'no_of_records' => $no_of_records,
+							'format' => array('type' => 'array'),
+							'spage' => $spage
 						);
 			}
 			
@@ -1356,11 +1550,12 @@ function geodir_location_ajax_handler()
 			$location_array = geodir_get_location_array( $args, true );
 			// get country val in case of country search to get selected option
 			
-			if( get_option( 'geodir_everywhere_in_' . $gd_which_location . '_dropdown' ) ) {
+			if( get_option( 'geodir_everywhere_in_' . $gd_which_location . '_dropdown' ) && !isset($_REQUEST['lscroll']) ) {
 				echo  '<option value="' . $base_location . '">' . __( 'Everywhere', GEODIRLOCATION_TEXTDOMAIN ) . '</option>';
 			}	
 				
 			$selected = '' ; 
+			$loc_echo = '';
 			if( !empty( $location_array ) ) {
 				foreach( $location_array as $locations ) {
 					$selected = '' ; 
@@ -1388,7 +1583,7 @@ function geodir_location_ajax_handler()
 						break;		
 					}
 					
-					echo '<option value="' . $base_location . $locations->location_link . '" ' . $selected . '>' . ucwords( $locations->$gd_which_location ) . '</option>';
+					echo '<option value="' . geodir_location_permalink_url( $base_location . $locations->location_link ) . '" ' . $selected . '>' . ucwords( $locations->$gd_which_location ) . '</option>';
 					
 					if( !$item_set_selected && $selected != '' ) {
 						$item_set_selected = true;
@@ -1396,7 +1591,7 @@ function geodir_location_ajax_handler()
 				}
 			}
 			
-			if( !empty( $current_location_array ) && !$item_set_selected ) {
+			if( !empty( $current_location_array ) && !$item_set_selected && !isset($_REQUEST['lscroll'])) {
 				foreach( $current_location_array as $current_location ) {
 					$selected = '' ; 
 					$with_parent = isset( $current_location->label ) ? true : false;
@@ -1423,7 +1618,7 @@ function geodir_location_ajax_handler()
 						break;			
 					}
 					
-					echo '<option value="' . $base_location . $current_location->location_link . '" ' . $selected . '>' . ucwords( $current_location->$gd_which_location ) . '</option>';
+					echo '<option value="' . geodir_location_permalink_url( $base_location . $current_location->location_link ) . '" ' . $selected . '>' . ucwords( $current_location->$gd_which_location ) . '</option>';
 				}
 			}
 			exit;
@@ -1682,7 +1877,7 @@ function geodir_location_address_extra_listing_fields($val)
 		elseif(isset($_SESSION['gd_country']) && $_SESSION['gd_country'] != '' )
 			$location = geodir_get_locations('country',$_SESSION['gd_country']);		
 		
-		if($location)
+		if(isset($location) && $location)
 			$location = end($location);
 		
 		$city = isset($location->city) ? $location->city : '';
@@ -1775,7 +1970,7 @@ function geodir_location_address_extra_listing_fields($val)
 								'format'=> array('type'=>'array')
 							);
 				
-				
+				if(get_option('location_dropdown_all')){$args['no_of_records']='10000';} // set limit to 10 thouseand as this is most browsers limit
 				$location_array= geodir_get_location_array($args);
 				// get country val in case of country search to get selected option
 				?>
@@ -1838,6 +2033,7 @@ function geodir_location_address_extra_listing_fields($val)
 								'format'=> array('type'=>'array')
 							);
 				
+				if(get_option('location_dropdown_all')){$args['no_of_records']='10000';} // set limit to 10 thouseand as this is most browsers limit
 				$location_array= geodir_get_location_array($args);
 				
 				// get country val in case of country search to get selected option
@@ -1994,12 +2190,8 @@ function geodir_location_autofill_address($prefix='')
 	global $pagenow;
 	
 	if(((is_page() && get_query_var('page_id') == get_option( 'geodir_add_listing_page' ) )) || (is_admin() && ( $pagenow == 'post.php'  || isset($_REQUEST['post_type'])))){
-		?>
-<!--<script>-->
-/*jQuery( "#<?php echo $prefix.'address';?>" ).focus(function() {
-  geolocate();
-});*/
-<?php if(get_option('location_address_fill')){}else{?>
+	
+	if(get_option('location_address_fill')){}else{?>
 jQuery(function(){
 initialize_autofill_address();
 });
@@ -2113,7 +2305,7 @@ function geodir_location_update_marker_address($prefix='')
 			elseif(isset($_SESSION['gd_country']) && $_SESSION['gd_country'] != '' )
 				$location = geodir_get_locations('country',$_SESSION['gd_country']);		
 			
-			if($location)
+			if(isset($location) && $location)
 				$location = end($location);
 			
 			$default_city = isset($location->city) ? $location->city : '';
@@ -2389,7 +2581,7 @@ function geodir_location_update_marker_address($prefix='')
 		if (getCity){
 			if(jQuery('input[id="hood_name"]').attr('id')){
 				
-				jQuery("#hood_name").val(getCity);
+				//jQuery("#hood_name").val(getCity);
 			
 			}
 		}
@@ -2455,8 +2647,10 @@ function geodir_ask_for_share_location($mode)
 	}
 	else if(!geodir_is_geodir_page())
 		return false;
-	else
+	else{
+		define('DONOTCACHEPAGE', TRUE);// do not cache if we are asking for location
 		return true ;
+	}
 	
 }
 
@@ -2465,7 +2659,7 @@ add_filter('geodir_share_location' , 'geodir_location_manager_share_location');
 
 function geodir_location_manager_share_location($redirect_url)
 {
-	global $wp_query;
+	global $wp_query,$plugin_prefix;
 
 	
 	if(isset($_REQUEST['geodir_ajax']) && $_REQUEST['geodir_ajax']=='share_location')
@@ -2483,6 +2677,7 @@ function geodir_location_manager_share_location($redirect_url)
 		$DistanceRadius = geodir_getDistanceRadius(get_option('geodir_search_dist_1'));
 		
 		if(get_option('geodir_search_dist')!=''){$dist = get_option('geodir_search_dist');}else{ $dist = '25000';  }
+		if(get_option('geodir_near_me_dist')!=''){$dist2 = get_option('geodir_near_me_dist');}else{ $dist2 = '200';  }
 		
 		if(isset($_REQUEST['lat']) && isset($_REQUEST['long']))
 		{
@@ -2496,9 +2691,27 @@ function geodir_location_manager_share_location($redirect_url)
 			$mylon = stripslashes(ucfirst($addr_details['geoplugin_longitude']));
 		}
 		
+	$_SESSION['user_lat'] = $mylat;
+	$_SESSION['user_lon'] = $mylon;
+	$lon1 = $mylon- $dist2/abs(cos(deg2rad($mylat))*69); 
+	$lon2 = $mylon+$dist2/abs(cos(deg2rad($mylat))*69);
+	$lat1 = $mylat-($dist2/69);
+	$lat2 = $mylat+($dist2/69);
+	
+	$rlon1 = is_numeric(min($lon1,$lon2)) ? min($lon1,$lon2) : '';
+	$rlon2 = is_numeric(max($lon1,$lon2)) ? max($lon1,$lon2) : '';
+	$rlat1 = is_numeric(min($lat1,$lat2)) ? min($lat1,$lat2) : '';
+	$rlat2 = is_numeric(max($lat1,$lat2)) ? max($lat1,$lat2) : '';
 		
-		$location_info = $wpdb->get_results("SELECT *,CONVERT((".$DistanceRadius." * 2 * ASIN(SQRT( POWER(SIN(($mylat - (".POST_LOCATION_TABLE.".city_latitude)) * pi()/180 / 2), 2) +COS($mylat * pi()/180) * COS( (".POST_LOCATION_TABLE.".city_latitude) * pi()/180) *POWER(SIN(($mylon - ".POST_LOCATION_TABLE.".city_longitude) * pi()/180 / 2), 2) ))),UNSIGNED INTEGER) as distance FROM ".POST_LOCATION_TABLE." ORDER BY distance DESC");
+		$near_location_info = $wpdb->get_results($wpdb->prepare("SELECT *,CONVERT((%s * 2 * ASIN(SQRT( POWER(SIN((%s - (".$plugin_prefix."gd_place_detail.post_latitude)) * pi()/180 / 2), 2) +COS(%s * pi()/180) * COS( (".$plugin_prefix."gd_place_detail.post_latitude) * pi()/180) *POWER(SIN((%s - ".$plugin_prefix."gd_place_detail.post_longitude) * pi()/180 / 2), 2) ))),UNSIGNED INTEGER) as distance FROM ".$plugin_prefix."gd_place_detail WHERE (".$plugin_prefix."gd_place_detail.post_latitude IS NOT NULL AND ".$plugin_prefix."gd_place_detail.post_latitude!='') AND ".$plugin_prefix."gd_place_detail.post_latitude between $rlat1 and $rlat2  AND ".$plugin_prefix."gd_place_detail.post_longitude between $rlon1 and $rlon2 ORDER BY distance ASC LIMIT 1",$DistanceRadius,$mylat,$mylat,$mylon));
+	 
+		if(!empty($near_location_info)){
+			$redirect_url = geodir_get_location_link('base').'me';
+			return ($redirect_url);die();
+		}
 		
+		
+		$location_info = $wpdb->get_results($wpdb->prepare("SELECT *,CONVERT((%s * 2 * ASIN(SQRT( POWER(SIN((%s - (".POST_LOCATION_TABLE.".city_latitude)) * pi()/180 / 2), 2) +COS(%s * pi()/180) * COS( (".POST_LOCATION_TABLE.".city_latitude) * pi()/180) *POWER(SIN((%s - ".POST_LOCATION_TABLE.".city_longitude) * pi()/180 / 2), 2) ))),UNSIGNED INTEGER) as distance FROM ".POST_LOCATION_TABLE." ORDER BY distance ASC LIMIT 1",$DistanceRadius,$mylat,$mylat,$mylon));
 		
 		if(!empty($location_info))
 		{
@@ -2509,7 +2722,7 @@ function geodir_location_manager_share_location($redirect_url)
 			$location_array['gd_city'] = $location_info->city_slug;
 			$base = rtrim(geodir_get_location_link('base') , '/');
 			$redirect_url = $base .'/' .$location_info->country_slug. '/' . $location_info->region_slug. '/' .  $location_info->city_slug ;
-		
+			$redirect_url = geodir_location_permalink_url( $redirect_url );
 		}
 		else
 		{
@@ -2580,7 +2793,7 @@ function geodir_location_temple_redirect()
 {
 	global $wp ;
 	
-	if(isset($wp->query_vars['page_id']) && $wp->query_vars['page_id'] = get_option('geodir_location_page'))
+	if(isset($wp->query_vars['page_id']) && $wp->query_vars['page_id'] == get_option('geodir_location_page'))
 	{
 		add_action( 'template_redirect', 'geodir_set_location_canonical_urls',1);
 	}
@@ -2952,10 +3165,11 @@ add_filter('previous_post_link', 'geodir_single_next_previous_fix',10,4);
 
 if (!function_exists('geodir_single_next_previous_fix')) { // we add this in location manager and CPT 
 function geodir_single_next_previous_fix($url,$link,$direction,$post) {
-	global $wpdb,$plugin_prefix;
+	global $wpdb,$plugin_prefix,$post;
 	$post_type_array = geodir_get_posttypes();
 	if(isset($post->post_type) && in_array($post->post_type , $post_type_array))
 	{
+	
 		$post_date = $timestamp = strtotime($post->post_date);
 
 	$where ='';
@@ -2974,8 +3188,8 @@ function geodir_single_next_previous_fix($url,$link,$direction,$post) {
 		$table = $plugin_prefix.$post->post_type.'_detail';
 			$pid = $wpdb->get_var(
 				$wpdb->prepare(
-				"SELECT  post_id FROM ".$table." WHERE submit_time $op %d  AND post_status='publish' $where LIMIT 1",
-				$post_date
+				"SELECT  post_id FROM ".$table." WHERE submit_time $op %d  AND post_status='publish' $where AND post_id !=%d LIMIT 1",
+				$post_date,$post->ID
 				)
 			);
 
@@ -2988,5 +3202,15 @@ function geodir_single_next_previous_fix($url,$link,$direction,$post) {
 	
     return $url;
 }
+}
+
+
+add_action( 'geodir_add_listing_codeaddress_before_geocode', 'geodir_add_listing_codeaddress_before_geocode_lm',11 );
+
+function geodir_add_listing_codeaddress_before_geocode_lm(){
+	global $wpdb;
+if(geodir_is_page( 'add-listing' ) && get_option('location_set_address_disable')){?>
+return;// disable codeaddress from location manager
+<?php }
 }
 ?>

@@ -34,6 +34,7 @@ if( $submit ) {
 ?><div class="gd-content-heading">
   <?php if( $msg != '' ) { ?><div class="updated below-h2" id="message"><p><?php echo $msg; ?></p></div><?php } ?>
   <h3><?php echo GD_MANAGE_LOCATION_TRANSLATE; ?></h3>
+  <p><?php _e( 'INSTRUCTIONS: Translate the countries you want to via .po file and then upload the .mo file to your server, then tick the countries you translated and click the Update button.', GEODIRECTORY_TEXTDOMAIN);?></p>
   <input type="hidden" name="action" value="update_location_translate" />
   <input type="hidden" name="update_location_translate" value="<?php echo $nonce;?>" />
   <table style=" width:100%" cellpadding="5" class="widefat post fixed" id="geodir_location-form-translate" >

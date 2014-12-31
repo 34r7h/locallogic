@@ -3,7 +3,7 @@
 Plugin Name: GeoDirectory Custom Post Types
 Plugin URI: http://wpgeodirectory.com
 Description: GeoDirectory Custom Post Types plugin.
-Version: 1.0.7
+Version: 1.1.1
 Author: GeoDirectory
 Author URI: http://wpgeodirectory.com
 */
@@ -13,16 +13,25 @@ Author URI: http://wpgeodirectory.com
  * Globals
  **/
  
-define("GEODIR_CP_VERSION", "1.0.7");
+define("GEODIR_CP_VERSION", "1.1.1");
 
 global $wpdb,$plugin_prefix,$geodir_addon_list;
 if(is_admin()){
 	require_once('gd_update.php'); // require update script
 }
+
+///GEODIRECTORY CORE ALIVE CHECK START
+if(is_admin()){
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+if(!is_plugin_active('geodirectory/geodirectory.php')){
+return;
+}}/// GEODIRECTORY CORE ALIVE CHECK END
+
+
 $geodir_addon_list['geodir_custom_posts_manager'] = 'yes';
 
 if(!isset($plugin_prefix))
-	$plugin_prefix = 'geodir_';
+	$plugin_prefix = $wpdb->prefix.'geodir_';
 
 
 /**
@@ -53,7 +62,9 @@ require_once( 'language.php' ); // Define language constants
 require_once('geodir_cp_functions.php'); 
 require_once('geodir_cp_template_tags.php'); 
 require_once('geodir_cp_hooks_actions.php');
-
+if ( is_admin() ){
+require_once('gd_upgrade.php');	
+}
 if ( is_admin() ) :
 	register_activation_hook( __FILE__ , 'geodir_custom_post_type_activation' );
 	/*register_deactivation_hook( __FILE__ , 'geodir_custom_post_type_deactivation' );*/

@@ -40,6 +40,15 @@ add_filter( 'template_include', 'geodir_claim_template_loader', 11 );
 
 add_action('geodir_before_main_form_fields' , 'geodir_add_claim_fields_before_main_form', 1); 
 
+add_filter('geodir_diagnose_multisite_conversion' , 'geodir_diagnose_multisite_conversion_claim_manager', 10,1); 
+
+function geodir_diagnose_multisite_conversion_claim_manager($table_arr){
+	
+	// Diagnose Claim listing details table
+	$table_arr['geodir_claim'] = __('Claim listing',GEODIRCLAIM_TEXTDOMAIN);
+	return $table_arr;
+}
+
 function geodir_add_claim_fields_before_main_form(){
 	
 	global $post;

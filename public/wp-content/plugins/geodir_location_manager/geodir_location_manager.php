@@ -3,22 +3,28 @@
 Plugin Name: GeoDirectory Location Manager
 Plugin URI: http://wpgeodirectory.com
 Description: GeoDirectory Location Manager plugin.
-Version: 1.1.3
+Version: 1.2.2
 Author: GeoDirectory
 Author URI: http://wpgeodirectory.com
 */
 
-define("GEODIRLOCATION_VERSION", "1.1.3");
+define("GEODIRLOCATION_VERSION", "1.2.2");
 
 global $wpdb, $plugin_prefix, $is_custom_loop,$geodir_addon_list;
 if(is_admin()){
 	require_once('gd_update.php'); // require update script
 }
+///GEODIRECTORY CORE ALIVE CHECK START
+if(is_admin()){
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+if(!is_plugin_active('geodirectory/geodirectory.php')){
+return;
+}}/// GEODIRECTORY CORE ALIVE CHECK END
 
 $geodir_addon_list['geodir_location_manager'] = 'yes' ;
 
 if(!isset($plugin_prefix))
-	$plugin_prefix = 'geodir_';
+	$plugin_prefix = $wpdb->prefix.'geodir_';
 
 $path_location_url = plugins_url('',__FILE__);
 
