@@ -3,9 +3,14 @@
 function geodir_advance_search_filters_activation(){
 
 	if (get_option('geodir_installed')) {  
+	
+		geodir_update_options( geodir_autocompleter_options(), true );
+		
+		update_option('geodir_autocompleter_matches_label', 's');
 		
 		geodir_advance_search_field();
 		add_option('geodir_advance_search_activation_redirect_opt', 1);
+		
 		
 	}
 
@@ -676,6 +681,10 @@ function geodir_advance_search_ajax_handler(){
 function geodir_advance_search_field(){
 	global $plugin_prefix, $wpdb;
 	
+	
+	// rename tables if we need to
+	if($wpdb->query("SHOW TABLES LIKE 'geodir_custom_advance_search_fields'")>0 && $wpdb->query("SHOW TABLES LIKE '".$wpdb->prefix."geodir_custom_advance_search_fields'")==0){$wpdb->query("RENAME TABLE geodir_custom_advance_search_fields TO ".$wpdb->prefix."geodir_custom_advance_search_fields");}
+	
 	$collate = '';
 	if($wpdb->has_cap( 'collation' )) {
 		if(!empty($wpdb->charset)) $collate = "DEFAULT CHARACTER SET $wpdb->charset";
@@ -757,6 +766,17 @@ function geodir_advance_search_filters_uninstall(){
 		global $wpdb;
 		
 		$wpdb->query($wpdb->prepare("DROP TABLE ".GEODIR_ADVANCE_SEARCH_TABLE, array()));
+		
+		$default_options = geodir_autocompleter_options();
+	
+		if(!empty($default_options)){
+			foreach($default_options as $value){
+				if(isset($value['id']) && $value['id'] != '')
+					delete_option($value['id'], '');
+			}
+		}
+		
+		delete_option('geodir_autocompleter_matches_label', '');
 	}
 }
 
@@ -766,7 +786,7 @@ function geodir_show_filters_fields( $post_type ){
 	if($post_type == '')
 		$post_type = 'gd_place';	
 		$geodir_list_date_type = 'yy-mm-dd';
-		$datepicker_formate = $wpdb->get_var("SELECT `extra_fields`  FROM `geodir_custom_fields` WHERE `post_type` = '".$post_type."' AND data_type ='DATE'");
+		$datepicker_formate = $wpdb->get_var("SELECT `extra_fields`  FROM ".GEODIR_CUSTOM_FIELDS_TABLE." WHERE `post_type` = '".$post_type."' AND data_type ='DATE'");
 		$datepicker_formate_arr =  unserialize($datepicker_formate);
 		if($datepicker_formate_arr['date_format'])
 			$geodir_list_date_type =$datepicker_formate_arr['date_format'];
@@ -779,13 +799,39 @@ function geodir_show_filters_fields( $post_type ){
 		?>
 		<script language="javascript">
             jQuery(function($) {
-                $( "#event_start" ).datepicker({
-                dateFormat:'<?php echo $geodir_list_date_type ?>',changeMonth: true,	changeYear: true,
-                onClose: function( selectedDate ) {
-                $( "#event_end" ).datepicker( "option", "minDate", selectedDate );
-                }
-                });
-                $( "#event_end" ).datepicker({changeMonth: true,	changeYear: true,dateFormat:'<?php echo $geodir_list_date_type ?>'});
+                var gd_datepicker_loaded = $('body').hasClass('gd-multi-datepicker') ? true : false;
+				console.log('is_multiple : ' + gd_datepicker_loaded);
+				var gdcnt = 0;
+				$('.geodir-listing-search #event_start').each(function(){
+					gdcnt++;
+					$(this).attr('id', 'event_start'+gdcnt);
+					$(this).addClass('gd-datepicker-event-start');
+				});
+				
+				var gdcnt = 0;
+				$('.geodir-listing-search #event_end').each(function(){
+					gdcnt++;
+					$(this).attr('id', 'event_end'+gdcnt);
+					$(this).addClass('gd-datepicker-event-end');
+				});
+				
+				if(!gd_datepicker_loaded){
+					$('body').addClass('gd-multi-datepicker');
+					
+					$('.gd-datepicker-event-start').each(function(){
+						var $this = this;
+						$($this).datepicker({
+							dateFormat:'<?php echo $geodir_list_date_type ?>',changeMonth: true, changeYear: true,
+							onClose: function( selectedDate ) {
+								$($this).closest('div').find('.gd-datepicker-event-end').datepicker( "option", "minDate", selectedDate );
+							}
+						});
+					});
+					
+					$('.gd-datepicker-event-end').each(function(){
+						$(this).datepicker({changeMonth: true, changeYear: true,dateFormat:'<?php echo $geodir_list_date_type ?>'});
+					});
+				}
             });
         </script>
 		<?php
@@ -1228,7 +1274,7 @@ function geodir_show_filters_fields( $post_type ){
 											case 'RADIO':
 												
 												
-												$umo = get_option('geodir_search_dist_1');	
+												$uom = get_option('geodir_search_dist_1');	
 												$dist_dif= $search_diffrence;
 												
 												for($i = $dist_dif; $i <= $search_maximum_value; $i = $i+$dist_dif) :
@@ -1237,7 +1283,7 @@ function geodir_show_filters_fields( $post_type ){
 												{ $checked = 'checked="checked"'; }
 													if($increment>$moreoption && !empty($moreoption))
 															$classname =  'class="more"';			
-																echo '<li '.$classname. '><input type="radio" class="cat_check" name="sdist" '.$checked.' value="'.$i.'" />' . __('Within',GEODIRADVANCESEARCH_TEXTDOMAIN).' '.$i.' '.$umo . '</li>';		
+																echo '<li '.$classname. '><input type="radio" class="cat_check" name="sdist" '.$checked.' value="'.$i.'" />' . __('Within',GEODIRADVANCESEARCH_TEXTDOMAIN).' '.$i.' '.__($uom, GEODIRECTORY_TEXTDOMAIN). '</li>';		
 												$increment++;				   
 												endfor;
 												
@@ -1325,18 +1371,21 @@ function geodir_show_filters_fields( $post_type ){
 
 function geodir_advance_search_button(){
 	global $wpdb; 
-	
-	$stype = geodir_get_current_posttype();	
+if(isset($_POST['action']) && $_POST['action'] && isset($_POST['stype']) && $_POST['stype']){$stype=$_POST['stype'];$ajax=true;}else{$stype=false;$ajax=false;}
+	if($stype){}
+	else{$stype = geodir_get_current_posttype();}	
 	if(empty($stype))
 		$stype ='gd_place';
 		
 	$rows = $wpdb->get_var("SELECT count(id) as rows FROM ".GEODIR_ADVANCE_SEARCH_TABLE." where post_type= '".$stype."'");
 	if($rows>0){
 			echo '<input type="button" value="'.__('Customize My Search',GEODIRADVANCESEARCH_TEXTDOMAIN).'"  class="showFilters" onclick="gdShowFilters(this);">';
+			//echo '<input type="button" value="&#xf013;"  class="showFilters" onclick="gdShowFilters(this);" style="font-family: FontAwesome;">';
+			//echo '<i class="fa fa-cog showFilters" title="'.__('Customize My Search',GEODIRADVANCESEARCH_TEXTDOMAIN).'"  onclick="gdShowFilters(this);"></i>';
 
 	add_filter('body_class', 'geodir_advance_search_body_class'); // let's add a class to the body so we can style the new addition to the search
 	}
-
+if($ajax){exit;}	
 } 
 
 function geodir_advance_search_body_class($classes) {
@@ -1355,7 +1404,12 @@ function geodir_advance_search_body_class($classes) {
 add_filter('body_class', 'geodir_advance_search_body_class'); // let's add a class to the body so we can style the new addition to the search
 
 
-function geodir_advance_search_form(){?>
+
+function geodir_advance_search_form(){
+if(isset($_POST['action']) && $_POST['action'] && isset($_POST['stype']) && $_POST['stype']){$stype=$_POST['stype'];$ajax=true;}else{$stype=false;$ajax=false;}
+//if($_POST){	echo '###';print_r($_POST);exit;}
+if(!$ajax){	
+?>
 <script type="text/javascript">
 	jQuery(document).ready(function(){
 			jQuery('.expandmore').click(function(){
@@ -1408,8 +1462,10 @@ jQuery(document).ready(function(){
 	.bordernone { border:none!important;}
 </style>  
 <?php
+}
 	global $current_term;
-	if(isset($_REQUEST['stype']))
+	if($stype){}
+	elseif(isset($_REQUEST['stype']))
 		$stype = $_REQUEST['stype'];	
 	else
 		$stype = geodir_get_current_posttype();	
@@ -1427,8 +1483,8 @@ jQuery(document).ready(function(){
 	if($dist <= 500) $dist_dif = 100;
 	if($dist <= 100) $dist_dif = 20;
 	if($dist <= 50) $dist_dif = 10;
-	?>
-	<div class="geodir-filter-container">         
+	
+	if(!$ajax){?><div class="geodir-filter-container"> <?php }?>      
 		<div class="customize_filter customize_filter-in clearfix" style="display:none;">        
 			<div id="customize_filter_inner">                                     
 				<div class="clearfix">           
@@ -1441,8 +1497,8 @@ jQuery(document).ready(function(){
 			<input type="button" value="<?php _e('Search',GEODIRADVANCESEARCH_TEXTDOMAIN);?>" class="geodir_submit_search" />       
 			</div>    
 		</div>                
-	</div>     
-	<?php
+	<?php if(!$ajax){?></div> <?php }?>   
+	<?php if($ajax){exit;}	
 }
 
 
@@ -1467,4 +1523,723 @@ function geodir_advance_search_after_custom_field_deleted($id, $site_htmlvar_nam
 		
 	}
 }
+
+function geodir_advance_search_get_advance_search_fields($post_type) {
+	global $wpdb;
+	
+	$post_type = $post_type!='' ? $post_type : 'gd_place';
+	
+	$sql = $wpdb->prepare("SELECT * FROM ".GEODIR_ADVANCE_SEARCH_TABLE." WHERE post_type = %s ORDER BY sort_order ASC", array($post_type));
+	$fields = $wpdb->get_results($sql);
+	return $fields;
+}
+
+function geodir_advance_search_field_option_values($post_type, $htmlvar_name) {
+	global $wpdb;
+	
+	$post_type = $post_type!='' ? $post_type : 'gd_place';
+	
+	$sql = $wpdb->prepare("SELECT option_values  FROM ".GEODIR_CUSTOM_FIELDS_TABLE." WHERE post_type = %s and htmlvar_name=%s  ORDER BY sort_order",array($post_type, $htmlvar_name));
+	
+	$option_values = $wpdb->get_var($sql);
+	$option_values = $option_values != '' && strstr($option_values,'/') ? explode(',', $option_values) : array();
+	
+	return $option_values;
+}
+
+function geodir_set_near_me_range(){
+	
+	$_SESSION['near_me_range']=$_POST['range'];
+	//print_r($_POST);
+}
+
+
+###########################################################
+############# SHARE LOCATION FUNCTIONS START ##############
+###########################################################
+
+
+function geodir_get_request_param(){
+	global $current_term,$wp_query;
+	
+	$request_param = array();
+	
+	if ( is_tax() && geodir_get_taxonomy_posttype() && is_object($current_term) ){
+		
+		$request_param['geo_url'] = 'is_term';
+		$request_param['geo_term_id'] = $current_term->term_id;
+		$request_param['geo_taxonomy'] = $current_term->taxonomy;
+		
+	}elseif ( is_post_type_archive() && in_array(get_query_var('post_type'),geodir_get_posttypes()) ){
+	
+		$request_param['geo_url'] = 'is_archive';
+		$request_param['geo_posttype'] = get_query_var('post_type');
+	
+	}elseif( is_author() && isset($_REQUEST['geodir_dashbord'] ) ){
+		$request_param['geo_url'] = 'is_author';
+		$request_param['geo_posttype'] = $_REQUEST['stype'];
+	}elseif( is_search() && isset($_REQUEST['geodir_search']) ){
+		$request_param['geo_url'] = 'is_search';
+		$request_param['geo_request_uri'] = $_SERVER['QUERY_STRING'];
+	}else{
+		$request_param['geo_url'] = 'is_location';
+	}
+	
+	return json_encode($request_param);
+} 
+
+function geodir_localize_all_share_location_js_msg()
+{	global $geodir_addon_list;
+	
+	$arr_alert_msg = array(
+							'geodir_advanced_search_plugin_url' => GEODIRADVANCESEARCH_PLUGIN_URL,
+							'geodir_plugin_url' => geodir_plugin_url(),
+							'geodir_admin_ajax_url' => admin_url('admin-ajax.php'),
+							'request_param' =>  geodir_get_request_param(),
+							'msg_Near' =>  __("Near:",GEODIRADVANCESEARCH_TEXTDOMAIN),
+							'msg_Me' =>  __("Me",GEODIRADVANCESEARCH_TEXTDOMAIN),
+							'autocomplete_field_name' => get_option('geodir_autocompleter_matches_label'),
+							'geodir_enable_autocompleter_near' => get_option('geodir_enable_autocompleter_near'),
+							'geodir_enable_autocompleter' => get_option('geodir_enable_autocompleter'),
+							'geodir_autocompleter_autosubmit_near' => get_option('geodir_autocompleter_autosubmit_near'),
+							'geodir_autocompleter_autosubmit' => get_option('geodir_autocompleter_autosubmit'),
+							'geodir_location_manager_active' => (isset($geodir_addon_list['geodir_location_manager'])) ? '1' : '0',
+							'msg_User_defined' =>  __("User defined",GEODIRADVANCESEARCH_TEXTDOMAIN),
+							'ask_for_share_location' => apply_filters('geodir_ask_for_share_location' , false ) ,
+							'geodir_autolocate_disable' => get_option('geodir_autolocate_disable') ,
+							'geodir_autolocate_ask' => get_option('geodir_autolocate_ask') ,
+							'geodir_autolocate_ask_msg' =>__('Do you wish to be geolocated to listings near you?',GEODIRADVANCESEARCH_TEXTDOMAIN) ,
+							
+							'UNKNOWN_ERROR' =>__('Unable to find your location.',GEODIRADVANCESEARCH_TEXTDOMAIN),
+						
+							'PERMISSION_DENINED' =>	__('Permission denied in finding your location.',GEODIRADVANCESEARCH_TEXTDOMAIN),
+						
+							'POSITION_UNAVAILABLE' =>	__('Your location is currently unknown.',GEODIRADVANCESEARCH_TEXTDOMAIN),	
+						
+							'BREAK' =>	__('Attempt to find location took too long.',GEODIRADVANCESEARCH_TEXTDOMAIN),
+						
+						//start not show alert msg
+						
+							'DEFAUTL_ERROR' =>	__('Browser unable to find your location.',GEODIRADVANCESEARCH_TEXTDOMAIN)
+							// end not show alert msg
+							
+							
+						);
+	
+	foreach ( $arr_alert_msg as $key => $value ) 
+	{
+		if ( !is_scalar($value) )
+			continue;
+		$arr_alert_msg[$key] = html_entity_decode( (string) $value, ENT_QUOTES, 'UTF-8');
+	}
+
+	$script = "var geodir_advanced_search_js_msg = " . json_encode($arr_alert_msg) . ';';
+	echo '<script>';
+	echo $script ;	
+	echo '</script>'	;
+}
+
+
+
+function geodir_share_location()
+{
+	echo apply_filters('geodir_share_location' , home_url() ) ;
+	die;
+}
+
+function geodir_do_not_share_location()
+{
+	$_SESSION['gd_location_shared']=1;
+	die;
+}
+
+
+
+
+
+
+###########################################################
+############# SHARE LOCATION FUNCTIONS END ################
+###########################################################
+
+
+###########################################################
+############# AUTOCOMPLETE FUNCTIONS START ################
+###########################################################
+function geodir_autocompleter_options($arr = array())
+{	global $geodir_addon_list;
+	
+	$arr[] = array( 'name' => __( 'Autocompleter for GeoDirectory', GEODIRADVANCESEARCH_TEXTDOMAIN ), 'type' => 'no_tabs', 'desc' => '', 'id' => 'geodir_autocompleter_options' );
+	
+	
+	$arr[] = array( 'name' => __( 'Search Autocompleter Settings', GEODIRADVANCESEARCH_TEXTDOMAIN ), 'type' => 'sectionstart', 'id' => 'geodir_ajax_autocompleter_alert_options');
+	
+	$arr[] = array(  
+			'name' => __( 'Enable Search autocompleter:', GEODIRADVANCESEARCH_TEXTDOMAIN ),
+			'desc' 		=> __( 'If an option is selected, the autocompleter for Search is enabled.', GEODIRADVANCESEARCH_TEXTDOMAIN ),
+			'id' 		=> 'geodir_enable_autocompleter',
+			'type' 		=> 'checkbox',
+			'css' 		=> '',
+			'std' 		=> '1'
+		);
+	
+	$arr[] = array(  
+			'name' => __( 'Autosubmit the form on select a Search option:', GEODIRADVANCESEARCH_TEXTDOMAIN ),
+			'desc' 		=> __( 'If an option is selected, the search form automatically is triggered when selecting a Search option.', GEODIRADVANCESEARCH_TEXTDOMAIN ),
+			'id' 		=> 'geodir_autocompleter_autosubmit',
+			'type' 		=> 'checkbox',
+			'css' 		=> '',
+			'std' 		=> '1'
+		);
+	
+	$arr[] = array( 'type' => 'sectionend', 'id' => 'geodir_ajax_autocompleter_alert_options');
+	
+	if(isset($geodir_addon_list['geodir_location_manager'])){
+	$arr[] = array( 'name' => __( 'Near Autocompleter Settings', GEODIRADVANCESEARCH_TEXTDOMAIN ), 'type' => 'sectionstart', 'id' => 'geodir_autocompleter_options_near');
+	
+	$arr[] = array(  
+			'name' => __( 'Enable Near autocompleter:', GEODIRADVANCESEARCH_TEXTDOMAIN ),
+			'desc' 		=> __( 'If an option is selected, the autocompleter for Near is enabled.', GEODIRADVANCESEARCH_TEXTDOMAIN ),
+			'id' 		=> 'geodir_enable_autocompleter_near',
+			'type' 		=> 'checkbox',
+			'css' 		=> '',
+			'std' 		=> '1'
+		);
+	
+	$arr[] = array(  
+			'name' => __( 'Autosubmit the form on select a Near option:', GEODIRADVANCESEARCH_TEXTDOMAIN ),
+			'desc' 		=> __( 'If an option is selected, the search form automatically is triggered when selecting a Near option.', GEODIRADVANCESEARCH_TEXTDOMAIN ),
+			'id' 		=> 'geodir_autocompleter_autosubmit_near',
+			'type' 		=> 'checkbox',
+			'css' 		=> '',
+			'std' 		=> '0'
+		);
+	
+
+	
+	$arr[] = array( 'type' => 'sectionend', 'id' => 'geodir_autocompleter_options_near');
+	}
+	
+	$arr[] = array( 'name' => __( 'GeoLocation Settings', GEODIRADVANCESEARCH_TEXTDOMAIN ), 'type' => 'sectionstart', 'id' => 'geodir_ajax_geolocation_options');
+	
+	
+	$arr[] = array(  
+			'name' => __( 'Disable geolocate on first load:', GEODIRADVANCESEARCH_TEXTDOMAIN ),
+			'desc' 		=> __( 'If an option is selected, users will not be auto geolocated on first load.', GEODIRADVANCESEARCH_TEXTDOMAIN ),
+			'id' 		=> 'geodir_autolocate_disable',
+			'type' 		=> 'checkbox',
+			'css' 		=> '',
+			'std' 		=> '0'
+		);
+	
+	
+	
+	
+	
+	$arr[] = array(  
+			'name' => __( 'Default Near Me miles limit (1-200)', GEODIRADVANCESEARCH_TEXTDOMAIN ),
+			'desc' 		=> __( 'Enter whole number only ex. 40 (Tokyo is largest city in the world @40 sq miles) LEAVE BLANK FOR NO DISTANCE LIMIT', GEODIRADVANCESEARCH_TEXTDOMAIN ),
+			'id' 		=> 'geodir_near_me_dist',
+			'type' 		=> 'text',
+			'css' 		=> 'min-width:300px;',
+			'std' 		=> '40' // Default value for the page title - changed in settings
+		);
+	
+	$arr[] = array(  
+			'name' => __( 'Ask user if they wish to be geolocated', GEODIRADVANCESEARCH_TEXTDOMAIN ),
+			'desc' 		=> __( 'If an option is selected, users will not be auto geolocated on first load.', GEODIRADVANCESEARCH_TEXTDOMAIN ),
+			'id' 		=> 'geodir_autolocate_ask',
+			'type' 		=> 'checkbox',
+			'css' 		=> '',
+			'std' 		=> '0'
+		);
+	
+	
+	
+	/*
+	$i=15;
+	$compass_arr=array();
+	$compass_arr['']=__( 'Default (36)', GEODIRECTORY_TEXTDOMAIN );
+	while($i<=55){
+		$compass_arr[$i] = $i;
+		$i++;
+	}
+	
+	$arr[] = array(  
+			'name' => __( 'Compass size', GEODIRECTORY_TEXTDOMAIN ),
+			'desc' 		=> __( 'The size of the compass that is inside the near field of search bar.', GEODIRECTORY_TEXTDOMAIN ),
+			'id' 		=> 'geodir_geo_compass_size',
+			'css' 		=> 'min-width:300px;',
+			'std' 		=> '',
+			'type' 		=> 'select',
+			'class'		=> 'chosen_select',
+			'options' => array_unique( $compass_arr)
+		);
+	
+	$i=-100;
+	$compass_margin_left_arr=array();
+	$compass_margin_left_arr['']=__( 'Default (-45)', GEODIRECTORY_TEXTDOMAIN );
+	while($i<=100){
+		$compass_margin_left_arr[$i] = $i;
+		$i++;
+	}
+	$arr[] = array(  
+			'name' => __( 'Compass margin left', GEODIRECTORY_TEXTDOMAIN ),
+			'desc' 		=> __( 'The horizontal position of the icon', GEODIRECTORY_TEXTDOMAIN ),
+			'id' 		=> 'geodir_geo_compass_margin_left',
+			'css' 		=> 'min-width:300px;',
+			'std' 		=> '',
+			'type' 		=> 'select',
+			'class'		=> 'chosen_select',
+			'options' => array_unique( $compass_margin_left_arr)
+		);
+	
+	$i=-100;
+	$compass_margin_top_arr=array();
+	$compass_margin_top_arr['']=__( 'Default (8)', GEODIRECTORY_TEXTDOMAIN );
+	while($i<=100){
+		$compass_margin_top_arr[$i] = $i;
+		$i++;
+	}
+	$arr[] = array(  
+			'name' => __( 'Compass margin top', GEODIRECTORY_TEXTDOMAIN ),
+			'desc' 		=> __( 'The vertical position of the icon', GEODIRECTORY_TEXTDOMAIN ),
+			'id' 		=> 'geodir_geo_compass_margin_top',
+			'css' 		=> 'min-width:300px;',
+			'std' 		=> '',
+			'type' 		=> 'select',
+			'class'		=> 'chosen_select',
+			'options' => array_unique( $compass_margin_top_arr)
+		);*/
+
+	$arr[] = array( 'type' => 'sectionend', 'id' => 'geodir_autocompleter_options');
+
+	$arr = apply_filters('geodir_ajax_geolocation_options' ,$arr );
+	
+	return $arr;
+}
+
+function geodir_adminpage_advanced_search($tabs){
+	
+	$tabs['advanced_search_fields'] = array( 'label' =>__( 'Advanced Search', GEODIRADVANCESEARCH_TEXTDOMAIN ));
+	
+	return $tabs; 
+}
+
+
+function geodir_autocompleter_options_form($tab){
+switch($tab){
+		case 'advanced_search_fields':
+			geodir_admin_fields( geodir_autocompleter_options() ); ?>
+			<p class="submit">
+        <input class="button-primary" type="submit" name="geodir_autocompleter_save"  value="<?php _e('Save changes', GEODIRADVANCESEARCH_TEXTDOMAIN);?>">
+        </p>
+			</div> <?php
+		break;
+		
+		case 'geolocation_fields':
+			geodir_admin_fields( geodir_autocompleter_options() ); ?>
+			<p class="submit">
+        <input class="button-primary" type="submit" name="geodir_autocompleter_save"  value="<?php _e('Save changes', GEODIRADVANCESEARCH_TEXTDOMAIN);?>">
+        </p>
+			</div> <?php
+		break;
+	}
+}
+
+
+function geodir_autocompleter_adminmenu(){
+	add_options_page('Autocompleter Options', 'Autocompleter', 8, __FILE__, 'geodir_autocompleter_options');
+}
+
+function geodir_autocompleter_ajax_actions(){
+	global $autocompleter_post_type;
+	
+	
+	if(isset($_REQUEST['q']) && $_REQUEST['q'] && isset($_REQUEST['post_type']))
+	{
+		autocompleters();
+	}
+
+	exit;
+	
+}
+
+function geodir_autocompleter_near_ajax_actions(){
+	global $autocompleter_post_type;
+	
+	
+	if(isset($_REQUEST['q']) && $_REQUEST['q'])
+	{
+		autocompleters_near();
+	}
+
+	exit;
+	
+}
+
+
+function autocompleters()
+{
+	global $wpdb;
+	
+	$geodir_terms_autocomplete = "''";
+	$gt_posttypes_autocomplete = "''";
+
+	$post_types = geodir_get_posttypes('array');
+	
+	$post_type_array = array();
+	$post_type_tax = array();
+	
+	$gd_post_type = isset($_REQUEST['post_type']) ? $_REQUEST['post_type'] : 'gd_place';
+	
+	if(!empty($post_types) && is_array($post_types) && array_key_exists($gd_post_type ,$post_types ) )
+	{
+			if(!empty($post_types[$gd_post_type]) && is_array($post_types[$gd_post_type]) && array_key_exists('taxonomies' , $post_types[$gd_post_type]  ))
+			{
+				foreach($post_types[$gd_post_type]['taxonomies'] as $geodir_taxonomy)
+				{
+					$post_type_tax[] = $geodir_taxonomy;
+				}
+			}
+	}
+	
+	
+	if(!empty($post_type_tax))
+		$geodir_terms_autocomplete = "'".implode("','", $post_type_tax)."'";
+	
+		$gt_posttypes_autocomplete = "'". $gd_post_type."'";
+	
+	$results = (get_option('autocompleter_results')!= false)?get_option('autocompleter_results'):1;
+	
+	$search = isset($_GET['q']) ? $_GET['q'] : '';
+	
+	if(strlen($search)){
+		switch($results){
+			case 1: 
+				
+				$words1 = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT concat( name, '|', sum( count ) ) name, sum( count ) cnt FROM ".$wpdb->prefix."terms t, ".$wpdb->prefix."term_taxonomy tt WHERE t.term_id = tt.term_id AND t.name LIKE %s AND tt.taxonomy in (".$geodir_terms_autocomplete.") GROUP BY t.term_id ORDER BY cnt DESC",
+						array($search.'%')
+					)				
+				);
+				
+				
+				$words2 = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT post_title as name FROM $wpdb->posts where post_status='publish' and post_type in (".$gt_posttypes_autocomplete.") and post_date < NOW() and post_title LIKE %s ORDER BY post_title",
+						array('%'.$search.'%')
+					)
+				);  
+				
+ 				$words = array_merge((array)$words1 ,(array)$words2 ); 
+				asort($words);
+				break;
+		} 
+		
+		foreach ($words as $word){
+			if($results > 0){
+				$id = isset($word->ID) ? $word->ID : '';
+				echo $word->name."|".get_permalink($id)."\n";
+			}else{
+				echo $word->name."\n";
+				}
+		}
+	}
+}
+
+
+if(isset($_REQUEST['set_location_type']) && isset($_REQUEST['set_location_val'])){
+//clear user location
+$_SESSION['user_lat']= '';
+$_SESSION['user_lon']='';
+$_SESSION['my_location']=0;	
+add_filter('parse_request', 'geodir_set_location_var_in_session_autocompleter',99);
+}
+
+function geodir_set_location_var_in_session_autocompleter($wp){
+global $wpdb;
+		//$wp->query_vars['page_id'] = get_option('geodir_location_page'); // set page id as location page id
+		
+		$nLoc = $wpdb->get_row(
+							$wpdb->prepare(
+								"SELECT * FROM ".POST_LOCATION_TABLE." WHERE location_id= %d LIMIT 1",
+								$_REQUEST['set_location_val']
+							)				
+						);
+		if(is_object($nLoc)){
+		
+			if($_REQUEST['set_location_type']=='1'){// country
+				$wp->query_vars['gd_country']	= $nLoc->country_slug;
+				$wp->query_vars['gd_region']	= '';
+				$wp->query_vars['gd_city']		= '';
+				
+			}
+			elseif($_REQUEST['set_location_type']=='2'){// country
+				$wp->query_vars['gd_country']	= $nLoc->country_slug;
+				$wp->query_vars['gd_region']	= $nLoc->region_slug;
+				$wp->query_vars['gd_city']		= '';
+				
+			}
+			elseif($_REQUEST['set_location_type']=='3'){// country
+				$wp->query_vars['gd_country']	= $nLoc->country_slug;
+				$wp->query_vars['gd_region']	= $nLoc->region_slug;
+				$wp->query_vars['gd_city']		= $nLoc->city_slug;
+				
+			}
+			
+			
+			
+		}
+		//print_r($wp->query_vars);
+		//print_r($nLoc);//exit;	
+		//print_r($_SESSION);exit;
+		return $wp;
+}
+
+
+
+
+
+
+function autocompleters_near()
+{
+	global $wpdb;
+	//print_r($_REQUEST);exit;
+	
+	
+	//if (defined('POST_LOCATION_TABLE')){echo '#############';}else{echo '@@@@@@@@@@@';}exit;
+	$search = isset($_GET['q']) ? $_GET['q'] : '';
+	
+	if(!$search){return;}
+	$loc_list = array();
+	$countries = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT * FROM ".POST_LOCATION_TABLE." WHERE country like %s GROUP BY country LIMIT 3",
+						array($search.'%')
+					)				
+				);
+	
+	if(!empty($countries)){
+		foreach($countries as $country){
+			echo   $country->country." <small class='gd-small-country'>(Country)</small> |".$country->country."|".$country->location_id."|1 \n";
+		}
+	}
+	
+	$regions = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT * FROM ".POST_LOCATION_TABLE." WHERE region like %s GROUP BY region LIMIT 3",
+						array($search.'%')
+					)				
+				);
+	//print_r($regions);
+	if(!empty($regions)){
+		foreach($regions as $region){
+			echo   $region->region." <small class='gd-small-region'>(Region)</small> |".$region->region."|".$region->location_id."|2 \n";
+		}
+	}
+	
+	$cities = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT * FROM ".POST_LOCATION_TABLE." WHERE city like %s GROUP BY city LIMIT 3",
+						array($search.'%')
+					)				
+				);
+	
+	if(!empty($cities)){
+		foreach($cities as $city){
+			echo   $city->city." <small class='gd-small-city'>(City)</small> |".$city->city."|".$city->location_id."|3 \n";
+		}
+	}
+	exit;
+	//print_r($countries);exit;
+	
+	
+	
+	if(strlen($search)){
+		switch($results){
+			case 1: 
+				
+				$words1 = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT concat( name, '|', sum( count ) ) name, sum( count ) cnt FROM ".$wpdb->prefix."terms t, ".$wpdb->prefix."term_taxonomy tt WHERE t.term_id = tt.term_id AND t.name LIKE %s AND tt.taxonomy in (".$geodir_terms_autocomplete.") GROUP BY t.term_id ORDER BY cnt DESC",
+						array($search.'%')
+					)				
+				);
+				
+				
+				$words2 = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT post_title as name FROM $wpdb->posts where post_status='publish' and post_type in (".$gt_posttypes_autocomplete.") and post_date < NOW() and post_title LIKE %s ORDER BY post_title",
+						array('%'.$search.'%')
+					)
+				);  
+				
+ 				$words = array_merge((array)$words1 ,(array)$words2 ); 
+				asort($words);
+				break;
+		} 
+		
+		foreach ($words as $word){
+			if($results > 0){
+				$id = isset($word->ID) ? $word->ID : '';
+				echo $word->name."|".get_permalink($id)."\n";
+			}else{
+				echo $word->name."\n";
+				}
+		}
+	}
+}
+
+
+
+
+function geodir_autocompleter_init_script() {
+
+	$autocomplete_field_name = get_option('geodir_autocompleter_matches_label');
+
+	if($autocomplete_field_name == '') {
+		$autocomplete_field_name = 's';
+	}
+	
+	$default_near_text = NEAR_TEXT;
+	if (get_option('geodir_near_field_default_text')) {
+		$default_near_text = __(get_option('geodir_near_field_default_text'), GEODIRECTORY_TEXTDOMAIN);
+	}
+	
+	
+	$results = (get_option('autocompleter_results')!='')?get_option('autocompleter_results'):1;
+	
+}
+
+add_action('wp_footer', 'geodir_autocompleter_init_script');
+
+
+function geodir_autocompleter_from_submit_handler(){
+	
+	if(isset($_REQUEST['geodir_autocompleter_save']))
+		geodir_update_options(geodir_autocompleter_options());
+}
+
+
+function geodir_autocompleter_taxonomies()
+{
+
+	$taxonomies_array = array();
+	$args = array(
+	'public'   => true,
+	'_builtin' => false
+	); 
+	$output = 'names'; // or objects
+	$operator = 'or'; // 'and' or 'or'
+	$taxonomies = get_taxonomies( $args, $output, $operator ); 
+	
+	if(!empty($taxonomies)):
+	 foreach($taxonomies as $term_que):
+	 $taxonomies_array[$term_que] = $term_que;
+	 endforeach;
+	endif;
+	
+	return $taxonomies_array;
+
+}
+
+function geodir_autocompleter_post_types()
+{
+	$post_type_arr = array();
+	
+	$post_types = geodir_get_posttypes('object');
+	
+	foreach($post_types as $key => $post_types_obj)
+	{
+		$post_type_arr[$key] = $post_types_obj->labels->singular_name;
+	}
+	return 	$post_type_arr;
+}
+
+
+function geodir_autocompleter_script(){
+	
+	wp_register_script('geodir-autocompleter-js',GEODIRADVANCESEARCH_PLUGIN_URL.'/js/jquery.autocomplete.js',array('jquery'),GEODIRADVANCESEARCH_VERSION);
+	wp_enqueue_script( 'geodir-autocompleter-js' );
+
+}
+
+
+
+function geodir_autocompleter_admin_script(){
+	
+	if(isset($_REQUEST['tab']) && $_REQUEST['tab'] == 'advanced_search_fields'){
+		wp_register_script('geodir-autocompleter-admin-js',GEODIRADVANCESEARCH_PLUGIN_URL.'/js/autocomplete-admin.js',array('jquery'),GEODIRADVANCESEARCH_VERSION);
+		wp_enqueue_script( 'geodir-autocompleter-admin-js' );
+	}
+
+}
+
+
+
+function geodir_autocompleter_ajax_url($type='',$near=false){
+	
+	$gd_post_type = geodir_get_current_posttype();
+	
+	if($gd_post_type == '')
+		$gd_post_type = 'gd_place';
+	
+	if($near){
+	return admin_url('admin-ajax.php?action=geodir_autocompleter_near_ajax_action');
+	}else{
+	return admin_url('admin-ajax.php?action=geodir_autocompleter_ajax_action');
+	}
+}
+
+
+add_action('geodir_search_near_text','geodir_set_search_near_text',10,2);
+
+function geodir_set_search_near_text($near, $default_near_text){
+	
+	if(isset($_SESSION['gd_country']) && $_SESSION['gd_country']){
+		global $wpdb;	
+		
+		
+		if($_SESSION['gd_country'] && $_SESSION['gd_region'] && $_SESSION['gd_city']){
+		$loc_arr = $wpdb->get_row($wpdb->prepare("SELECT * FROM ".POST_LOCATION_TABLE." WHERE city_slug=%s",$_SESSION['gd_city']));
+		return __('In:',GEODIRADVANCESEARCH_TEXTDOMAIN).' '.$loc_arr->city.' ('.__('City',GEODIRADVANCESEARCH_TEXTDOMAIN).')';
+		}elseif($_SESSION['gd_country'] && $_SESSION['gd_region']){
+		$loc_arr = $wpdb->get_row($wpdb->prepare("SELECT * FROM ".POST_LOCATION_TABLE." WHERE region_slug=%s",$_SESSION['gd_region']));
+		return __('In:',GEODIRADVANCESEARCH_TEXTDOMAIN).' '.$loc_arr->region.' ('.__('Region',GEODIRADVANCESEARCH_TEXTDOMAIN).')';
+		}elseif($_SESSION['gd_country']){
+		$loc_arr = $wpdb->get_row($wpdb->prepare("SELECT * FROM ".POST_LOCATION_TABLE." WHERE country_slug=%s",$_SESSION['gd_country']));
+		return __('In:',GEODIRADVANCESEARCH_TEXTDOMAIN).' '.$loc_arr->country.' ('.__('Country',GEODIRADVANCESEARCH_TEXTDOMAIN).')';
+		}
+
+		
+	}
+	return $near;
+	
+}
+
+add_action('geodir_search_near_class','geodir_set_search_near_class',10,1);
+
+function geodir_set_search_near_class($class){
+	if(isset($_SESSION['gd_country']) && $_SESSION['gd_country'] && (!isset($_SESSION['user_lat']) || $_SESSION['user_lat']=='')){
+		global $wpdb;	
+		
+		
+		if($_SESSION['gd_country'] && $_SESSION['gd_region'] && $_SESSION['gd_city']){
+		return $class.' near-city';
+		}elseif($_SESSION['gd_country'] && $_SESSION['gd_region']){
+		return $class.' near-region';
+		}elseif($_SESSION['gd_country']){
+		return $class.' near-country';
+		}
+
+		
+	}
+	return $class;
+}
+###########################################################
+############# AUTOCOMPLETE FUNCTIONS END ##################
+###########################################################
+
 ?>
