@@ -131,16 +131,31 @@ function first_load_amount()
 
 function product_add_to_cart_click()
 {
-	var jbody = jQuery('body');
+	var jbody 		= jQuery('body'),
+		catalogue 	= jQuery('.av-catalogue-item'),
+		loader		= false;
+		
+	if(catalogue.length) loader	= jQuery.avia_utilities.loading(); 
 
 	jbody.on('click', '.add_to_cart_button', function()
 	{
-		var product = jQuery(this).parents('.product:eq(0)').addClass('adding-to-cart-loading').removeClass('added-to-cart-check');
+		var button = jQuery(this);
+		button.parents('.product:eq(0)').addClass('adding-to-cart-loading').removeClass('added-to-cart-check');
+		
+		if(button.is('.av-catalogue-item'))
+		{
+			loader.show();
+		}
 	})
 	
 	jbody.bind('added_to_cart', function()
 	{
 		jQuery('.adding-to-cart-loading').removeClass('adding-to-cart-loading').addClass('added-to-cart-check');
+		
+		if(loader !== false)
+		{
+			loader.hide();
+		}
 	});
 	
 }

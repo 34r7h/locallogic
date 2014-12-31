@@ -78,7 +78,25 @@ if ( !class_exists( 'avia_sc_submenu' ) )
 						"std" 	=> "true",
 						"type" 	=> "checkbox"),
 						
-	              
+	              	 array(	
+						"name" 	=> __("Mobile Menu Display",'avia_framework' ),
+						"desc" 	=> __("How do you want to display the menu on mobile devices",'avia_framework' ),
+						"id" 	=> "mobile",
+						"type" 	=> "select",
+						"std" 	=> "disabled",
+						"subtype" => array(   __('Display full menu (works best if you only got a few menu items)','avia_framework' )       			=>'disabled',
+						                      __('Display a button to open menu (works best for menus with a lot of menu items)','avia_framework' )     =>'active',
+						                      )
+				    ),
+				    
+				    array(	
+						"name" 	=> __("Hide Mobile Menu Submenu Items", 'avia_framework'),
+						"desc" 	=> __("By default all menu items of the mobile menu are visible. If you activate this option they will be hidden and a user needs to click on the parent menu item to display the submenus", 'avia_framework'),
+						"id" 	=> "mobile_submenu",
+						"required" 	=> array('mobile', 'equals', 'active'),
+						"type" 	=> "checkbox",
+						"std" 	=> ""
+				    ),
 						
 					
 				);
@@ -121,7 +139,9 @@ if ( !class_exists( 'avia_sc_submenu' ) )
 				'menu'			=> '',
 				'position'	 	=> 'center',
 				'sticky'		=> '',
-				'color'			=> 'main_color'
+				'color'			=> 'main_color',
+				'mobile'		=> 'disabled',
+				'mobile_submenu'=> ''
 				
 				), $atts, $this->config['shortcode']);
 				
@@ -162,10 +182,16 @@ if ( !class_exists( 'avia_sc_submenu' ) )
 	                )
 				);
 				
+				$submenu_hidden = ""; 
+				$mobile_button = $mobile == "active" ? "<a href='#' class='mobile_menu_toggle' ".av_icon_string('mobile_menu')."><span class='av-current-placeholder'>".__('Menu', 'avia_framework')."</span>" : "";
+				if(!empty($mobile_button) && !empty($mobile_submenu) && $mobile_submenu != "disabled")
+				{
+					$submenu_hidden = "av-submenu-hidden";
+				}
 				
 				// if(!ShortcodeHelper::is_top_level()) return $element;
 				$output .=  avia_new_section($params);
-				$output .= "<div class='container'>".$element."</div>";
+				$output .= "<div class='container av-menu-mobile-{$mobile} {$submenu_hidden}'>{$mobile_button}</a>".$element."</div>";
 				$output .= avia_section_after_element_content( $meta , 'after_submenu', false, $sticky_div);
 				return $output;
 

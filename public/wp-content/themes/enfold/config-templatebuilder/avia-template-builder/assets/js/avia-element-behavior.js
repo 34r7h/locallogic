@@ -325,7 +325,7 @@
 				{
 					var current		= $(this), 
 						check_data	= current.data(), 
-						value2		= check_data.checkValue, 
+						value2		= check_data.checkValue.toString(), 
 						show		= false;
 						
 						if(!is_hidden)

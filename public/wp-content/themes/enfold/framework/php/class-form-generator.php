@@ -787,7 +787,7 @@ if( ! class_exists( 'avia_form' ) )
 					case 'is_email':
 
 						$this->autoresponder[] = $id;
-						if(preg_match("!^\w[\w|\.|\-]+@\w[\w|\.|\-]*\.[a-zA-Z]{2,20}$!", urldecode($_POST[$id]))) return "valid";
+						if(preg_match("!^[\w|\.|\-]+@\w[\w|\.|\-]*\.[a-zA-Z]{2,20}$!", urldecode($_POST[$id]))) return "valid";
 
 					break;
 

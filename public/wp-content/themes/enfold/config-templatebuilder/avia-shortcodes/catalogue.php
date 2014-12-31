@@ -208,7 +208,7 @@ if ( !class_exists( 'avia_sc_catalogue' ) )
 				$output .=		$image;
 				$output .= 		"<div class='av-catalogue-item-inner'>";
 				$output .= 			"<div class='av-catalogue-title-container'><div class='av-catalogue-title'>{$title}</div><div class='av-catalogue-price'>{$price}</div></div>";
-				$output .= 			"<div class='av-catalogue-content'>{$content}</div>";
+				$output .= 			"<div class='av-catalogue-content'>".do_shortcode($content)."</div>";
 				$output .= 		"</div>";
 				$output .= "</".$item_markup['close'].">";
 				$output .= "</li>";

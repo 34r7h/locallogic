@@ -115,10 +115,23 @@ $key a:hover, $key h1 a:hover, $key h2 a:hover, $key h3 a:hover, $key h4 a:hover
 color: $secondary;
 }
 
-$key .primary-background, $key .primary-background a, div $key .button, $key #submit, $key input[type='submit'], $key .small-preview:hover, $key .avia-menu-fx, $key .avia-menu-fx .avia-arrow, $key.iconbox_top .iconbox_icon, $key .iconbox_top a.iconbox_icon:hover, $key .avia-data-table th.avia-highlight-col, $key .avia-color-theme-color, $key .avia-color-theme-color:hover, $key .image-overlay .image-overlay-inside:before, $key .comment-count, $key .av_dropcap2, #top #wrap_all $key .av-menu-button-colored > a .avia-menu-text, $key .av-colored-style .av-countdown-cell-inner{
+$key .primary-background, $key .primary-background a, div $key .button, $key #submit, $key input[type='submit'], $key .small-preview:hover, $key .avia-menu-fx, $key .avia-menu-fx .avia-arrow, $key.iconbox_top .iconbox_icon, $key .iconbox_top a.iconbox_icon:hover, $key .avia-data-table th.avia-highlight-col, $key .avia-color-theme-color, $key .avia-color-theme-color:hover, $key .image-overlay .image-overlay-inside:before, $key .comment-count, $key .av_dropcap2, #top #wrap_all $key .av-menu-button-colored > a .avia-menu-text, $key .av-colored-style .av-countdown-cell-inner, .responsive #top $key .av-open-submenu.av-subnav-menu > li > a:hover, #top $key .av-open-submenu.av-subnav-menu li > ul a:hover{
 background-color: $primary;
 color:$constant_font;
 border-color:$button_border;
+}
+
+#top $key .mobile_menu_toggle{
+color: $primary;
+background:$bg;
+}
+
+#top $key .av-menu-mobile-active .av-subnav-menu > li > a:before{
+color: $primary;
+}
+
+#top $key .av-open-submenu.av-subnav-menu > li > a:hover:before{
+color: $bg;
 }
 
 

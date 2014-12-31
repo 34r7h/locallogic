@@ -49,6 +49,9 @@ function layerslider_activation_scripts() {
 
 	// Check new install
 	layerslider_install_scripts();
+
+	// Redirect to LS's admin page after activation
+	update_option('layerslider_do_activation_redirect', 1);
 }
 
 function layerslider_install_scripts() {

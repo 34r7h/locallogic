@@ -366,7 +366,7 @@ font-size: smaller;
 	height:100%; width:100%; position: fixed; z-index: 0; top:0; left:0;
 	}
 
-	.image-overlay{position: absolute; background: #fff; z-index: 500; height:100%; width:100%; opacity: 0; filter:alpha(opacity=0);}
+	.image-overlay{position: absolute; background: #fff; z-index: 300; height:100%; width:100%; opacity: 0; filter:alpha(opacity=0);}
 	.avia_transform a .image-overlay{  -webkit-transition: opacity 0.4s ease-in-out; -moz-transition: opacity 0.4s ease-in-out; transition: opacity 0.4s ease-in-out; }
 
 	.avia_transform a:hover .image-overlay{opacity: 0.7 !important;}

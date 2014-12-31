@@ -551,19 +551,27 @@ if(!function_exists('avia_get_tracking_code'))
 		$avia_config['analytics_code'] = avia_option('analytics', false, false, true);
 		if(empty($avia_config['analytics_code'])) return;
 
-		if(strpos($avia_config['analytics_code'],'UA-') === 0) // if we only get passed the UA-id create the script for the user (async tracking code)
+		if(strpos($avia_config['analytics_code'],'UA-') === 0) // if we only get passed the UA-id create the script for the user (universal tracking code)
 		{
-
 			$avia_config['analytics_code'] = "
-
-<script type='text/javascript'>
-var _gaq = _gaq || []; _gaq.push(['_setAccount', '".$avia_config['analytics_code']."']); _gaq.push(['_trackPageview']); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();
+			
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', '".$avia_config['analytics_code']."', 'auto');
+ga('send', 'pageview');
 </script>
-
 ";
 		}
 		
-		add_action('wp_footer', 'avia_print_tracking_code');
+		
+		if(strpos($avia_config['analytics_code'],'i,s,o,g,r,a,m') !== false)
+		{
+			add_action('wp_head', 'avia_print_tracking_code', 100000);
+		}
+		else
+		{
+			add_action('wp_footer', 'avia_print_tracking_code', 100000);
+		}
 	}
 
 	function avia_print_tracking_code()
@@ -607,6 +615,7 @@ if(!function_exists('avia_header_setting'))
 							'header_replacement_logo'=>'',
 							'header_replacement_menu'=>'',
 							'header_mobile_behavior' => '',
+							'header_searchicon' => true,
 							'header_mobile_activation' => 'mobile_menu_phone',
 							'phone'=>'',
 							'sidebarmenu_sticky' => 'conditional_sticky',
@@ -662,7 +671,7 @@ if(!function_exists('avia_header_setting'))
 		if($header['header_size'] == 'custom' && (int) $header['header_custom_size'] < 65) $header['header_shrinking'] = 'disabled';
 		
 		//create a header class so we can style properly
-		$header_class_var = array('header_position', 'header_layout', 'header_size', 'header_sticky', 'header_shrinking', 'header_stretch', 'header_mobile_activation', 'header_transparency' );
+		$header_class_var = array('header_position', 'header_layout', 'header_size', 'header_sticky', 'header_shrinking', 'header_stretch', 'header_mobile_activation', 'header_transparency', 'header_searchicon');
 		$header['header_class'] = "";
 		
 		foreach($header_class_var as $class_name)
@@ -788,6 +797,7 @@ if(!function_exists('avia_header_class_string'))
 													'header_transparency',
 													'header_mobile_activation',
 													'header_mobile_behavior',
+													'header_searchicon',
 													'layout_align_content'
 												);
 
@@ -1093,7 +1103,7 @@ if(!function_exists('avia_theme_featured_image_meta'))
 		    $value = esc_attr( get_post_meta( $post->ID, $id, true ) );
 		    $selected = !empty($value) ? "checked='checked'" : "";
 		    
-		    $label = '<label for="' . $id . '" class="selectit"><input '.$selected.' name="' . $id . '" type="checkbox" id="' . $id . '" value="1" > ' . $text .'</label>';
+		    $label = '</div><div class="av-meta-extra-inside"><label for="' . $id . '" class="selectit"><input '.$selected.' name="' . $id . '" type="checkbox" id="' . $id . '" value="1" > ' . $text .'</label>';
 		    return $content .= $label;
 		}
 		

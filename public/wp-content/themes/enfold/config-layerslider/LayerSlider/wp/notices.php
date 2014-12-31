@@ -18,6 +18,11 @@ if(get_option('layerslider-slides') !== false) {
 	}
 }
 
+// License notification under the plugin row on the Plugins screen
+if(!get_option('layerslider-authorized-site', null)) {
+	add_action('after_plugin_row_'.LS_PLUGIN_BASE, 'layerslider_plugins_purchase_notice', 10, 3 );
+}
+
 function layerslider_update_notice() {
 
 	// Get plugin updates
@@ -88,4 +93,18 @@ function layerslider_premium_support() {
 	<div class="clear"></div>
 </div>
 
-<?php } } ?>
+<?php } } 
+
+
+function layerslider_plugins_purchase_notice($plugin_file, $plugin_data, $status){
+	$table = _get_list_table('WP_Plugins_List_Table');
+	?>
+	<tr class="plugin-update-tr"><td colspan="<?php echo $table->get_column_count(); ?>" class="plugin-update colspanchange">
+		<div class="update-message ls-plugins-screen-notice">
+		<?php 
+			printf(__('You need to authorize this site in order to get upgrades or support for this plugin. %sPurchase a license%s or %senter an existing purchase code%s.', 'installer'), 
+				'<a href="http://codecanyon.net/item/layerslider-responsive-wordpress-slider-plugin-/1362246" target="_blank">', '</a>', '<a href="'.admin_url('admin.php?page=layerslider').'">', '</a>');
+		?>
+		</div>
+	</tr>
+<?php } ?>

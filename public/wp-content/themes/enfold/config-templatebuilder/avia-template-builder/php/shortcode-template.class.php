@@ -168,7 +168,6 @@ if ( !class_exists( 'aviaShortcodeTemplate' ) ) {
 		public function shortcode_handler_prepare($atts, $content = "", $shortcodename = "", $fake = false)
 		{
 			//dont use any shortcodes in backend
-		
 			$meta = array();
 
 			if(empty($this->config['inline'])) //inline shortcodes like dropcaps are basically nested shortcodes and should therefore not be counted
@@ -297,12 +296,20 @@ if ( !class_exists( 'aviaShortcodeTemplate' ) ) {
 			if(!is_admin())
 			{
 				add_shortcode( $this->config['shortcode'], array(&$this, 'shortcode_handler_prepare'));
-	
+				
 				if(!empty($this->config['shortcode_nested']))
 				{
 					foreach($this->config['shortcode_nested'] as $nested)
 					{
-						if( method_exists($this, $nested) ) add_shortcode( $nested, array(&$this, $nested));
+						if( method_exists($this, $nested) )
+						{
+							add_shortcode( $nested, array(&$this, $nested));
+						}
+						else if(!shortcode_exists($nested))
+						{
+							add_shortcode( $nested, '__return_false'); /*wordpress 4.0.1 fix that. without the shortcode registered to a function the attributes get messed up*/
+						}
+						
 					}
 				}
 			}

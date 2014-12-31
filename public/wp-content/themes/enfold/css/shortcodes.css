@@ -2718,7 +2718,7 @@ transform:scale(1);
 #top .av-large-testimonial-slider .avia-testimonial-content{ border:none; padding: 0; background: transparent; font-size: 1.3em; line-height: 1.65em;}
 #top .av-large-testimonial-slider .avia-testimonial-meta{display: inline-block; width:auto; margin:30px 0 0 0;}
 #top .av-large-testimonial-slider .avia-testimonial-arrow-wrap{display:none;}
-#top .av-large-testimonial-slider .avia-testimonial-meta-mini{text-align: left;}
+#top .av-large-testimonial-slider .avia-testimonial-meta-mini{text-align: left; overflow: visible; float:left;}
 #top .av-large-testimonial-slider .avia-testimonial-name { font-size: 1.6em; margin-top: 1em; }
 #top .av-large-testimonial-slider .avia-testimonial-meta .avia-testimonial-image{width:80px; height:80px;}
 #top .av-large-testimonial-slider.avia-testimonial-wrapper .avia-testimonial {padding: 0px 100px ; }
@@ -4013,7 +4013,7 @@ transition: 		all 0.7s cubic-bezier(0.230, 1.000, 0.320, 1.000);
 SUBMENU
 ====================================================================================================================================================== */
 
-#top .sticky_placeholder	{ height:51px; position: relative; clear:both; height:51px;}
+#top .sticky_placeholder	{ height:51px; position: relative; clear:both; }
 #top .av-submenu-container	{ height:52px; position: absolute; width:100%; border-bottom-style: solid; border-bottom-width: 1px; -webkit-perspective: 1000px; -webkit-backface-visibility: hidden; }
 #top .av-submenu-container .container{padding:0 !important;}
 #top .av-subnav-menu	  { margin:0; }
@@ -4029,6 +4029,7 @@ SUBMENU
 
 #top .av-subnav-menu li a{text-decoration: none;}
 #top .av-subnav-menu li:hover > ul{visibility:visible; opacity: 1;}
+#top .av-subnav-menu li > ul.av-visible-mobile-sublist{visibility:visible; opacity: 1;}
 
 #top .av-subnav-menu .avia-bullet{display:none;}
 #top .av-subnav-menu .av-menu-button > a{padding: 0;}
@@ -4040,10 +4041,45 @@ SUBMENU
 
 #top .av-submenu-container .avia-menu-fx{display:none;}
 
+#top .mobile_menu_toggle{
+display: none;
+height: 46px; min-width: 46px; line-height: 46px; padding:0px 20px;
+text-decoration: none; text-align: center;
+margin:0 3px; z-index: 10000;
+border-style:solid; 
+border-width: 1px; 
+border-top:none;
+border-bottom:none;
+font-size: 30px;
+position: relative;
+}
+
+#top .mobile_menu_toggle .av-current-placeholder{font-size: 14px; vertical-align: bottom; display: inline-block; margin-left:20px;}
+
+
 @media only screen and (max-width: 767px)
 {
 	.responsive #top .sticky_placeholder{height:0px;}
-	.responsive #top .av-submenu-container{position: static !important; }
+	.responsive #top .av-submenu-container{top: auto !important; position: relative !important; height:auto; }
+	
+	.responsive #top .av-menu-mobile-active {text-align: center; }
+	.responsive #top .av-menu-mobile-active .mobile_menu_toggle{display: inline-block;}
+	.responsive #top .av-menu-mobile-active .av-subnav-menu{display:none;}
+	
+	.responsive #top #wrap_all .av-menu-mobile-active.container {width:100%; max-width: 100%;}
+	.responsive #top .av-menu-mobile-active .av-open-submenu.av-subnav-menu{display:block;}
+	.responsive #top .av-subnav-menu > li:first-child{margin-top:-1px;}
+	.responsive #top .av-menu-mobile-active .av-subnav-menu  li{display:block; border-top-style: solid; border-top-width: 1px; padding:0;}
+	.responsive #top .av-menu-mobile-active .av-subnav-menu > li > a{border-left:none; padding:15px 15%; text-align: left;}
+	.responsive #top .av-menu-mobile-active .av-subnav-menu > li a:before{content: "\25B6"; position: absolute; top: 15px; margin-left: -10px; font-family: 'entypo-fontello'; font-size: 7px;}
+	.responsive #top .av-menu-mobile-active .av-subnav-menu li > ul{visibility:visible; opacity: 1; top:0; left:0; position: relative; width:100%; border:none;}
+	.responsive #top .av-menu-mobile-active.av-submenu-hidden .av-subnav-menu li > ul{display: none;}
+	.responsive #top .av-menu-mobile-active.av-submenu-hidden .av-subnav-menu li > ul.av-visible-sublist{display: block;}
+	
+	.responsive #top .av-menu-mobile-active .av-subnav-menu li > ul a{padding:15px 19%;}
+	.responsive #top .av-menu-mobile-active .av-subnav-menu li li > ul a{padding:15px 24%;}
+	.responsive #top .av-menu-mobile-active .av-subnav-menu li li li > ul a{padding:15px 29%;}
+
 }
 
 /* ======================================================================================================================================================

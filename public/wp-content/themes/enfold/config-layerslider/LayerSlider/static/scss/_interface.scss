@@ -330,7 +330,7 @@
 
 //  WP HELP ITEMS
 //----------------------------------------------------------------
-#contextual-help-wrap table {
+#contextual-help-wrap .ls-table {
 	width: 100%;
 	border-collapse: collapse;
 	border-spacing: 0px;
@@ -340,7 +340,7 @@
 	border: 1px solid #CCC;
 }
 
-#contextual-help-wrap table thead td {
+#contextual-help-wrap .ls-table thead td {
 	color: #333;
 	text-shadow: 0 1px 1px #FFF;
 	border-right: 1px solid #CCC;
@@ -371,6 +371,6 @@
 	font-weight: bold !important;
 }
 
-#contextual-help-wrap table a {
+#contextual-help-wrap .ls-table a {
 	text-decoration: none;
 }

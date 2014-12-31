@@ -383,7 +383,7 @@ if ( !class_exists( 'avia_post_grid' ) )
 
 				switch($linking)
 				{
-					case "lightbox":  $link = wp_get_attachment_image_src(get_post_thumbnail_id($the_id), 'large'); $link = $link[0];	break;
+					case "lightbox":  $link = aviaHelper::get_url('lightbox', get_post_thumbnail_id($the_id));	break;
 					default: 		  $link = get_permalink($the_id); break;
 				}
 

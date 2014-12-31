@@ -26,9 +26,22 @@ if ( !class_exists( 'AviaHelper' ) ) {
     			return $link[0];
     		}
     		
-    		if(empty($link[1]))               return $link[0];
-    		if($link[0] == 'manually')        return $link[1];
-            if(post_type_exists( $link[0] ))  return get_permalink($link[1]);
+    		if(empty($link[1]))
+    		{
+    			return $link[0];
+    		}
+    		
+    		if($link[0] == 'manually')
+    		{
+    			if(strpos($link[1], "@") !== false && strpos($link[1], "://") === false){ $link[1] = "mailto:".$link[1]; }
+    			return $link[1];
+    		}
+    		
+            if(post_type_exists( $link[0] ))
+            {
+            	return get_permalink($link[1]);
+            }
+            
             if(taxonomy_exists( $link[0]  ))  
             {
             	$return = get_term_link(get_term($link[1], $link[0]));

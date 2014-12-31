@@ -237,6 +237,14 @@ if ( !class_exists( 'avia_sc_slider' ) )
 						"type" 	=> "select",
 						"std" 	=> "false",
 						"subtype" => array(__('Yes','avia_framework' ) =>'true',__('No','avia_framework' ) =>'false')),
+						
+					array(	
+						"name" 	=> __("Stop Autorotation with the last slide", 'avia_framework' ),
+						"desc" 	=> __("Check if you want to disable autorotation when this last slide is displayed", 'avia_framework' ) ,
+						"id" 	=> "autoplay_stopper",
+						"required"=> array('autoplay','equals','true'),
+						"std" 	=> "",
+						"type" 	=> "checkbox"),
 
 					array(
 						"name" 	=> __("Slideshow autorotation duration",'avia_framework' ),
@@ -245,7 +253,7 @@ if ( !class_exists( 'avia_sc_slider' ) )
 						"type" 	=> "select",
 						"std" 	=> "5",
 						"subtype" =>
-						array('3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10','15'=>'15','20'=>'20','30'=>'30','40'=>'40','60'=>'60','100'=>'100')),
+						array('2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10','15'=>'15','20'=>'20','30'=>'30','40'=>'40','60'=>'60','100'=>'100')),
 						
 						array(	
 						"name" 	=> __("Slideshow control styling?",'avia_framework' ),
@@ -337,7 +345,9 @@ if ( !class_exists( 'avia_sc_slider' ) )
 				'handle'		=> $shortcodename,
 				'content'		=> ShortcodeHelper::shortcode2array($content, 1),
 				'class'			=> $meta['el_class'],
-				'custom_markup' => $meta['custom_markup']
+				'custom_markup' => $meta['custom_markup'],
+				'autoplay_stopper'=>'',
+
 				), $atts, $this->config['shortcode']);
 
 				$slider = new avia_slideshow($atts);
@@ -384,7 +394,8 @@ if ( !class_exists( 'avia_slideshow' ) )
 				'control_layout'=> '',
 				'content'		=> array(),
 				'custom_markup' => '',
-				'perma_caption'	=> ''
+				'perma_caption'	=> '',
+				'autoplay_stopper'=>''
 				), $config);
 
 			$this->config = apply_filters('avf_slideshow_config', $this->config);
@@ -420,6 +431,15 @@ if ( !class_exists( 'avia_slideshow' ) )
 			if(!empty($config['content']))
 			{
 				$this->extract_subslides($config['content']);
+			}
+			
+			if("aviaTBautoplay_stopper" == $this->config['autoplay_stopper'])
+			{
+				$this->config['autoplay_stopper'] = true;
+			}
+			else
+			{
+				$this->config['autoplay_stopper'] = false;
 			}
 
 			$this->set_slides($this->config['ids']);

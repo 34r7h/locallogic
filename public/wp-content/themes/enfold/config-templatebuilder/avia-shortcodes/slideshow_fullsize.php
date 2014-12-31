@@ -173,6 +173,8 @@ if ( !class_exists( 'avia_sc_slider_full' ) )
 									"type" 	=> "checkbox"),
 									
 									
+									
+									
 									array(
 									"type" 	=> "close_div",
 									'nodescription' => true
@@ -497,6 +499,14 @@ if ( !class_exists( 'avia_sc_slider_full' ) )
 						"type" 	=> "select",
 						"std" 	=> "false",
 						"subtype" => array(__('Yes','avia_framework' ) =>'true',__('No','avia_framework' ) =>'false')),	
+						
+					array(	
+						"name" 	=> __("Stop Autorotation with the last slide", 'avia_framework' ),
+						"desc" 	=> __("Check if you want to disable autorotation when this last slide is displayed", 'avia_framework' ) ,
+						"id" 	=> "autoplay_stopper",
+						"required"=> array('autoplay','equals','true'),
+						"std" 	=> "",
+						"type" 	=> "checkbox"),
 			
 					array(	
 						"name" 	=> __("Slideshow autorotation duration",'avia_framework' ),
@@ -505,7 +515,7 @@ if ( !class_exists( 'avia_sc_slider_full' ) )
 						"type" 	=> "select",
 						"std" 	=> "5",
 						"subtype" => 
-						array('3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10','15'=>'15','20'=>'20','30'=>'30','40'=>'40','60'=>'60','100'=>'100')),
+						array('2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10','15'=>'15','20'=>'20','30'=>'30','40'=>'40','60'=>'60','100'=>'100')),
 					
 					
 					array(	
@@ -654,6 +664,7 @@ if ( !class_exists( 'avia_sc_slider_full' ) )
 				'stretch'		=> '',
 				'control_layout'=> 'av-control-default',
 				'perma_caption'	=> '',
+				'autoplay_stopper'=>'',
 				'content'		=> ShortcodeHelper::shortcode2array($content, 1)
 				
 				), $atts, $this->config['shortcode']);
@@ -689,10 +700,10 @@ if ( !class_exists( 'avia_sc_slider_full' ) )
 				$params['open_structure'] = false;
 				
 				//we dont need a closing structure if the element is the first one or if a previous fullwidth element was displayed before
-				if($meta['index'] == 0) $params['close'] = false;
+				if(isset($meta['index']) && $meta['index'] == 0) $params['close'] = false;
 				if(!empty($meta['siblings']['prev']['tag']) && in_array($meta['siblings']['prev']['tag'], AviaBuilder::$full_el_no_section )) $params['close'] = false;
 				
-				if($meta['index'] != 0) $params['class'] .= " slider-not-first";
+				if(isset($meta['index']) && $meta['index'] != 0) $params['class'] .= " slider-not-first";
 				
 				$params['id'] = "full_slider_".avia_sc_slider_full::$slide_count;
 				

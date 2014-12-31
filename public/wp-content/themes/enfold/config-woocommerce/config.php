@@ -1256,3 +1256,21 @@ if(!function_exists('avia_woocommerce_gallery_thumbnail_description'))
 		return $img;
 	}
 }
+
+
+if(!function_exists('avia_title_args_woopage'))
+{
+	add_filter('avf_title_args','avia_title_args_woopage', 10, 4);
+	function avia_title_args_woopage($args)
+	{
+		if(is_single() && is_product())
+		{
+			$args['heading'] = "strong";
+		}
+
+		return $args;
+	}
+}
+
+
+

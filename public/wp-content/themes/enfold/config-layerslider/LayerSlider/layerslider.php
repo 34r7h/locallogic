@@ -4,7 +4,7 @@
 Plugin Name: LayerSlider WP
 Plugin URI: http://codecanyon.net/user/kreatura/
 Description: LayerSlider is the most advanced responsive WordPress slider plugin with the famous Parallax Effect and over 200 2D & 3D transitions.
-Version: 5.3.1
+Version: 5.3.2
 Author: Kreatura Media
 Author URI: http://kreaturamedia.com/
 Text Domain: LayerSlider
@@ -23,6 +23,9 @@ if(!defined('ABSPATH')) {
 /*                        Actions                       */
 /********************************************************/
 
+	// Action to redirect to Layerslider's admin page after activation
+	add_action('admin_init', 'layerslider_activation_redirect');
+
 	// Legacy, will be dropped
 	$GLOBALS['lsAutoUpdateBox'] = false;
 
@@ -30,7 +33,7 @@ if(!defined('ABSPATH')) {
 	define('LS_ROOT_FILE', __FILE__);
 	define('LS_ROOT_PATH', dirname(__FILE__));
 	define('LS_ROOT_URL', get_template_directory_uri() . '/config-layerslider/LayerSlider' );
-	define('LS_PLUGIN_VERSION', '5.3.1');
+	define('LS_PLUGIN_VERSION', '5.3.2');
 	define('LS_PLUGIN_SLUG', basename(dirname(__FILE__)));
 	define('LS_PLUGIN_BASE', plugin_basename(__FILE__));
 	define('LS_MARKETPLACE_ID', '1362246');
@@ -93,6 +96,18 @@ if(!defined('ABSPATH')) {
 	add_action('after_setup_theme', 'layerslider_loaded');
 	add_action('plugins_loaded', 'layerslider_load_lang');
 
+
+// Redirect to LayerSlider's main admin page after plugin activation.
+// Should not trigger on multisite bulk activation or after upgrading
+// the plugin to a newer versions.
+function layerslider_activation_redirect() {
+	if(get_option('layerslider_do_activation_redirect', false)) {
+		delete_option('layerslider_do_activation_redirect');
+		if(isset($_GET['activate']) && !isset($_GET['activate-multi'])) {
+			wp_redirect(admin_url('admin.php?page=layerslider'));
+		}
+	}
+}
 
 function layerslider_load_lang() {
 	load_plugin_textdomain('LayerSlider', false, LS_PLUGIN_SLUG . '/locales/' );

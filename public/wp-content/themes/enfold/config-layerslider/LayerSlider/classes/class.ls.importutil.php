@@ -212,6 +212,7 @@ class LS_ImportUtil {
 		// Get slider data and title
 		$data = json_decode(file_get_contents($file), true);
 		$title = $data['properties']['title'];
+		$slug = !empty($data['properties']['slug']) ? $data['properties']['slug'] : '';
 		
 		// Slider settings
 		if(!empty($data['properties']['backgroundimage'])) {
@@ -252,7 +253,7 @@ class LS_ImportUtil {
 		}}
 
 		// Add slider
-		LS_Sliders::add($title, $data);
+		LS_Sliders::add($title, $data, $slug);
 	}
 
 

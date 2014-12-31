@@ -144,7 +144,6 @@ if(!class_exists('avia_social_share_links'))
 			$default_arguments = array
 			(
 				'facebook' 	=> array("encode"=>true, "encode_urls"=>false, "pattern" => "http://www.facebook.com/sharer.php?u=[permalink]&amp;t=[title]"),
-				//'twitter' 	=> array("encode"=>true, "encode_urls"=>false, "pattern" => "http://twitter.com/home?status=[title]%20[shortlink]"),
 				'twitter' 	=> array("encode"=>true, "encode_urls"=>false, "pattern" => "https://twitter.com/share?text=[title]&url=[shortlink]"),
 				'gplus' 	=> array("encode"=>true, "encode_urls"=>false, "pattern" => "https://plus.google.com/share?url=[permalink]" , 'label' => __("Share on Google+",'avia_framework')),
 				'pinterest' => array("encode"=>true, "encode_urls"=>true, "pattern" => "http://pinterest.com/pin/create/button/?url=[permalink]&amp;description=[title]&amp;media=[thumbnail]"),
@@ -177,6 +176,7 @@ if(!class_exists('avia_social_share_links'))
 			$replace['thumbnail']	= !isset($this->post_data['thumbnail']) ? $replace['thumbnail'] : $this->post_data['thumbnail'];
 			
 			$replace = apply_filters('avia_social_share_link_replace_values', $replace);
+			$charset = get_bloginfo('charset');
 			
 			foreach($this->args as $key => $share)
 			{
@@ -188,8 +188,8 @@ if(!class_exists('avia_social_share_links'))
 				
 				foreach($replace as $replace_key => $replace_value)
 				{
-					if(!empty($share['encode']) && $replace_key != 'shortlink' && $replace_key != 'permalink') $replace_value = rawurlencode($replace_value);
-					if(!empty($share['encode_urls']) && ($replace_key == 'shortlink' || $replace_key == 'permalink')) $replace_value = rawurlencode($replace_value);
+					if(!empty($share['encode']) && $replace_key != 'shortlink' && $replace_key != 'permalink') $replace_value = rawurlencode(html_entity_decode($replace_value, ENT_QUOTES, $charset));
+					if(!empty($share['encode_urls']) && ($replace_key == 'shortlink' || $replace_key == 'permalink')) $replace_value = rawurlencode(html_entity_decode($replace_value, ENT_QUOTES, $charset));
 					
 					$url = str_replace("[{$replace_key}]", $replace_value, $url);
 				}

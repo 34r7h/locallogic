@@ -201,7 +201,9 @@ if(!function_exists('avia_image_slideshow_filter'))
 				$current_post['slider']  = "";
 			}
 
-
+		
+		if(is_single(get_the_ID()) && get_post_meta( $current_post['the_id'], '_avia_hide_featured_image', true ) ) $current_post['before_content'] = "";
+		
 		return avia_default_title_filter($current_post);
 	}
 }

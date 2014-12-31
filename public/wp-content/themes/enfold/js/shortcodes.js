@@ -2782,7 +2782,7 @@ $.fn.avia_sc_tabs= function(options)
 
 						if(classes && classes.match(/is_email/))
 						{
-							if(!value.match(/^\w[\w|\.|\-]+@\w[\w|\.|\-]*\.[a-zA-Z]{2,20}$/))
+							if(!value.match(/^[\w|\.|\-]+@\w[\w|\.|\-]*\.[a-zA-Z]{2,20}$/))
 							{
 								surroundingElement.removeClass("valid error ajax_alert").addClass("error");
 								send.validationError = true;
@@ -4006,7 +4006,7 @@ Avia Slideshow
 			{
 				return false;
 			}
-
+			
 			this.isAnimating = true;
 
 			// current item's index
@@ -4022,6 +4022,14 @@ Avia Slideshow
 			else if( dir === 'next' )
 			{
 				this.current = this.current < this.itemsCount - 1 ? this.current + 1 : 0;
+				
+				if( this.current === 0 && this.options.autoplay_stopper == 1 && this.options.autoplay )
+				{
+					this.isAnimating = false;
+					this.current = this.prev;
+					this._stopSlideshow();
+					return false;
+				}
 			}
 			else if( dir === 'prev' )
 			{
@@ -4233,15 +4241,18 @@ Avia Slideshow
 			hideSlide.trigger('pause');	
 			if( !displaySlide.data('disableAutoplay') ) displaySlide.trigger('play');
 
-			displaySlide.css({visibility:'visible', zIndex:3, opacity:0}).avia_animate({opacity:1}, this.options.transitionSpeed/2, 'linear');
-			
-			hideSlide.avia_animate({opacity:0}, this.options.transitionSpeed/1.5, 'linear', function()
+			displaySlide.css({visibility:'visible', zIndex:3, opacity:0}).avia_animate({opacity:1}, this.options.transitionSpeed/2, 'linear', function()
 			{
-				self.isAnimating = false;
-				displaySlide.addClass('active-slide');
-				hideSlide.css({visibility:'hidden', zIndex:2}).removeClass('active-slide');
-				self.$slider.trigger('avia-transition-done');
+				hideSlide.avia_animate({opacity:0}, 200, 'linear', function()
+				{
+					self.isAnimating = false;
+					displaySlide.addClass('active-slide');
+					hideSlide.css({visibility:'hidden', zIndex:2}).removeClass('active-slide');
+					self.$slider.trigger('avia-transition-done');
+				});
 			});
+			
+			
 		},
 		
 		

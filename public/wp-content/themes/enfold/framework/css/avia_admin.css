@@ -740,6 +740,12 @@ top:-20px;
 min-height:170px;
 }
 
+.av-meta-extra-inside{
+	padding: 0 12px 12px;
+	line-height: 1.4em;
+	font-size: 13px;
+}
+
 
 /****************menu manager****************/
 

@@ -501,7 +501,15 @@ array(
 						"id" 	=> "autoplay",
 						"type" 	=> "select",
 						"std" 	=> "false",
-						"subtype" => array(__('Yes','avia_framework' ) =>'true',__('No','avia_framework' ) =>'false')),	
+						"subtype" => array(__('Yes','avia_framework' ) =>'true',__('No','avia_framework' ) =>'false')),
+						
+					array(	
+						"name" 	=> __("Stop Autorotation with the last slide", 'avia_framework' ),
+						"desc" 	=> __("Check if you want to disable autorotation when this last slide is displayed", 'avia_framework' ) ,
+						"id" 	=> "autoplay_stopper",
+						"required"=> array('autoplay','equals','true'),
+						"std" 	=> "",
+						"type" 	=> "checkbox"),	
 			
 					array(	
 						"name" 	=> __("Slideshow autorotation duration",'avia_framework' ),
@@ -510,7 +518,7 @@ array(
 						"type" 	=> "select",
 						"std" 	=> "5",
 						"subtype" => 
-						array('3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10','15'=>'15','20'=>'20','30'=>'30','40'=>'40','60'=>'60','100'=>'100')),
+						array('2'=>'2','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10','15'=>'15','20'=>'20','30'=>'30','40'=>'40','60'=>'60','100'=>'100')),
 					
 					array(	
 						"name" 	=> __("Slideshow control styling?",'avia_framework' ),
@@ -627,6 +635,7 @@ array(
 				'scroll_down'	=> '',
 				'control_layout'=> '',
 				'perma_caption'	=> '',
+				'autoplay_stopper'=>'',
 				'content'		=> ShortcodeHelper::shortcode2array($content, 1)
 				
 				), $atts, $this->config['shortcode']);

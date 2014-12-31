@@ -2,6 +2,10 @@
 /*                   N O T I C E                  */
 /**************************************************/
 
+.ls-plugins-screen-notice:before {
+	content: "\f153" !important;
+}
+
 .layerslider_notice {
 	margin: 0px 15px 5px 0px;
 	padding: 19px 0px;

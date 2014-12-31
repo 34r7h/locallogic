@@ -155,7 +155,7 @@ class LS_Sliders {
 	 * @param array $data The settings of the slider to create
 	 * @return int The slider database ID inserted
 	 */
-	public static function add($title = 'Unnamed', $data = array()) {
+	public static function add($title = 'Unnamed', $data = array(), $slug = '') {
 
 		global $wpdb;
 
@@ -169,7 +169,7 @@ class LS_Sliders {
 		$wpdb->insert($wpdb->prefix.LS_DB_TABLE, array(
 			'author' => get_current_user_id(),
 			'name' => $title,
-			'slug' => '',
+			'slug' => $slug,
 			'data' => json_encode($data),
 			'date_c' => time(),
 			'date_m' => time()

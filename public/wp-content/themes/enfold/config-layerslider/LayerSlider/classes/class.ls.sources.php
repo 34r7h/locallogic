@@ -126,7 +126,8 @@ class LS_Sources {
 	 */
 	public static function urlForSkin($handle) {
 		$path = self::$skins[ strtolower($handle) ]['dir'];
-		return WP_CONTENT_URL. str_replace(WP_CONTENT_DIR, '', $path).'/';
+		$url = content_url() . str_replace(realpath(WP_CONTENT_DIR), '', $path).'/';
+		return str_replace('\\', '/', $url);
 	}
 
 
@@ -181,7 +182,8 @@ class LS_Sources {
 
 			// Get preview (if any)
 			if(file_exists($path.'/preview.png')) {
-				$sliders[$handle]['preview'] = site_url().'/'. str_replace(ABSPATH, '', $path).'/preview.png';
+				$url = content_url() . str_replace(realpath(WP_CONTENT_DIR), '', $path).'/preview.png';
+				$sliders[$handle]['preview'] = str_replace('\\', '/', $url);
 			}
 		}
 

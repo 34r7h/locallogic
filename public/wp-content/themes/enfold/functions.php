@@ -511,4 +511,3 @@ require_once( 'functions-enfold.php');
 
 
 
-

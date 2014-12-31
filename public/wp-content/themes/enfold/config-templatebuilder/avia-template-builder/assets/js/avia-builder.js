@@ -826,7 +826,7 @@ function avia_nl2br (str, is_xhtml)
 				,500);
 			}
 			
-			this.classic_textarea.val(content);
+			this.classic_textarea.val(content).trigger('av_update');
 			this.secureContent.val(content);
 		},
 		

@@ -243,6 +243,7 @@ if ( !class_exists( 'avia_sc_button' ) )
 			 */
 			function shortcode_handler($atts, $content = "", $shortcodename = "", $meta = "")
 			{
+			
 			   $atts =  shortcode_atts(array('label' => 'Click me', 
 			                                 'link' => '', 
 			                                 'link_target' => '',

@@ -194,10 +194,19 @@ if(!function_exists('avia_events_breadcrumb'))
 
 	function avia_events_breadcrumb($trail)
 	{ 
-		global $avia_config;
+		global $avia_config, $wp_query;
 		
-		if((isset($avia_config['currently_viewing']) && $avia_config['currently_viewing'] == 'events') || tribe_is_month() || get_post_type() === TribeEvents::POSTTYPE || is_tax(TribeEvents::TAXONOMY))
-		{		
+		if(is_404() && isset($wp_query) && !empty($wp_query->tribe_is_event))
+		{
+			$events = __('Events','avia_framework');
+			$events_link = '<a href="'.tribe_get_events_link().'">'.$events.'</a>';
+			$last = array_pop($trail);
+			$trail[] = $events_link;
+			$trail['trail_end'] = __('No Events Found','avia_framework');
+		}
+		
+		if((isset($avia_config['currently_viewing']) && $avia_config['currently_viewing'] == 'events') || tribe_is_month() || get_post_type() === TribeEvents::POSTTYPE || is_tax(TribeEvents::TAXONOMY) )
+		{	
 			$events = __('Events','avia_framework');
 			$events_link = '<a href="'.tribe_get_events_link().'">'.$events.'</a>';
 			
